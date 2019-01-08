@@ -36,6 +36,7 @@ public class CustomUserService implements UserDetailsService { //自定义UserDe
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
             System.out.println(role.getRoleName());
         }
+        user.setGrantedAuthorities(authorities); //用于登录时 @AuthenticationPrincipal 标签取值
         return new org.springframework.security.core.userdetails.User(user.getUsername(),
                 user.getPassword(), authorities);
     }

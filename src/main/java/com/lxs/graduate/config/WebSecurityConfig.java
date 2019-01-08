@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.DefaultWebInvocationPrivilegeEvaluator;
 
 /**
  * Created by sang on 16-12-22.
@@ -29,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 //设置拦截规则
-                .antMatchers("/index", "/css/**","/getUser/**")
+                .antMatchers("/index","/ ","/css/**","/getUser/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -40,11 +41,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .failureUrl("/login?error")
                 //默认登录成功跳转页面
-                .defaultSuccessUrl("/index")
+                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
                 //设置注销
                 .logout()
+                .logoutSuccessUrl("/")
                 .permitAll()
                 .and()
                 .rememberMe()
