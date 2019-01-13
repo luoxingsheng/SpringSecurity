@@ -1,10 +1,13 @@
 package com.lxs.graduate.controller;
 
 import com.lxs.graduate.entity.Msg;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class LoginController {
@@ -22,10 +25,16 @@ public class LoginController {
     }
 
     @RequestMapping("/")
-    public String index(Model model){
-        Msg msg =  new Msg("测试标题","测试内容","额外信息，只对管理员显示");
-        model.addAttribute("msg", msg);
+    public String index(){
         return "index";
+    }
+
+    @RequestMapping("/getName")
+    @ResponseBody
+    public Object name(){
+         UserDetails usersss = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+         return usersss;
     }
 
 }

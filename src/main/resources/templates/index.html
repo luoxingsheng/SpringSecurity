@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta content="text/html;charset=UTF-8"/>
@@ -33,26 +34,24 @@
 
 <div class="container">
 
-    <div class="starter-template">
+    <!--<div class="starter-template">-->
 
         <div sec:authorize="isAuthenticated()" >
             <p>已登录</p>
             <p>用户名：<span sec:authentication="name"></span></p>
-            <p>角色<span sec:authentication="princepal.authorities"></span></p>
-            <p><span sec:></span></p>
+            <p>角色<span sec:authentication="principal.authorities"></span></p>
             <form th:action="@{/logout}" method="post">
                 <input type="submit" class="btn btn-primary" value="注销"/>
             </form>
         </div>
-        <!--<h1 th:text="${msg.title}"></h1>-->
 
-        <!--<p class="bg-primary" th:text="${msg.content}"></p>-->
+
 
         <!--<div sec:authorize="hasRole('ROLE_HOME')"> &lt;!&ndash; 用户类型为ROLE_ADMIN 显示 &ndash;&gt;-->
-            <!--<p class="bg-info" th:text="${msg.etraInfo}"></p>-->
+
         <!--</div>-->
         <!--<div sec:authorize="hasRole('ROLE_ADMIN')"> &lt;!&ndash; 用户类型为ROLE_ADMIN 显示 &ndash;&gt;-->
-            <!--<p class="bg-info">恭喜您,您有 ROLE_ADMIN 权限 </p>-->
+
         <!--</div>-->
 
 
