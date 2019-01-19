@@ -30,10 +30,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 //设置拦截规则
-                .antMatchers("/index","/ ","/css/**","/getUser/**")
+                .antMatchers("/index","/ ","/css/**","/js/**")
                 .permitAll()
-                .anyRequest()
-                .authenticated()
+                .antMatchers("/user/**").hasRole("USER")
+//                .anyRequest()
+//                .authenticated()
                 .and()
                 //开启默认登录页面
                 .formLogin()
@@ -73,6 +74,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 return encodedPassword.equals(MD5Util.encode((String)rawPassword));
             }}); //user Details Service验证
     }
+
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        //解决静态资源被拦截的问题
+//        web.ignoring().antMatchers("/css/**","/js/**");
+//    }
 
 
 }
