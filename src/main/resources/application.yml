@@ -53,5 +53,17 @@ mybatis:
   type-aliases-package: com.lxs.entity
   mapper-locations: classpath:mybatis/mapper/*.xml
 
+img:
+  location: D://Project/src/main/resources/static/img/userImg/
+
+devtools:
+  restart:
+    #热部署生效
+  enabled: true
+    #设置重启的目录
+  additional-paths: resources/**,static/**,templates/**
+    #该目录下的内容修改不重启
+  exclude: data/**
+
 
 

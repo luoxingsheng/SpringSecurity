@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 //设置拦截规则
-                .antMatchers("/index","/ ","/css/**","/js/**")
+                .antMatchers("/index","/ ","/css/**","/js/**","/img/**","/register")
                 .permitAll()
                 .antMatchers("/user/**").hasRole("USER")
 //                .anyRequest()
@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public boolean matches(CharSequence rawPassword, String encodedPassword) {
                 return encodedPassword.equals(MD5Util.encode((String)rawPassword));
-            }}); //user Details Service验证
+            }}); //users Details Service验证
     }
 
 //    @Override

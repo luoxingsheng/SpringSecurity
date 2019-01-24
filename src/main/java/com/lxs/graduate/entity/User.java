@@ -161,4 +161,21 @@ public class User implements UserDetails {
     public void setCreditScore(Integer creditScore) {
         this.creditScore = creditScore;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", tel='" + tel + '\'' +
+                ", icon='" + icon + '\'' +
+                ", creditScore=" + creditScore +
+                ", roles=" + roles +
+                ", authorities=" + authorities +
+                '}';
+    }
 }

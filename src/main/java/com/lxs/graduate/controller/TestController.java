@@ -21,7 +21,7 @@ public class TestController {
 //    @GetMapping("/getUser/{id}")
 //    @ResponseBody
 //    public User getUser(@PathVariable(name = "id")Integer id) {
-//        User user = new User();
+//        User users = new User();
 //        System.out.println(id);
 //        return userService.getUserById(id);
 //    }

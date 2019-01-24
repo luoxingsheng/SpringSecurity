@@ -25,18 +25,18 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <!--<select id="findUserByUsername" resultMap="BaseResultMap" parameterType="java.lang.String" >-->
-    <!--select-->
-    <!--<include refid="Base_Column_List" />-->
-    <!--from custom-->
-    <!--where username = #{username,jdbcType=VARCHAR}-->
-  <!--</select>-->
+  <select id="getUserByUsername" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from custom
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from custom
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.lxs.graduate.entity.User" >
+  <insert id="insert" parameterType="com.lxs.graduate.entity.User"  keyProperty="id" useGeneratedKeys="true">
     insert into custom (id, username, password, 
       nickname, email, address, 
       tel, icon, credit_score
@@ -147,6 +147,24 @@
       tel = #{tel,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},
       credit_score = #{creditScore,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateUserImg" parameterType="com.lxs.graduate.entity.User" >
+    update custom
+    <trim prefix="set" suffixOverrides=",">
+      <if test="id!=null">id=#{id,jdbcType=INTEGER},</if>
+      <if test="username!=null">username=#{username,jdbcType=VARCHAR},</if>
+      <if test="password!=null">password=#{password,jdbcType=VARCHAR},</if>
+      <if test="nickname!=null">nickname=#{nickname,jdbcType=VARCHAR},</if>
+      <if test="email!=null">email=#{email,jdbcType=VARCHAR},</if>
+      <if test="nickname!=null">nickname=#{nickname,jdbcType=VARCHAR},</if>
+      <if test="email!=null">email=#{email,jdbcType=VARCHAR},</if>
+      <if test="address!=null">address=#{address,jdbcType=VARCHAR},</if>
+      <if test="tel!=null">tel=#{tel,jdbcType=VARCHAR},</if>
+      <if test="icon!=null">icon=#{icon,jdbcType=VARCHAR},</if>
+      <if test="creditScore!=null">credit_score=#{creditScore,jdbcType=VARCHAR},</if>
+    </trim>
     where id = #{id,jdbcType=INTEGER}
   </update>
 

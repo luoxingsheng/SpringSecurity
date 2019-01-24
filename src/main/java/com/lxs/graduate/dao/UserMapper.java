@@ -17,7 +17,9 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    User findUserByUsername(String username);
+    User getUserByUsername(String username);
 
     User findUserByUserName(String username);
+
+    int updateUserImg(User user);
 }

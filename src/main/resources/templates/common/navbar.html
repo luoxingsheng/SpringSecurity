@@ -40,7 +40,7 @@
             <li>
                 <a href="www.baidu.com">特点</a>
             </li>
-                <li style="margin-left: 63%" sec:authorize="isAuthenticated()"><a th:href="@{/user/toUser}">用户中心</a></li>
+                <li style="margin-left: 60%" sec:authorize="isAuthenticated()"><a th:href="@{/user/toUser}">用户中心</a></li>
             <li sec:authorize="isAuthenticated()" class="pull-right">
                     <a  th:href="@{/logout}">注销</a>
             </li>
@@ -50,6 +50,34 @@
         </ul>
         </div>
 
+    </div>
+    </nav>
+
+    <nav class="navbar   navbar-default" role="navigation" th:fragment="userNavbar">
+        　　<div class="container-fluid">　　
+        　　　<div class="navbar-header">　　　
+            <button class="navbar-toggle" data-toggle="collapse" data-target="#collapse1">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            　　  <a class="navbar-brand" th:href="@{/}">买买买</a>
+        </div>
+        <div class="collapse navbar-collapse " id="collapse1">
+            <ul class="nav  nav-pills">
+                <li ><a  th:href="@{/user/toUser}">个人信息</a></li>
+                <li>
+                    <a th:href="@{/}">消息</a>
+                </li>
+                <li ><a th:href="@{/user/toUser}">我的商品</a></li>
+                <li ><a th:href="@{/user/toUser}">我的购物车</a></li>
+                <li ><a th:href="@{/user/toUserImg}">更换头像</a></li>
+                <li sec:authorize="isAuthenticated()" class="pull-right">
+                    <a  th:href="@{/logout}">注销</a>
+                </li>
+            </ul>
+        </div>
     </div>
     </nav>
 

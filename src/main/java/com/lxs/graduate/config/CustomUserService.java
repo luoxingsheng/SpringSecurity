@@ -23,7 +23,7 @@ public class CustomUserService implements UserDetailsService { //自定义UserDe
     public UserDetails loadUserByUsername(String username) { //重写loadUserByUsername 方法获得 userdetails 类型用户
 
         System.out.println(username);
-//        User user=userService.getUserById(1);
+//        User users=userService.getUserById(1);
         User user = userService.findUserByUserName(username);
         System.out.println(user.toString());
         if(user==null){
