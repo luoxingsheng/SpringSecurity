@@ -2,7 +2,10 @@ package com.lxs.graduate.controller;
 
 
 import com.lxs.graduate.entity.Msg;
+import com.lxs.graduate.entity.Product;
 import com.lxs.graduate.entity.User;
+import com.lxs.graduate.service.ProductService;
+import com.lxs.graduate.service.ProductServiceImpl;
 import com.lxs.graduate.service.UserServiceImpl;
 import com.lxs.graduate.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -30,21 +35,39 @@ import java.util.Date;
 public class UserController {
 
 
-    Msg msg;
-
     @Value("${img.location}")
     private  String location;
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
+    @Autowired
+    ProductServiceImpl productService;
 
     @Autowired
     UserServiceImpl userService;
+
+    @RequestMapping("/getName")
+    @ResponseBody
+    public Object name(){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        System.out.println(user);
+        return user;
+    }
+
+    @GetMapping("/toUpload")
+    public String toUpload(){
+        return "uploadProduct";
+    }
+
+    @GetMapping("/toMyProduct")
+    public String toMyProduct(ModelMap model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Product> lists= productService.findProductByUserId(user.getId());
+        model.addAttribute("productLists",lists);
+        for( int i = 0 ; i < lists.size() ; i++) {//内部不锁定，效率最高，但在多线程要考虑并发操作的问题。
+            System.out.println(lists.get(i));
+        }
+        return "users/myProduct";
+    }
 
 
     @RequestMapping("/toUser")
@@ -73,19 +96,15 @@ public class UserController {
 
     //处理文件上传
     @RequestMapping(value="/uploadImg", method = RequestMethod.POST)
-    public String uploadImg(@RequestParam("file") MultipartFile file, HttpServletRequest request)throws FileNotFoundException, IOException {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public String uploadImg(@RequestParam("file") MultipartFile file)throws FileNotFoundException, IOException {
+        User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username=userDetails.getUsername();
-        System.out.println(username);
         User u=userService.getUserByUsername(username);
-        System.out.println(u);
         String contentType = file.getContentType();
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String fileName = sdf.format(d)+"-"+username+".jpg";
         String path="/img/userImg/"+fileName;
-        System.out.println(fileName);
-        System.out.println(path);
         u.setIcon(path);
         userService.updateUserImg(u);
         try {

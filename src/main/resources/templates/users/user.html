@@ -17,7 +17,7 @@
 <div class="container">
     <div id="user" class="col-md-8 col-md-offset-4" >
 
-        <form class="form-horizontal"   th:action="@{/user/updateUserInfo}"  method="post">
+        <form class="form-horizontal"   th:action="@{/user/updateUserInfo}"  method="post" >
             <input type="hidden" name="id" th:value="${id}" />
             <input type="hidden" name="icon" th:value="${icon}" />
             <input type="hidden" name="password" th:value="${password}" />

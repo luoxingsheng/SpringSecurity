@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .col-center-block {
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<body>
+<br>
+<br>
+<br>
+<div class="container ">
+    <div class="col-md-4 panel panel-default col-center-block">
+    <div class="col-center-block">
+        <label class="">提示信息</label>
+    </div>
+    <br>
+    <div class="col-center-block">
+        <p  class="" th:text="${message.title}"></p>
+    </div>
+    <br>
+    <div class="col-center-block">
+        <p class="" th:text="${message.content}"></p>
+    </div>
+    <br>
+    <div class="col-center-block">
+            <a  class="text-info" href="/index">回到主页</a>
+    </div>
+    </div>
+</div>
+
+</body>
+</html>

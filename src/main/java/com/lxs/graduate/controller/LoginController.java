@@ -1,6 +1,7 @@
 package com.lxs.graduate.controller;
 
 import com.lxs.graduate.entity.Msg;
+import com.lxs.graduate.entity.User;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -29,12 +30,5 @@ public class LoginController {
         return "index";
     }
 
-    @RequestMapping("/getName")
-    @ResponseBody
-    public Object name(){
-         UserDetails usersss = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getPrincipal();
-         return usersss;
-    }
 
 }

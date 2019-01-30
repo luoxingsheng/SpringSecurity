@@ -86,6 +86,13 @@ public class User implements UserDetails {
         this.creditScore = creditScore;
     }
 
+    public User(Integer id, String username, String password, List<? extends GrantedAuthority> authorities) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.authorities = authorities;
+    }
+
     public User() {
         super();
     }

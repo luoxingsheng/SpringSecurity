@@ -28,6 +28,14 @@ spring:
 
 
 
+redis:
+  host: 94.191.1.40
+  password: 123456
+  port: 6379
+  timeout: 3
+  poolMaxTotal: 10
+  poolMaxIdle: 10
+  poolMaxWait: 3
 
 #  ##默认密码为空
 #  redis:
@@ -55,6 +63,7 @@ mybatis:
 
 img:
   location: D://Project/src/main/resources/static/img/userImg/
+  productLocation: D://Project/src/main/resources/static/img/productImg/
 
 devtools:
   restart:

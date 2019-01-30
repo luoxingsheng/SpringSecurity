@@ -22,7 +22,7 @@ public class IndexController {
     
 
     @RequestMapping("/register")
-    public String register(@RequestParam String username, @RequestParam String password, Model model){
+    public String register(@RequestParam String username, @RequestParam String password){
         User user=new User();
         user.setUsername(username);
         user.setPassword(md5Util.encode(password));
@@ -40,4 +40,6 @@ public class IndexController {
     public String toRegister(){
         return "register";
     }
+
+
 }
