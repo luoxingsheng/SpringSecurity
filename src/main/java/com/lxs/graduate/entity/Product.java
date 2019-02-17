@@ -1,5 +1,7 @@
 package com.lxs.graduate.entity;
 
+import java.util.Date;
+
 public class Product {
     private Integer id;
 
@@ -19,7 +21,9 @@ public class Product {
 
     private Integer userId;
 
-    public Product(Integer id, String pName, String pType, Double pPrice, String pImg, String pDesc, String pStatus, Integer pStock, Integer userId) {
+    private Date pTime;
+
+    public Product(Integer id, String pName, String pType, Double pPrice, String pImg, String pDesc, String pStatus, Integer pStock, Integer userId, Date pTime) {
         this.id = id;
         this.pName = pName;
         this.pType = pType;
@@ -29,6 +33,7 @@ public class Product {
         this.pStatus = pStatus;
         this.pStock = pStock;
         this.userId = userId;
+        this.pTime = pTime;
     }
 
     public Product() {
@@ -88,7 +93,7 @@ public class Product {
     }
 
     public void setpStatus(String pStatus) {
-        this.pStatus = pStatus;
+        this.pStatus = pStatus == null ? null : pStatus.trim();
     }
 
     public Integer getpStock() {
@@ -105,5 +110,13 @@ public class Product {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Date getpTime() {
+        return pTime;
+    }
+
+    public void setpTime(Date pTime) {
+        this.pTime = pTime;
     }
 }

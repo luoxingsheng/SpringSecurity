@@ -9,7 +9,19 @@ public interface ProductService {
 
     public Product findProductById(Integer id);
 
+    public List<Product> findAllProduct( );
+
     public List<Product> findProductByUserId(Integer userId);
+
+    public List<Product> getLivingProducts();
+
+    public List<Product> getElectricProducts();
+
+    public List<Product> getClothProducts();
+
+    public List<Product> getSportProducts();
+
+    public List<Product> getBookProducts();
 
     int addProduct(Product product);
 

@@ -18,56 +18,44 @@
 <div class="container">
     <div class="form row">
         <form class="form-horizontal col-sm-offset-3 col-md-offset-3"
-              th:action="@{/product/updateProduct}" method="post" enctype="multipart/form-data" th:each="p:${pro}">
-            <h3 class="form-title col-md-offset-1 ">修改商品信息</h3>
+              th:action="@{/product/uploadProduct}" method="post" enctype="multipart/form-data">
+            <h3 class="form-title col-md-offset-1 ">上传商品信息</h3>
             <hr />
-            <div class="col-sm-9 col-md-9"  >
-                <div class="form-group" hidden="hidden">
-                    <input class="form-control required" type="hidden"
-                         name="id"  th:value="${p.id}"/>
-                </div>
-                <div class="form-group" hidden="hidden">
-                    <input class="form-control required" type="hidden"
-                           name="pStatus"  th:value="${p.pStatus}"/>
-                </div>
-                <div class="form-group" hidden="hidden">
-                    <input class="form-control required" type="hidden"
-                           name="userId"  th:value="${p.userId}"/>
-                </div>
+            <div class="col-sm-9 col-md-9">
                 <div class="form-group">
                     <input class="form-control required" type="text"
-                           placeholder="商品名称" name="pName" th:value="${p.pName}"/>
+                           placeholder="商品名称" name="pName" />
                 </div>
 
                 <div class="form-group">
-                    <select class="form-control" name="pType" id="type" th:value="${p.pType}" >
+                    <label for="type">商品种类</label>
+                    <select class="form-control" name="pType" id="type">
                         <option value="生活物品">生活物品</option>
                         <option value="电子产品">电子产品</option>
                         <option value="衣物">衣物</option>
                         <option value="运动物品">运动物品</option>
                         <option value="书籍、资料">书籍、资料</option>
                     </select>
-                    <!--<input class="form-control required" type="text"-->
-                           <!--placeholder="商品类型" name="pName" th:value="${p.pType}" id="type"/>-->
                 </div>
 
 
                 <div class="form-group">
                     <input class="form-control required" type="text"
-                           placeholder="商品价格" name="pPrice"  th:value="${p.pPrice}"/>
+                           placeholder="商品价格" name="pPrice" />
                 </div>
                 <div class="form-group">
                     <input class="form-control required" type="text"
-                           placeholder="商品库存" name="pStock"  th:value="${p.pStock}"/>
+                           placeholder="商品库存" name="pStock" />
                 </div>
                 <div class="form-group">
 						<textarea class="form-control required" type="text"
-                                  placeholder="商品描述" name="pDesc" raw="5" th:value="${p.pDesc}"></textarea>
+                                  placeholder="商品描述" name="pDesc" raw="5"></textarea>
                 </div>
                 <label >商品图片：</label>
                 <div class="form-group">
-                    <img th:src="${p.pImg}" class="img-rounded"  id="showImg" name="pImgs" style="height: 300px;width: 200px" >
-                    <input class="form-control required" type="hidden" name="pImg"  th:value="${p.pImg}"/>
+                    <img th:src="@{/img/userImg/moban2.png}" class="img-rounded"  id="showImg" name="img" style="height: 300px;width: 200px" >
+                    <input  class="form-control required"id="img" size="30" name="pImg" type="file" onchange="preImg()">
+
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-success pull-right btn-block"

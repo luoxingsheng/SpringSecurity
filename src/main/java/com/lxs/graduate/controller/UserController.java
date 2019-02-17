@@ -1,10 +1,8 @@
 package com.lxs.graduate.controller;
 
 
-import com.lxs.graduate.entity.Msg;
 import com.lxs.graduate.entity.Product;
 import com.lxs.graduate.entity.User;
-import com.lxs.graduate.service.ProductService;
 import com.lxs.graduate.service.ProductServiceImpl;
 import com.lxs.graduate.service.UserServiceImpl;
 import com.lxs.graduate.util.FileUtil;
@@ -13,16 +11,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -55,7 +48,7 @@ public class UserController {
 
     @GetMapping("/toUpload")
     public String toUpload(){
-        return "uploadProduct";
+        return "products/uploadProduct";
     }
 
     @GetMapping("/toMyProduct")
@@ -63,9 +56,6 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Product> lists= productService.findProductByUserId(user.getId());
         model.addAttribute("productLists",lists);
-        for( int i = 0 ; i < lists.size() ; i++) {//内部不锁定，效率最高，但在多线程要考虑并发操作的问题。
-            System.out.println(lists.get(i));
-        }
         return "users/myProduct";
     }
 
@@ -113,7 +103,7 @@ public class UserController {
             // TODO: handle exception
         }
         //返回json
-        return "index";
+        return "/";
         //返回json
     }
 

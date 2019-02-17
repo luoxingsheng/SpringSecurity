@@ -12,10 +12,11 @@
       <arg column="p_status" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="p_stock" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="p_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, p_name, p_type, p_price, p_img, p_desc, p_status, p_stock, user_id
+    id, p_name, p_type, p_price, p_img, p_desc, p_status, p_stock, user_id, p_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -23,26 +24,61 @@
     from product
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <select id="selectAllProduct" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from product
+    where p_status='上架中' order by p_time DESC
+  </select>
   <select id="findProductByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
     <include refid="Base_Column_List" />
     from product
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from product
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+  <select id="getLivingProducts" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from product
+    where p_type='生活用品'
+  </select>
+  <select id="getElectricProducts" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from product
+    where p_type='电子产品'
+  </select>
+  <select id="getClothProducts" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from product
+    where p_type='衣物'
+  </select>
+  <select id="getSportProducts" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from product
+    where p_type='运动物品'
+  </select>
+  <select id="getBookProducts" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from product
+    where p_type='书籍、资料'
+  </select>
   <insert id="insert" parameterType="com.lxs.graduate.entity.Product" >
     insert into product (id, p_name, p_type, 
       p_price, p_img, p_desc, 
-      p_status, p_stock, user_id
-      )
+      p_status, p_stock, user_id, 
+      p_time)
     values (#{id,jdbcType=INTEGER}, #{pName,jdbcType=VARCHAR}, #{pType,jdbcType=VARCHAR}, 
       #{pPrice,jdbcType=DOUBLE}, #{pImg,jdbcType=VARCHAR}, #{pDesc,jdbcType=VARCHAR}, 
-      #{pStatus,jdbcType=VARCHAR}, #{pStock,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}
-      )
+      #{pStatus,jdbcType=VARCHAR}, #{pStock,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{pTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.lxs.graduate.entity.Product" >
     insert into product
@@ -74,6 +110,9 @@
       <if test="userId != null" >
         user_id,
       </if>
+      <if test="pTime != null" >
+        p_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -102,6 +141,9 @@
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="pTime != null" >
+        #{pTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -132,6 +174,9 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
+      <if test="pTime != null" >
+        p_time = #{pTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -144,7 +189,8 @@
       p_desc = #{pDesc,jdbcType=VARCHAR},
       p_status = #{pStatus,jdbcType=VARCHAR},
       p_stock = #{pStock,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER}
+      user_id = #{userId,jdbcType=INTEGER},
+      p_time = #{pTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

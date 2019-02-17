@@ -15,9 +15,21 @@ public interface ProductMapper {
 
     Product selectByPrimaryKey(Integer id);
 
+    List<Product> selectAllProduct();
+
+    List<Product> getLivingProducts();
+
+    List<Product> getElectricProducts();
+
+    List<Product> getClothProducts();
+
+    List<Product> getSportProducts();
+
+    List<Product> getBookProducts();
+
+    List<Product> findProductByUserId(Integer userId);
+
     int updateByPrimaryKeySelective(Product record);
 
     int updateByPrimaryKey(Product record);
-
-   List<Product> findProductByUserId(Integer id);
 }

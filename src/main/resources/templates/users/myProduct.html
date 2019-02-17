@@ -23,7 +23,7 @@
         <div class="col-md-2 div-square panel panel-default" style="height: 270px;margin-right: 30px;">
             <!-- 显示在拍商品信息 -->
             <img th:src="${p.pImg}" style="width:130px;height:150px;" ></img><br>
-            <div  th:text="${p.pName}"></div><a th:href="@{/product/toUpdate(id=${p.id})}" />
+            <div><div  th:text="${p.pName}"  style="float: left"></div>&nbsp;&nbsp;<a th:href="@{/product/toUpdate(id=${p.id})}" >编辑</a></div>
             <div class="hidden" th:text="${p.pType}">商品类型:</div>
             <div class="hidden" th:text="${p.userId}"></div>
             <div class="hidden" th:text="${p.id}"></div>

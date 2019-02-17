@@ -19,8 +19,36 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
+    public List<Product> findAllProduct() {
+        return productMapper.selectAllProduct();
+    }
+
+    @Override
     public List<Product> findProductByUserId(Integer userId) {
         return productMapper.findProductByUserId(userId);
+    }
+
+    @Override
+    public List<Product> getLivingProducts() {
+        return productMapper.getLivingProducts();
+    }
+
+    @Override
+    public List<Product> getElectricProducts() {
+        return productMapper.getElectricProducts();
+    }
+
+    @Override
+    public List<Product> getClothProducts() { return productMapper.getClothProducts(); }
+
+    @Override
+    public List<Product> getSportProducts() {
+        return productMapper.getSportProducts();
+    }
+
+    @Override
+    public List<Product> getBookProducts() {
+        return productMapper.getBookProducts();
     }
 
     @Override
