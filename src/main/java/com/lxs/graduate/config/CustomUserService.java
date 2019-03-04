@@ -20,7 +20,7 @@ public class CustomUserService implements UserDetailsService { //自定义UserDe
     UserServiceImpl userService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) { //重写loadUserByUsername 方法获得 userdetails 类型用户
+    public User loadUserByUsername(String username) { //重写loadUserByUsername 方法获得 userdetails 类型用户
 
 //        User users=userService.getUserById(1);
         User user = userService.findUserByUserName(username);
@@ -35,7 +35,11 @@ public class CustomUserService implements UserDetailsService { //自定义UserDe
             System.out.println(role.getRoleName());
         }
         user.setGrantedAuthorities(authorities); //用于登录时 @AuthenticationPrincipal 标签取值
-        return new User(user.getId(),user.getUsername(),
-                user.getPassword(), authorities);
+        User user1=new User();
+        user1.setId(user.getId());
+        user1.setUsername(user.getUsername());
+        user1.setPassword(user.getPassword());
+        user1.setGrantedAuthorities(authorities);
+        return user1;
     }
 }

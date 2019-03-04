@@ -42,7 +42,6 @@ public class UserController {
     public Object name(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
-        System.out.println(user);
         return user;
     }
 
@@ -66,7 +65,6 @@ public class UserController {
         String currentPrincipalName = authentication.getName();
         User user1 = userService.findUserByUserName(currentPrincipalName);
         User user=userService.getUserById(user1.getId());
-        System.out.println(user.toString());
         model.addAttribute("id",user.getId());
         model.addAttribute("password",user.getPassword());
         model.addAttribute("icon",user.getIcon());
@@ -109,7 +107,6 @@ public class UserController {
 
     @RequestMapping("/updateUserInfo")
     public String update(User user){
-        System.out.println(user);
         userService.updateUser(user);
         return "index";
     }

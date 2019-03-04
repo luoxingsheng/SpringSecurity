@@ -74,6 +74,20 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public User(Integer id, String username, String password, String nickname, String email, String address, String tel, String icon, Integer creditScore, List<Role> roles, List<? extends GrantedAuthority> authorities) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.email = email;
+        this.address = address;
+        this.tel = tel;
+        this.icon = icon;
+        this.creditScore = creditScore;
+        this.roles = roles;
+        this.authorities = authorities;
+    }
+
     public User(Integer id, String username, String password, String nickname, String email, String address, String tel, String icon, Integer creditScore) {
         this.id = id;
         this.username = username;
@@ -85,6 +99,8 @@ public class User implements UserDetails {
         this.icon = icon;
         this.creditScore = creditScore;
     }
+
+
 
     public User(Integer id, String username, String password, List<? extends GrantedAuthority> authorities) {
         this.id = id;
