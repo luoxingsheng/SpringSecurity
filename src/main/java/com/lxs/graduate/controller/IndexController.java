@@ -22,21 +22,21 @@ public class IndexController {
     ProductService productService=new ProductServiceImpl();
 
 
-    @GetMapping("/index")
-    public String toIndex(ModelMap model){
-        List<Product> lists= productService.findAllProduct();
-        model.addAttribute("products",lists);
-        return "index";
-    }
+//    @GetMapping("/index")
+//    public String toIndex(ModelMap model){
+//        List<Product> lists= productService.findAllProduct();
+//        model.addAttribute("products",lists);
+//        return "index";
+//    }
 
     //按照时间顺序查询所有商品，倒叙排列
     @RequestMapping("/")
-    public String index(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize) {
+    public String index(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize) {
 
         //引入分页查询，使用PageHelper分页功能在查询之前传入当前页，然后多少记录
         PageHelper.startPage(pageNum, pageSize);
         List<Product> lists= productService.findAllProduct();
-        PageInfo pageInfo = new PageInfo<Product>(lists, 5);
+        PageInfo pageInfo = new PageInfo<Product>(lists, 10);
         model.addAttribute("products",pageInfo);
         //获得当前页
         model.addAttribute("pageNum", pageInfo.getPageNum());
@@ -57,7 +57,7 @@ public class IndexController {
         PageHelper.startPage(pageNum, pageSize);
         List<Product> lists= productService.getLivingProducts();
         model.addAttribute("products",lists);
-        PageInfo pageInfo = new PageInfo<Product>(lists, 5);
+        PageInfo pageInfo = new PageInfo<Product>(lists, 10);
         model.addAttribute("products",pageInfo);
         //获得当前页
         model.addAttribute("pageNum", pageInfo.getPageNum());
@@ -78,7 +78,7 @@ public class IndexController {
         PageHelper.startPage(pageNum, pageSize);
         List<Product> lists= productService.getClothProducts();
         model.addAttribute("products",lists);
-        PageInfo pageInfo = new PageInfo<Product>(lists, 5);
+        PageInfo pageInfo = new PageInfo<Product>(lists, 10);
         model.addAttribute("products",pageInfo);
         //获得当前页
         model.addAttribute("pageNum", pageInfo.getPageNum());
@@ -99,7 +99,7 @@ public class IndexController {
         PageHelper.startPage(pageNum, pageSize);
         List<Product> lists= productService.getSportProducts();
         model.addAttribute("products",lists);
-        PageInfo pageInfo = new PageInfo<Product>(lists, 5);
+        PageInfo pageInfo = new PageInfo<Product>(lists, 10);
         model.addAttribute("products",pageInfo);
         //获得当前页
         model.addAttribute("pageNum", pageInfo.getPageNum());
@@ -120,7 +120,7 @@ public class IndexController {
         PageHelper.startPage(pageNum, pageSize);
         List<Product> lists= productService.getElectricProducts();
 //        model.addAttribute("products",lists);
-        PageInfo pageInfo = new PageInfo<Product>(lists, 5);
+        PageInfo pageInfo = new PageInfo<Product>(lists, 10);
         model.addAttribute("products",pageInfo);
         //获得当前页
         model.addAttribute("pageNum", pageInfo.getPageNum());
@@ -141,7 +141,7 @@ public class IndexController {
         PageHelper.startPage(pageNum, pageSize);
         List<Product> lists= productService.getBookProducts();
         model.addAttribute("products",lists);
-        PageInfo pageInfo = new PageInfo<Product>(lists, 5);
+        PageInfo pageInfo = new PageInfo<Product>(lists, 10);
         model.addAttribute("products",pageInfo);
         //获得当前页
         model.addAttribute("pageNum", pageInfo.getPageNum());

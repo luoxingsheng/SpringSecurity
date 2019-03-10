@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <script type="text/javascript" th:src="@{/js/upload.js}"></script>
 </head>
 <body>
@@ -16,56 +17,64 @@
 </div>
 
 <div class="container">
-    <div class="form row">
-        <form class="form-horizontal col-sm-offset-3 col-md-offset-3"
+    <div class="form row panel panel-default col-md-5 col-md-offset-4 ">
+        <form class="form-horizontal  "
               th:action="@{/product/uploadProduct}" method="post" enctype="multipart/form-data">
-            <h3 class="form-title col-md-offset-1 ">上传商品信息</h3>
+            <h3 class="form-title col-md-offset-2 ">上传商品信息</h3>
             <hr />
-            <div class="col-sm-9 col-md-9">
+            <div class="form-inline col-md-offset-1">
                 <div class="form-group">
-                    <input class="form-control required" type="text"
-                           placeholder="商品名称" name="pName" />
+                    <label for="name">商品名称:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input class="form-control required" type="text" placeholder="商品名称" name="pName" id="name" />
                 </div>
-
+                <br><br>
                 <div class="form-group">
-                    <label for="type">商品种类</label>
+                    <label for="type">商品种类:&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <select class="form-control" name="pType" id="type">
-                        <option value="生活物品">生活物品</option>
+                        <option value="生活用品">生活用品</option>
                         <option value="电子产品">电子产品</option>
                         <option value="衣物">衣物</option>
                         <option value="运动物品">运动物品</option>
                         <option value="书籍、资料">书籍、资料</option>
                     </select>
                 </div>
+                <br><br>
+
+                <div class="form-group">
+                    <label for="price">商品价格:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input class="form-control required" type="text" placeholder="商品价格" name="pPrice" id="price" />
+                </div>
+                <br><br>
+
+                <div class="form-group">
+                    <label for="stock">商品库存:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input class="form-control required" type="text" placeholder="商品库存" name="pStock" id="stock"/>
+                </div>
+                <br><br>
+
+                <div class="form-group">
+                    <label for="stock">商品描述:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <textarea class="form-control required" type="text" placeholder="商品描述" name="pDesc" raw="5"></textarea>
+                </div>
+                <br><br>
 
 
                 <div class="form-group">
-                    <input class="form-control required" type="text"
-                           placeholder="商品价格" name="pPrice" />
-                </div>
-                <div class="form-group">
-                    <input class="form-control required" type="text"
-                           placeholder="商品库存" name="pStock" />
-                </div>
-                <div class="form-group">
-						<textarea class="form-control required" type="text"
-                                  placeholder="商品描述" name="pDesc" raw="5"></textarea>
-                </div>
-                <label >商品图片：</label>
-                <div class="form-group">
-                    <img th:src="@{/img/userImg/moban2.png}" class="img-rounded"  id="showImg" name="img" style="height: 300px;width: 200px" >
+                    <label >商品图片：</label>
+                    <img th:src="@{/img/userImg/moban2.png}" class="img-rounded"  id="showImg" name="img" style="height: 200px;width: 200px" >
                     <input  class="form-control required"id="img" size="30" name="pImg" type="file" onchange="preImg()">
-
                 </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-success pull-right btn-block"
-                           value="确认上传 " />
+                <br><br>
+                <div class="form-group col-md-offset-1">
+                    <input type="submit" class="btn btn-success pull-right btn-block" value="确认上传 " />
                 </div>
             </div>
         </form>
     </div>
 
 </div>
+
+<div th:replace="common/navbar::footers"></div>
 
 <script>
     function preImg() {

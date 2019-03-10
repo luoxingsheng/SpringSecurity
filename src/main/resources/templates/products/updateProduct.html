@@ -10,6 +10,7 @@
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" th:src="@{/js/upload.js}"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 </head>
 <body>
 <div  class="container " th:replace="common/navbar::userNavbar">
@@ -86,6 +87,8 @@
 
 </div>
 
+<div th:replace="common/navbar::footers"></div>
+</body>
 <script>
     function preImg() {
         var file = document.getElementById('img')
@@ -94,5 +97,4 @@
         img.src = url
     }
 </script>
-</body>
 </html>

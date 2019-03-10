@@ -4,6 +4,7 @@ import com.lxs.graduate.entity.Msg;
 import com.lxs.graduate.entity.Order;
 import com.lxs.graduate.entity.Product;
 import com.lxs.graduate.entity.User;
+import com.lxs.graduate.service.OrderService;
 import com.lxs.graduate.service.ProductService;
 import com.lxs.graduate.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class OrderController {
     @Autowired
     ProductService productService;
 
+
+    @Autowired
+    OrderService orderService;
 
 
     @Autowired
@@ -44,6 +48,7 @@ public class OrderController {
         order.setOrderStatus("已发货");
         order.setOrderTime(dateUtil.getCurrentDate());
         order.setPayStatus("未付款");
+        orderService.addOrder(order);
         model.addAttribute("orders",order);
         return "/order/pay";
     }

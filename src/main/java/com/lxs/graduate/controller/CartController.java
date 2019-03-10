@@ -34,6 +34,7 @@ public class CartController {
      */
     @GetMapping(value = "/add")
     public String addCart(@RequestParam Integer productId, @RequestParam int num, ModelMap model){
+        System.out.println("为啥");
         UserDetails user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         //获取登陆用户的userId
        // 加入购物车
@@ -56,8 +57,8 @@ public class CartController {
         for(Cart str : cartList) {//其内部实质上还是调用了迭代器遍历方式，这种循环方式还有其他限制，不建议使用。
             System.out.println(str.toString());
         }
-//        modelMap.addAttribute("lists",cartList);
-        return "carts";
+        modelMap.addAttribute("lists",cartList);
+        return "/products/carts";
     }
 
     @PostMapping(value = "/updateCartNum")

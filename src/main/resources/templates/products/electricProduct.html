@@ -7,6 +7,7 @@
     <title sec:authentication="name"></title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 
 </head>
 <body>
@@ -39,7 +40,7 @@
                 <!-- 显示在拍商品信息 -->
                 <img th:src="${p.pImg}" style="width:130px;height:150px;" ></img><br>
                 <div><div  th:text="${p.pName}"  style="float: left"></div>&nbsp;&nbsp;
-                    <a th:href="@{/product/toUpdate(id=${p.id})}" > <span class="glyphicon glyphicon-shopping-cart"></span></a></div>
+                    <a th:href="@{/cart/add(productId=${p.id},num=1)}" > <span class="glyphicon glyphicon-shopping-cart"></span></a></div>
                 <div class="hidden" th:text="${p.pType}">商品类型:</div>
                 <div class="hidden" th:text="${p.userId}"></div>
                 <div class="hidden" th:text="${p.id}"></div>
@@ -83,6 +84,6 @@
     </ul>
 </nav>
 
-
+<div th:replace="common/navbar::footers"></div>
 </body>
 </html>

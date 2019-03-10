@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
     <script type="text/javascript" th:src="@{/js/usermenu.js}"></script>
 </head>
@@ -23,7 +24,7 @@
                    <span class="icon-bar"></span>
                    <span class="icon-bar"></span>
                   </button>
-            　　  <a class="navbar-brand" th:href="@{/}">买买买</a>
+            　　  <a class="navbar-brand" th:href="@{/}">买买买<span class="icon fa fa-home"></span></a>
               </div>
         <div class="collapse navbar-collapse " id="collapse1">
             <ul class="nav  nav-pills">
@@ -68,7 +69,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            　　  <a class="navbar-brand" th:href="@{/}">买买买</a>
+            　　  <a class="navbar-brand" th:href="@{/}">买买买<span class="icon fa fa-home"></span></a>
         </div>
         <div class="collapse navbar-collapse " id="collapse1">
             <ul class="nav  nav-pills">
@@ -101,6 +102,23 @@
         </div>
     </div>
 
+
+    <footer th:fragment="footers" class="footer navbar-fixed-bottom">
+        <div class="container">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <hr>
+                <h2>
+                    处理闲置就上买买买,欢迎加入我们！
+                </h2>
+
+                <ul class="social list-unstyled list-inline">
+                    <li><a href="https://en.mail.qq.com/cgi-bin/loginpage"><span class="icon fa fa-qq"></span>QQ邮箱：893309066@qq.com</a></li>
+                    <li><a href="https://github.com/luoxingsheng/SpringSecurity">  <span class="icon fa fa-github"></span>项目地址github</a></li>
+                </ul>
+                <hr>
+            </div><!--/col-->
+        </div><!--/container-->
+    </footer>
 
 </body>
 </html>
