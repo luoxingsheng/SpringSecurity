@@ -1,39 +1,43 @@
 package com.lxs.graduate.entity;
 
-import java.util.Date;
-
 public class Order {
     private Integer id;
 
     private Integer pId;
 
-    private Integer pAmount;
-
-    private String pType;
-
     private Integer sellId;
 
     private Integer buyId;
 
-    private Date orderTime;
+    private Integer orderNum;
+
+    private String orderTime;
 
     private String orderStatus;
 
-    private Double orderMonry;
+    private Double orderMoney;
 
-    private Integer payStatus;
+    private String payStatus;
 
-    public Order(Integer id, Integer pId, Integer pAmount, String pType, Integer sellId, Integer buyId, Date orderTime, String orderStatus, Double orderMonry, Integer payStatus) {
+    private String orderAddress;
+
+    private String orderReceiver;
+
+    private String orderPhone;
+
+    public Order(Integer id, Integer pId, Integer sellId, Integer buyId, Integer orderNum, String orderTime, String orderStatus, Double orderMoney, String payStatus, String orderAddress, String orderReceiver, String orderPhone) {
         this.id = id;
         this.pId = pId;
-        this.pAmount = pAmount;
-        this.pType = pType;
         this.sellId = sellId;
         this.buyId = buyId;
+        this.orderNum = orderNum;
         this.orderTime = orderTime;
         this.orderStatus = orderStatus;
-        this.orderMonry = orderMonry;
+        this.orderMoney = orderMoney;
         this.payStatus = payStatus;
+        this.orderAddress = orderAddress;
+        this.orderReceiver = orderReceiver;
+        this.orderPhone = orderPhone;
     }
 
     public Order() {
@@ -56,22 +60,6 @@ public class Order {
         this.pId = pId;
     }
 
-    public Integer getpAmount() {
-        return pAmount;
-    }
-
-    public void setpAmount(Integer pAmount) {
-        this.pAmount = pAmount;
-    }
-
-    public String getpType() {
-        return pType;
-    }
-
-    public void setpType(String pType) {
-        this.pType = pType == null ? null : pType.trim();
-    }
-
     public Integer getSellId() {
         return sellId;
     }
@@ -88,12 +76,20 @@ public class Order {
         this.buyId = buyId;
     }
 
-    public Date getOrderTime() {
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public String getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(Date orderTime) {
-        this.orderTime = orderTime;
+    public void setOrderTime(String orderTime) {
+        this.orderTime = orderTime == null ? null : orderTime.trim();
     }
 
     public String getOrderStatus() {
@@ -104,19 +100,43 @@ public class Order {
         this.orderStatus = orderStatus == null ? null : orderStatus.trim();
     }
 
-    public Double getOrderMonry() {
-        return orderMonry;
+    public Double getOrderMoney() {
+        return orderMoney;
     }
 
-    public void setOrderMonry(Double orderMonry) {
-        this.orderMonry = orderMonry;
+    public void setOrderMoney(Double orderMoney) {
+        this.orderMoney = orderMoney;
     }
 
-    public Integer getPayStatus() {
+    public String getPayStatus() {
         return payStatus;
     }
 
-    public void setPayStatus(Integer payStatus) {
-        this.payStatus = payStatus;
+    public void setPayStatus(String payStatus) {
+        this.payStatus = payStatus == null ? null : payStatus.trim();
+    }
+
+    public String getOrderAddress() {
+        return orderAddress;
+    }
+
+    public void setOrderAddress(String orderAddress) {
+        this.orderAddress = orderAddress == null ? null : orderAddress.trim();
+    }
+
+    public String getOrderReceiver() {
+        return orderReceiver;
+    }
+
+    public void setOrderReceiver(String orderReceiver) {
+        this.orderReceiver = orderReceiver == null ? null : orderReceiver.trim();
+    }
+
+    public String getOrderPhone() {
+        return orderPhone;
+    }
+
+    public void setOrderPhone(String orderPhone) {
+        this.orderPhone = orderPhone == null ? null : orderPhone.trim();
     }
 }

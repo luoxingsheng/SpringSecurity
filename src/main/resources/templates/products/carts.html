@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div  class="container " th:replace="common/navbar::userNavbar">
+</div>
+<div class="container">
+    <div  th:each="c:${lists}">
+        <div class="row div-square panel panel-default" >
+            <form th:action="@{/order/toOrder}">
+                <div class="form-inline">
+                    <div class="form-group col-md-1"><img th:src="${c.productIcon}" style="width:50px;height:50px;" ></img></div>
+                    <div class="form-group col-md-2" >商品名:[[${c.productName}]]</div>
+                    <div class="form-group col-md-2">价格:[[${c.productPrice}]]</div>
+                    <div class="form-group col-md-2">商品状态:[[${c.productStatus}]]</div>
+                    <div class="hide" ><input th:value="${c.productId}" name="pId"></div>
+                    <div class="hide" ><input th:value="${c.productPrice}" name="price"></div>
+                    <div class="form-group ">数量:
+                        <input  type="text" name="orderNum"  id="num" th:value="${c.productNum}" >
+                    </div>&nbsp;&nbsp;
+                    <div class="form-group "><button id="sss" type="submit">下单</button></div>
+                    <div class="form-group "><a th:href="@{/cart/delCartProduct(productId=${c.productId})}">移除商品</a></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</body>
+<script>
+    $(function() {
+        var spinner = $( "input[ name='orderNum']" ).spinner();
+        $("#sss").click(function () {
+            $("#num").val(spinner.spinner( "value"));
+        });
+    });
+</script>
+</html>

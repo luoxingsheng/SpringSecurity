@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html;charset=UTF-8"/>
+    <title>注册</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/validatePwd.js}"></script>
+    <style type="text/css">
+        .starter-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">买买买</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/index}"> 首页 </a></li>
+
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container">
+
+    <br><br><br>
+    <div class="starter-template col-md-6 col-md-offset-3" >
+        <div class="panel panel-default">
+            <h2>请使用网银支付</h2>
+            <hr>
+            <div>
+                <div class="form-inline">
+                    <div class="form-group">
+                        <a class="pull-left" style="text-decoration:none;" onclick="change1()">支付宝&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+                        <a class="pull-left" style="text-decoration:none;" onclick="change2()">&nbsp;&nbsp;&nbsp;&nbsp;微信</a>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <a href="/order/pay"><img  src="/img/zhifubao.png" id="img0"  style="width:400px;height: 400px;"/></a>
+                </div>
+                <br>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    function change1() {
+        var img = document.getElementById("img0")
+        img.src = "/img/zhifubao.png";
+    }
+
+    function change2() {
+        var img = document.getElementById("img0")
+        img.src = "/img/weixing.png";
+    }
+</script>
+</html>

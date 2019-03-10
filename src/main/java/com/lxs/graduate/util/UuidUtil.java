@@ -1,7 +1,5 @@
 package com.lxs.graduate.util;
 
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
 
 public class UuidUtil {

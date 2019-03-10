@@ -52,7 +52,6 @@ public class TestController {
     @ResponseBody
     public User getUsers(@PathVariable(name = "username")String username) {
         User user = new User();
-        System.out.println(username);
         return userService.findUserByUserName(username);
     }
 
