@@ -5,6 +5,8 @@ import com.lxs.graduate.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderServiceImpl implements OrderService{
 
@@ -32,7 +34,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Order findAllOrder() {
+    public List<Order> findAllOrder(Integer user_id) {
         return null;
     }
 }

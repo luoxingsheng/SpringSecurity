@@ -4,7 +4,6 @@ package com.lxs.graduate.controller;
 import com.lxs.graduate.entity.Msg;
 import com.lxs.graduate.entity.User;
 import com.lxs.graduate.redis.CartPrefix;
-import com.lxs.graduate.redis.RedisService;
 import com.lxs.graduate.redis.RedisServices;
 import com.lxs.graduate.service.UserService;
 import com.lxs.graduate.service.UserServiceImpl;
@@ -21,8 +20,6 @@ public class TestController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    private RedisService redisService;
 
     @Autowired
     private RedisServices redisServices;

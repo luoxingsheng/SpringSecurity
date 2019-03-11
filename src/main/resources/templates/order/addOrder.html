@@ -44,12 +44,12 @@
                 </div>
                 <div class="form-group">
                     <label for="orderNum" class="pull-left">订单数量：&nbsp;&nbsp;</label>
-                    <input type="text" class="form-control" name="orderNum"  id="orderNum" disabled="disabled" th:value="${orderNum}"/>
+                    <input type="text" class="form-control" name="orderNum"  id="orderNum"  th:value="${orderNum}"/>
                 </div>
                 <br><br>
                 <div class="form-group">
-                    <label for="orderMonry" >订单金额：&nbsp;&nbsp;</label>
-                    <input type="text" class="form-control" name="orderMoney"  id="orderMonry" disabled="disabled" th:value="${orderMoney}"/>
+                    <label for="orderMoney" >订单金额：&nbsp;&nbsp;</label>
+                    <input type="text" class="form-control" name="orderMoney"  id="orderMoney"  th:value="${orderMoney}"/>
                 </div>
                 <br><br>
                 <div class="form-group">
@@ -75,6 +75,5 @@
     </div>
 </div>
 
-<div th:replace="common/navbar::footers"></div>
 </body>
 </html>

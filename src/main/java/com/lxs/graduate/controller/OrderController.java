@@ -4,6 +4,7 @@ import com.lxs.graduate.entity.Msg;
 import com.lxs.graduate.entity.Order;
 import com.lxs.graduate.entity.Product;
 import com.lxs.graduate.entity.User;
+import com.lxs.graduate.service.CartServiceImpl;
 import com.lxs.graduate.service.OrderService;
 import com.lxs.graduate.service.ProductService;
 import com.lxs.graduate.util.DateUtil;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/order")
@@ -26,6 +28,10 @@ public class OrderController {
 
     @Autowired
     OrderService orderService;
+
+
+    @Autowired
+    CartServiceImpl cartService;
 
 
     @Autowired
@@ -41,14 +47,18 @@ public class OrderController {
 
     @RequestMapping("/addOrder")
     public String addOrder(Order order, ModelMap model) throws ParseException {
+        System.out.println("订单数目"+order.getOrderNum());
+//        Order order=new Order();
         Product p=productService.findProductById(order.getpId());
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         order.setBuyId(user.getId());
         order.setSellId(p.getUserId());
-        order.setOrderStatus("已发货");
+        order.setOrderStatus("1");
         order.setOrderTime(dateUtil.getCurrentDate());
-        order.setPayStatus("未付款");
+        order.setPayStatus("1");
+        System.out.println(order.toString());
         orderService.addOrder(order);
+        cartService.delCartProduct(user.getId(),p.getId());
         model.addAttribute("orders",order);
         return "/order/pay";
     }
@@ -58,5 +68,29 @@ public class OrderController {
         Msg msg=new Msg("支付信息","购买成功",null);
         model.addAttribute("message",msg);
         return "notices";
+    }
+
+
+    @RequestMapping("/getAllOrders")
+    public String getOrder(ModelMap map){
+        List<Order> list=orderService.findAllOrders();
+        map.put("orders",list);
+        return "/allOrders";
+    }
+
+    @RequestMapping("/getOrderByBuyId")
+    public String getOrderByBuyId(ModelMap map){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Order> list=orderService.findOrderByBuyId(user.getId());
+        map.put("orders",list);
+        return "/users/myOrder";
+    }
+
+    @RequestMapping("/getOrderBySellId")
+    public String getOrderBySellId(ModelMap map){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Order> list=orderService.findOrderBySellId(user.getId());
+        map.put("orders",list);
+        return "/users/sellOrder";
     }
 }

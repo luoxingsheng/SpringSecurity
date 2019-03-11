@@ -32,7 +32,7 @@ redis:
   host: 47.107.133.187
 #  password: root
   port: 6379
-  timeout: 3
+  timeout: 30000
   poolMaxTotal: 10
   poolMaxIdle: 10
   poolMaxWait: 3
@@ -64,6 +64,8 @@ mybatis:
 img:
   location: D://Project/src/main/resources/static/img/userImg/
   productLocation: D://Project/src/main/resources/static/img/productImg/
+#  location: /data/img/userImg
+#  productLocation: /data/img/productImg
 
 devtools:
   restart:
