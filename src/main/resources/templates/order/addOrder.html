@@ -7,26 +7,15 @@
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
-    <script type="text/javascript" th:src="@{/js/validatePwd.js}"></script>
-    <style type="text/css">
-        .starter-template {
-            padding: 40px 15px;
-            text-align: center;
-        }
-    </style>
+    <script type="text/javascript" th:src="@{/js/citySelect.js}"></script>
+    <link th:href="@{/css/cityLayout.css}" type="text/css" rel="stylesheet">
 </head>
-<body>
+<body onload="init_city_select($("#citySelect"));">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">买买买</a>
+            <a class="navbar-brand" th:href="@{/}">买买买<span class="icon fa fa-home"></span></a>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li><a th:href="@{/index}"> 首页 </a></li>
-
-            </ul>
-        </div><!--/.nav-collapse -->
     </div>
 </nav>
 
@@ -43,27 +32,27 @@
                     <input type="text" class="form-control" name="pId"  id="proId" th:value="${pId}"/>
                 </div>
                 <div class="form-group">
-                    <label for="orderNum" class="pull-left">订单数量：&nbsp;&nbsp;</label>
+                    <label for="orderNum" class="pull-left">&nbsp;&nbsp;&nbsp;订单数量：&nbsp;&nbsp;</label>
                     <input type="text" class="form-control" name="orderNum"  id="orderNum"  th:value="${orderNum}"/>
                 </div>
                 <br><br>
                 <div class="form-group">
-                    <label for="orderMoney" >订单金额：&nbsp;&nbsp;</label>
+                    <label for="orderMoney" >&nbsp;&nbsp;订单金额：&nbsp;&nbsp;</label>
                     <input type="text" class="form-control" name="orderMoney"  id="orderMoney"  th:value="${orderMoney}"/>
                 </div>
                 <br><br>
                 <div class="form-group">
-                    <label for="orderAddress">收件地址：&nbsp;&nbsp;</label>
+                    <label for="orderAddress">&nbsp;&nbsp;交易地址：&nbsp;&nbsp;</label>
                     <input type="text" class="form-control" name="orderAddress"  id="orderAddress" />
                 </div>
                 <br><br>
                 <div class="form-group">
-                    <label for="orderReceiver">收件人姓名：</label>
+                    <label for="orderReceiver">&nbsp;&nbsp;买家姓名：&nbsp;&nbsp;</label>
                     <input type="text" class="form-control" name="orderReceiver"  id="orderReceiver" />
                 </div>
                 <br><br>
                 <div class="form-group">
-                    <label for="orderPhone">收件人电话：</label>
+                    <label for="orderPhone">&nbsp;&nbsp;买家电话：&nbsp;&nbsp;</label>
                     <input type="text" class="form-control" name="orderPhone"  id="orderPhone" />
                 </div>
                 <br><br>

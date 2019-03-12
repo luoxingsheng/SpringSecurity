@@ -45,22 +45,25 @@ public class OrderController {
         return "/order/addOrder";
     }
 
+
+    //交易逻辑：先生成订单，修改商品状态为待交易，删除购物车
     @RequestMapping("/addOrder")
     public String addOrder(Order order, ModelMap model) throws ParseException {
-        System.out.println("订单数目"+order.getOrderNum());
-//        Order order=new Order();
         Product p=productService.findProductById(order.getpId());
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         order.setBuyId(user.getId());
         order.setSellId(p.getUserId());
-        order.setOrderStatus("1");
+        order.setOrderStatus("待交易");
         order.setOrderTime(dateUtil.getCurrentDate());
-        order.setPayStatus("1");
-        System.out.println(order.toString());
-        orderService.addOrder(order);
+        order.setPayStatus("取消订单");
+        int orderId=orderService.addOrder(order);
         cartService.delCartProduct(user.getId(),p.getId());
-        model.addAttribute("orders",order);
-        return "/order/pay";
+        Product product=productService.findProductById(order.getpId());
+        product.setpStatus("待交易");
+        productService.updateProduct(product);
+        Msg msg=new Msg("订单信息","订单生产成功，请及时到交易地点完成交易！","订单号为："+orderId);
+        model.addAttribute("message",msg);
+        return "notices";
     }
 
     @RequestMapping("/pay")
@@ -78,19 +81,5 @@ public class OrderController {
         return "/allOrders";
     }
 
-    @RequestMapping("/getOrderByBuyId")
-    public String getOrderByBuyId(ModelMap map){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<Order> list=orderService.findOrderByBuyId(user.getId());
-        map.put("orders",list);
-        return "/users/myOrder";
-    }
 
-    @RequestMapping("/getOrderBySellId")
-    public String getOrderBySellId(ModelMap map){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<Order> list=orderService.findOrderBySellId(user.getId());
-        map.put("orders",list);
-        return "/users/sellOrder";
-    }
 }

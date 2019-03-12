@@ -20,7 +20,7 @@
 <div  class="container " th:replace="common/navbar::userNavbar">
 </div>
 <div class="container">
-    <div  th:each="o:${orders}">
+    <div  >
         <table class="table table-condensed table-responsive">
             <caption>订单信息</caption>
             <thead>
@@ -30,32 +30,28 @@
                 <th>商品</th>
                 <th>订单时间</th>
                 <th>订单状态</th>
-                <th>订单金额</th>
-                <th>收货地址</th>
-                <th>收件人</th>
-                <th>收件电话</th>
+                <th>订单金额（元）</th>
+                <th>交易地址</th>
+                <th>买家姓名</th>
+                <th>买家电话</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <tb><div th:value="${o.id}"></div></tb>
-                <tb><div th:value="${o.sellId}"></div></tb>
-                <tb><div th:value="${o.pId}"></div></tb>
-                <tb><div th:value="${o.orderTime}"></div></tb>
-                <tb><div th:value="${o.orderStatus}"></div></tb>
-                <tb><div th:value="${o.orderMoney}"></div></tb>
-                <tb><div th:value="${o.orderAddress}"></div></tb>
-                <tb><div th:value="${o.orderReceiver}"></div></tb>
-                <tb><div th:value="${o.orderPhone}"></div></tb>
+            <tr  th:each="o:${buyOrders}">
+                <td th:text="${o.id}"></td>
+                <td th:text="${o.sellId}"></td>
+                <td th:text="${o.pId}"></td>
+                <td th:text="${o.orderTime}"></td>
+                <td th:text="${o.orderStatus}"></td>
+                <td th:text="${o.orderMoney}"></td>
+                <td th:text="${o.orderAddress}"></td>
+                <td th:text="${o.orderReceiver}"></td>
+                <td th:text="${o.orderPhone}"></td>
             </tr>
             </tbody>
         </table>
     </div>
-
-
-
 </div>
 
-<div th:replace="common/navbar::footers"></div>
 </body>
 </html>

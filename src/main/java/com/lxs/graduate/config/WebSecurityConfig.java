@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //设置拦截规则
                 .antMatchers("/index","/ ","/css/**","/js/**","/img/**","/register","/redis/**")
                 .permitAll()
-                .antMatchers("/user/**").hasRole("USER")
+                .antMatchers("/user/**","/order/**","/cart/**","/product/**").hasRole("USER")
 //                .anyRequest()
 //                .authenticated()
                 .and()

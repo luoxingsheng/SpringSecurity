@@ -1,10 +1,10 @@
 package com.lxs.graduate.controller;
 
 
+import com.lxs.graduate.entity.Order;
 import com.lxs.graduate.entity.Product;
 import com.lxs.graduate.entity.User;
-import com.lxs.graduate.service.ProductServiceImpl;
-import com.lxs.graduate.service.UserServiceImpl;
+import com.lxs.graduate.service.*;
 import com.lxs.graduate.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,10 +32,13 @@ public class UserController {
     private  String location;
 
     @Autowired
-    ProductServiceImpl productService;
+    ProductService productService;
 
     @Autowired
-    UserServiceImpl userService;
+    UserService userService;
+
+    @Autowired
+    OrderService orderService;
 
     @RequestMapping("/getName")
     @ResponseBody
@@ -57,6 +60,7 @@ public class UserController {
         model.addAttribute("productLists",lists);
         return "users/myProduct";
     }
+
 
 
     @RequestMapping("/toUser")
@@ -111,7 +115,20 @@ public class UserController {
         return "index";
     }
 
+    @RequestMapping("/getOrderByBuyId")
+    public String getOrderByBuyId(ModelMap map){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Order> list=orderService.findOrderByBuyId(user.getId());
+        map.put("buyOrders",list);
+        return "/users/buyOrder";
+    }
 
-
+    @RequestMapping("/getOrderBySellId")
+    public String getOrderBySellId(ModelMap map){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Order> list=orderService.findOrderBySellId(user.getId());
+        map.put("sellOrders",list);
+        return "/users/sellOrder";
+    }
 
 }

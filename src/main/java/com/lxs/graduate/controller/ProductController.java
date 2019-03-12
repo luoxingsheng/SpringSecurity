@@ -5,6 +5,7 @@ import com.lxs.graduate.entity.Product;
 import com.lxs.graduate.entity.User;
 import com.lxs.graduate.service.ProductService;
 import com.lxs.graduate.service.ProductServiceImpl;
+import com.lxs.graduate.service.UserService;
 import com.lxs.graduate.util.DateUtil;
 import com.lxs.graduate.util.FileUtil;
 import com.lxs.graduate.util.UuidUtil;
@@ -36,7 +37,10 @@ public class ProductController {
     DateUtil dateUtil=new DateUtil();
 
     @Autowired
-    ProductService productService=new ProductServiceImpl();
+    ProductService productService;
+
+    @Autowired
+    UserService userService;
 
     @PostMapping("/uploadProduct")
     public String uploadProduct(@RequestParam("pImg") MultipartFile file,
@@ -95,4 +99,17 @@ public String toUpdate(@RequestParam Integer id,ModelMap model){
         model.addAttribute("message",msg);
         return "notices";
     }
+
+    @GetMapping("/toProductInfo")
+    public String toProductInfo(@RequestParam Integer id,ModelMap model){
+        Product product=productService.findProductById(id);
+        String seller=userService.getUserById(product.getUserId()).getUsername();
+        System.out.println("用户名"+seller);
+        model.addAttribute("pro",product);
+        model.addAttribute("seller",seller);
+        return "products/productInfo";
+    }
+
+
+
 }
