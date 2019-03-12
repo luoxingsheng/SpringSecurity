@@ -34,7 +34,19 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<Order> findAllOrder(Integer user_id) {
-        return null;
+    public List<Order> findAllOrders() {
+        return orderMapper.findAllOrders();
     }
+
+    @Override
+    public List<Order> findOrderByBuyId(Integer id) {
+        return orderMapper.findOrderByBuyId(id);
+    }
+
+    @Override
+    public List<Order> findOrderBySellId(Integer id) {
+        return orderMapper.findOrderBySellId(id);
+    }
+
+
 }

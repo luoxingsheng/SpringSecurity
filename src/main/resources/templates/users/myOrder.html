@@ -21,39 +21,38 @@
 </div>
 <div class="container">
     <div  th:each="o:${orders}">
-        <div class="col-md-2 div-square panel panel-default" style="height: 270px;margin-right: 30px;">
-            <!-- 显示在拍商品信息 -->
-            <img th:src="${p.pImg}" style="width:130px;height:150px;" ></img><br>
-            <div><div  th:text="${p.pName}"  style="float: left"></div>&nbsp;&nbsp;<a th:href="@{/product/toUpdate(id=${p.id})}" >编辑</a></div>
-            <div class="hidden" th:text="${p.pType}">商品类型:</div>
-            <div class="hidden" th:text="${p.userId}"></div>
-            <div class="hidden" th:text="${p.id}"></div>
-            <div><div  style="float: left">价格:</div><div  th:text="${p.pPrice}"></div></div>
-            <div><div  style="float: left">库存:</div><div  th:text="${p.pStock}" ></div></div>
-            <div><div  style="float: left">商品状态:</div><div  th:text="${p.pStatus}" ></div></div>
-            <div><div  style="float: left">商品描述:</div><div th:title="${p.pDesc}"  th:text="${p.pDesc}" style="text-overflow:ellipsis;width: 100px; overflow: hidden;white-space:nowrap;"></div></div>
-        </div>
+        <table class="table table-condensed table-responsive">
+            <caption>订单信息</caption>
+            <thead>
+            <tr>
+                <th>订单号</th>
+                <th>卖家</th>
+                <th>商品</th>
+                <th>订单时间</th>
+                <th>订单状态</th>
+                <th>订单金额</th>
+                <th>收货地址</th>
+                <th>收件人</th>
+                <th>收件电话</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <tb><div th:value="${o.id}"></div></tb>
+                <tb><div th:value="${o.sellId}"></div></tb>
+                <tb><div th:value="${o.pId}"></div></tb>
+                <tb><div th:value="${o.orderTime}"></div></tb>
+                <tb><div th:value="${o.orderStatus}"></div></tb>
+                <tb><div th:value="${o.orderMoney}"></div></tb>
+                <tb><div th:value="${o.orderAddress}"></div></tb>
+                <tb><div th:value="${o.orderReceiver}"></div></tb>
+                <tb><div th:value="${o.orderPhone}"></div></tb>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
-    <table class="table table-condensed table-responsive">
-        <caption>订单信息</caption>
-        <thead>
-        <tr>
-            <th>订单号</th>
-            <th>卖家</th>
-            <th>商品</th>
-            <th>商品</th>
-            <th>商品</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Tanmay</td>
-            <td>Bangalore</td>
-            <td>560001</td>
-        </tr>
-        </tbody>
-    </table>
+
 
 </div>
 
