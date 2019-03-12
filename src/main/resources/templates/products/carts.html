@@ -25,7 +25,7 @@
 <div class="container">
     <div  th:each="c:${lists}">
         <div class="row div-square panel panel-default" >
-            <form th:action="@{/order/toOrder}">
+            <!--<form th:action="@{/order/toOrder}">-->
                 <div class="form-inline">
                     <div class="form-group col-md-1"><img th:src="${c.productIcon}" style="width:50px;height:50px;" ></img></div>
                     <div class="form-group col-md-2" >商品名:[[${c.productName}]]</div>
@@ -34,12 +34,12 @@
                     <div class="hide" ><input th:value="${c.productId}" name="pId"></div>
                     <div class="hide" ><input th:value="${c.productPrice}" name="price"></div>
                     <div class="form-group ">数量:
-                        <input  type="text" name="orderNum"  id="num" th:value="${c.productNum}" >
+                        <div  type="text" name="orderNum"  id="num" th:value="${c.productNum}" >
                     </div>&nbsp;&nbsp;
-                    <div class="form-group "><button id="sss" type="submit">下单</button></div>
+                    <div class="form-group "><a id="sss" type="submit" th:href="@{/order/toOrder(productId=${c.productId},num=${c.productNum})}">下单</a></div>
                     <div class="form-group "><a th:href="@{/cart/delCartProduct(productId=${c.productId})}">移除商品</a></div>
                 </div>
-            </form>
+            <!--</form>-->
         </div>
 
     </div>

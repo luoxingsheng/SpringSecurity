@@ -48,11 +48,15 @@ public class OrderController {
 
     //交易逻辑：先生成订单，修改商品状态为待交易，删除购物车
     @RequestMapping("/addOrder")
-    public String addOrder(Order order, ModelMap model) throws ParseException {
-        Product p=productService.findProductById(order.getpId());
+    public String addOrder(@RequestParam Integer productId, @RequestParam Integer num, ModelMap model) throws ParseException {
+        Product p=productService.findProductById(productId);
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Order order=new Order();
+        order.setpId(productId);
+        order.setOrderNum(num);
         order.setBuyId(user.getId());
         order.setSellId(p.getUserId());
+        order.setOrderMoney(p.getpPrice());
         order.setOrderStatus("待交易");
         order.setOrderTime(dateUtil.getCurrentDate());
         order.setPayStatus("取消订单");

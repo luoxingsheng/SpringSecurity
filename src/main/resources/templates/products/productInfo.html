@@ -34,9 +34,9 @@
             <!--</div>-->
         <!--</div>-->
 
-        <div  th:each="p:${pro}">
+        <div  th:each="p:${pro}" panel panel-default>
                 <!-- 显示在拍商品信息 -->
-            <div class="col-md-4 col-md-offset-2">
+            <div class="col-md-4 col-md-offset-2 ">
                 <img th:src="${p.pImg}" style="width:150px;height:200px;" ></img>
             </div>
             <div >
@@ -45,8 +45,8 @@
                 <div><div  style="float: left">价格:</div><div  th:text="${p.pPrice}"></div></div><br>
                 <div><div  style="float: left">商品描述:</div><div th:title="${p.pDesc}"  th:text="${p.pDesc}"></div></div><br>
                 <div><ul class="list-unstyled form-inline" >
-                    <li class="form-group"><a th:href="@{/cart/add(productId=${p.id},num=1)}" >添加到购物车</a></li>
-                    <li class="form-group"><a th:href="@{/order/addOrder(productId=${p.id},num=1)}" >直接下单</a></li>
+                    <li class="form-group"><a th:href="@{/cart/add(productId=${p.id},num=${p.pStock})}" >添加到购物车</a></li>
+                    <li class="form-group"><a th:href="@{/order/addOrder(productId=${p.id},num=${p.pStock})}" >直接下单</a></li>
                 </ul></div>
             </div>
         </div>
