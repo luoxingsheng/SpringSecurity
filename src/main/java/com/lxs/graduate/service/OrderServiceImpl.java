@@ -19,7 +19,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public int deleteOrder(Integer id) {
+    public int deleteOrder(Long id) {
         return deleteOrder(id);
     }
 
@@ -29,7 +29,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Order findOrderById(Integer id) {
+    public Order findOrderById(Long id) {
         return orderMapper.selectByPrimaryKey(id);
     }
 
@@ -46,6 +46,11 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<Order> findOrderBySellId(Integer id) {
         return orderMapper.findOrderBySellId(id);
+    }
+
+    @Override
+    public List<Order> findUnfinishedOrders(Integer id) {
+        return null;
     }
 
 

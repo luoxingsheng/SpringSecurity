@@ -15,48 +15,30 @@
 <br><br><br><br>;
 <div class="container ">
     <div class=" col-md-10 col-md-offset-1" >
-        <!--<div  style="margin-left: 50px;" >　-->
-            <!--<div  style="margin-left: 15%">-->
-                <!--<ul class="list-group" style="display:inline-block" >-->
-                    <!--<li class="list-group-item" style="float: left;"><a  th:href="@{/}">最新商品</a>-->
-                        <!--<div style="width:100%;height: 2px; margin-top: 4px;background-color: #222;"></div></li>-->
-                    <!--<li class="list-group-item" style="float: left;"><a th:href="@{/livingProducts}">生活物品</a>-->
-                        <!--<div style="width:100%;height: 2px; margin-top: 4px;"></div></li>-->
-                    <!--<li class="list-group-item" style="float: left;"><a th:href="@{/electricProducts}">电子产品</a>-->
-                        <!--<div style="width:100%;height: 2px; margin-top: 4px;"></div></li>-->
-                    <!--<li class="list-group-item" style="float: left;"><a th:href="@{/clothProducts}">衣物</a>-->
-                        <!--<div style="width:100%;height: 2px; margin-top: 4px;"></div></li>-->
-                    <!--<li class="list-group-item" style="float: left;"><a th:href="@{/sportProducts}">运动物品</a>-->
-                        <!--<div style="width:100%;height: 2px; margin-top: 4px;"></div></li>-->
-                    <!--<li class="list-group-item" style="float: left;"><a th:href="@{/bookProducts}">书籍、资料</a>-->
-                        <!--<div style="width:100%;height: 2px; margin-top: 4px;"></div></li>-->
-                <!--</ul>-->
-            <!--</div>-->
-        <!--</div>-->
 
-        <div  th:each="p:${pro}" panel panel-default>
+        <div  th:each="p:${pro}" class="panel panel-info" >
+            <div class="panel-heading"><h2 class="panel-title">商品信息</h2></div>
                 <!-- 显示在拍商品信息 -->
-            <div class="col-md-4 col-md-offset-2 ">
-                <img th:src="${p.pImg}" style="width:150px;height:200px;" ></img>
+            <div class=" panel-body">
+                <div class="col-md-2 col-md-offset-2 ">
+                    <img th:src="${p.pImg}" style="width:200px;height:250px;" ></img>
+                </div>
+                <div class="col-md-4 col-md-offset-2 ">
+                    <a><div >卖家：[[${seller}]]</div></a><br>
+                    <div  th:text="${p.pName}" ></div><br>
+                    <div><div  style="float: left">价格:</div><div  th:text="${p.pPrice}"></div></div><br>
+                    <div><div  style="float: left">商品描述:</div><div th:title="${p.pDesc}"  th:text="${p.pDesc}"></div></div><br>
+                    <div><ul class="list-unstyled form-inline" >
+                        <li class="form-group"><button class="btn btn-default"><a th:href="@{/cart/add(productId=${p.id},num=${p.pStock})}" >添加到购物车</a></button></li>
+                        <li class="form-group"><button class="btn btn-default"><a th:href="@{/order/toOrder(pId=${p.id},orderNum=${p.pStock},price=${p.pPrice})}" >直接下单</a></button></li>
+                    </ul></div>
+                </div>
             </div>
-            <div >
-                <a><div >卖家：[[${seller}]]</div></a><br>
-                <div  th:text="${p.pName}" ></div><br>
-                <div><div  style="float: left">价格:</div><div  th:text="${p.pPrice}"></div></div><br>
-                <div><div  style="float: left">商品描述:</div><div th:title="${p.pDesc}"  th:text="${p.pDesc}"></div></div><br>
-                <div><ul class="list-unstyled form-inline" >
-                    <li class="form-group"><a th:href="@{/cart/add(productId=${p.id},num=${p.pStock})}" >添加到购物车</a></li>
-                    <li class="form-group"><a th:href="@{/order/addOrder(productId=${p.id},num=${p.pStock})}" >直接下单</a></li>
-                </ul></div>
-            </div>
+
         </div>
     </div>
 </div>
 
-
-
-<br><br><br><br>
-<div th:replace="common/navbar::footers" class="navbar-fixed-bottom"></div>
 
 
 </body>

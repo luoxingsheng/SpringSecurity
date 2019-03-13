@@ -23,10 +23,10 @@
 
     <br><br><br>
     <div class="starter-template col-md-4 col-md-offset-4 row " >
-        <div class="panel panel-default">
+        <div class="panel panel-default container">
         <h2>订单页面</h2>
         <hr>
-        <div class="form-inline">
+        <div class="form-inline ">
             <form name="form" th:action="@{/order/addOrder}" method="POST"> <!-- 3 -->
                 <div class="form-group hidden">
                     <input type="text" class="form-control" name="pId"  id="proId" th:value="${pId}"/>

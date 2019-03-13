@@ -33,11 +33,9 @@
                     <div class="form-group col-md-2">商品状态:[[${c.productStatus}]]</div>
                     <div class="hide" ><input th:value="${c.productId}" name="pId"></div>
                     <div class="hide" ><input th:value="${c.productPrice}" name="price"></div>
-                    <div class="form-group ">数量:
-                        <div  type="text" name="orderNum"  id="num" th:value="${c.productNum}" >
-                    </div>&nbsp;&nbsp;
-                    <div class="form-group "><a id="sss" type="submit" th:href="@{/order/toOrder(productId=${c.productId},num=${c.productNum})}">下单</a></div>
-                    <div class="form-group "><a th:href="@{/cart/delCartProduct(productId=${c.productId})}">移除商品</a></div>
+                    <div class="form-group col-md-2">数量: [[${c.productNum}]]</div>
+                    <div class="form-group col-md-1"><a id="sss" type="submit" th:href="@{/order/toOrder(productId=${c.productId},num=${c.productNum})}">下单</a></div>
+                    <div class="form-group col-md-1"><a th:href="@{/cart/delCartProduct(productId=${c.productId})}">移除商品</a></div>
                 </div>
             <!--</form>-->
         </div>

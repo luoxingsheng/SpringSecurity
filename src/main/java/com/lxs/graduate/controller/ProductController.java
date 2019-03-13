@@ -104,7 +104,6 @@ public String toUpdate(@RequestParam Integer id,ModelMap model){
     public String toProductInfo(@RequestParam Integer id,ModelMap model){
         Product product=productService.findProductById(id);
         String seller=userService.getUserById(product.getUserId()).getUsername();
-        System.out.println("用户名"+seller);
         model.addAttribute("pro",product);
         model.addAttribute("seller",seller);
         return "products/productInfo";

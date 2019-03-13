@@ -131,4 +131,13 @@ public class UserController {
         return "/users/sellOrder";
     }
 
+    @RequestMapping("/getUnfinishedOrders")
+    public String getUnfinishedOrders(ModelMap map){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Order> list=orderService.findUnfinishedOrders(user.getId());
+        map.put("unfinishedOrders",list);
+        return "/users/unfinishedOrder";
+    }
+
+
 }
