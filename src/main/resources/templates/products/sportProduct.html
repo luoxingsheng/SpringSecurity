@@ -36,11 +36,11 @@
         </div>
 
         <div  th:each="p:${products.list}">
+            <a th:href="@{/product/toProductInfo(id=${p.id})}">
             <div class="col-md-2 div-square panel panel-default" style="height: 270px;margin-right: 30px;">
                 <!-- 显示在拍商品信息 -->
                 <img th:src="${p.pImg}" style="width:130px;height:150px;" ></img><br>
-                <div><div  th:text="${p.pName}"  style="float: left"></div>&nbsp;&nbsp;
-                    <a th:href="@{/cart/add(productId=${p.id},num=1)}" > <span class="glyphicon glyphicon-shopping-cart"></span></a></div>
+                <div><div  th:text="${p.pName}"  style="float: left"></div>&nbsp;&nbsp;</div>
                 <div class="hidden" th:text="${p.pType}">商品类型:</div>
                 <div class="hidden" th:text="${p.userId}"></div>
                 <div class="hidden" th:text="${p.id}"></div>
@@ -49,6 +49,7 @@
                 <!--<div><div  style="float: left">商品状态:</div><div  th:text="${p.pStatus}" ></div></div>-->
                 <div><div  style="float: left">商品描述:</div><div th:title="${p.pDesc}"  th:text="${p.pDesc}" style="text-overflow:ellipsis;width: 100px; overflow: hidden;white-space:nowrap;"></div></div>
             </div>
+            </a>
         </div>
     </div>
 </div>

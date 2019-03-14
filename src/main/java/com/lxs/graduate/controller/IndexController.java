@@ -21,7 +21,7 @@ public class IndexController {
     @Autowired
     ProductService productService=new ProductServiceImpl();
 
-
+//
 //    @GetMapping("/index")
 //    public String toIndex(ModelMap model){
 //        List<Product> lists= productService.findAllProduct();

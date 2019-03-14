@@ -40,7 +40,8 @@
                 <!-- 显示在拍商品信息 -->
                 <img th:src="${p.pImg}" style="width:130px;height:150px;" ></img><br>
                 <div><div  th:text="${p.pName}"  style="float: left"></div>&nbsp;&nbsp;
-                    <a th:href="@{/cart/add(productId=${p.id},num=1)}" > <span class="glyphicon glyphicon-shopping-cart"></span></a></div>
+                    <!--<a th:href="@{/cart/add(productId=${p.id},num=1)}" > <span class="glyphicon glyphicon-shopping-cart"></span></a>-->
+                </div>
                 <div class="hidden" th:text="${p.pType}">商品类型:</div>
                 <div class="hidden" th:text="${p.userId}"></div>
                 <div class="hidden" th:text="${p.id}"></div>

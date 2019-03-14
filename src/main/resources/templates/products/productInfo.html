@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -24,11 +25,12 @@
                     <img th:src="${p.pImg}" style="width:200px;height:250px;" ></img>
                 </div>
                 <div class="col-md-4 col-md-offset-2 ">
-                    <a><div >卖家：[[${seller}]]</div></a><br>
+                    <a th:href="@{/user/hisProduct(sell_id=${p.userId})}"><div >卖家：[[${seller}]]</div></a><br>
                     <div  th:text="${p.pName}" ></div><br>
+                    <div>状态：[[${p.pStatus}]]<div  name="status"  th:text="${p.pStatus}"  id="status" class="hidden"></div></div><br>
                     <div><div  style="float: left">价格:</div><div  th:text="${p.pPrice}"></div></div><br>
                     <div><div  style="float: left">商品描述:</div><div th:title="${p.pDesc}"  th:text="${p.pDesc}"></div></div><br>
-                    <div><ul class="list-unstyled form-inline" >
+                    <div><ul class="list-unstyled form-inline" id="operator">
                         <li class="form-group"><button class="btn btn-default"><a th:href="@{/cart/add(productId=${p.id},num=${p.pStock})}" >添加到购物车</a></button></li>
                         <li class="form-group"><button class="btn btn-default"><a th:href="@{/order/toOrder(pId=${p.id},orderNum=${p.pStock},price=${p.pPrice})}" >直接下单</a></button></li>
                     </ul></div>
@@ -42,4 +44,11 @@
 
 
 </body>
+<script>
+    $(document).ready(function() {
+        if($("#status").text() == '下架'){
+        $("#operator").hide();
+    }
+    });
+</script>
 </html>

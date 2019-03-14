@@ -1,6 +1,7 @@
 package com.lxs.graduate.controller;
 
 
+import com.lxs.graduate.entity.Msg;
 import com.lxs.graduate.entity.Order;
 import com.lxs.graduate.entity.Product;
 import com.lxs.graduate.entity.User;
@@ -110,9 +111,11 @@ public class UserController {
     }
 
     @RequestMapping("/updateUserInfo")
-    public String update(User user){
+    public String update(User user,ModelMap model){
         userService.updateUser(user);
-        return "index";
+        Msg msg=new Msg("用户信息修改","用户信息成功",null);
+        model.addAttribute("message",msg);
+        return "notices";
     }
 
     @RequestMapping("/getOrderByBuyId")
@@ -139,5 +142,13 @@ public class UserController {
         return "/users/unfinishedOrder";
     }
 
+
+
+    @GetMapping("/hisProduct")
+    public String hisProduct(@RequestParam Integer sell_id, ModelMap model){
+        List<Product> lists= productService.findProductByUserId(sell_id);
+        model.addAttribute("productLists",lists);
+        return "users/hisProduct";
+    }
 
 }

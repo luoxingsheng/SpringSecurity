@@ -85,7 +85,6 @@ public class OrderController {
     public String finishOrder(@RequestParam Long id, ModelMap model){
         Order order=orderService.findOrderById(id);
         orderService.updateOrder(order);
-        order.setOrderStatus("交易成功");
         Msg msg=new Msg("支付信息","交易成功",null);
         model.addAttribute("message",msg);
         return "notices";
