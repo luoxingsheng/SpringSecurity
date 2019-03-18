@@ -17,69 +17,115 @@ import org.springframework.security.web.access.DefaultWebInvocationPrivilegeEval
 /**
  * Created by sang on 16-12-22.
  */
-@Configuration
-@EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+//@Configuration
+//@EnableWebSecurity
+//public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    UserDetailsService customUserService(){ //注册UserDetailsService 的bean
-        return new CustomUserService();
-    }
+//    @Bean
+//    UserDetailsService customUserService(){ //注册UserDetailsService 的bean
+//        return new CustomUserService();
+//    }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                //设置拦截规则
-                .antMatchers("/index","/ ","/css/**","/js/**","/img/**","/register","/redis/**")
-                .permitAll()
-                .antMatchers("/user/**","/order/**","/cart/**","/product/**").hasRole("USER")
-//                .anyRequest()
-//                .authenticated()
-                .and()
-                //开启默认登录页面
-                .formLogin()
-                //默认登录页面
-                .loginPage("/login")
-                .failureUrl("/login?error")
-                //默认登录成功跳转页面
-                .defaultSuccessUrl("/")
-                .permitAll()
-                .and()
-                //设置注销
-                .logout()
-                .logoutSuccessUrl("/")
-                .permitAll()
-                .and()
-                .rememberMe()
-                .and()
-                .csrf().disable();
-    }
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                //设置拦截规则
+//                .antMatchers("/index","/ ","/css/**","/js/**","/img/**","/register","/redis/**","/websocket/**")
+//                .permitAll()
+//                .antMatchers("/user/**","/order/**","/cart/**","/product/**").hasRole("USER")
+////                .anyRequest()
+////                .authenticated()
+//                .and()
+//                //开启默认登录页面
+//                .formLogin()
+//                //默认登录页面
+//                .loginPage("/login")
+//                .failureUrl("/login?error")
+//                //默认登录成功跳转页面
+//                .defaultSuccessUrl("/chat")
+//                .permitAll()
+//                .and()
+//                //设置注销
+//                .logout()
+//                .logoutSuccessUrl("/")
+//                .permitAll()
+//                .and()
+//                .rememberMe()
+//                .and()
+//                .csrf().disable();
+//    }
+//
+//    //4在内存中配置两个用户 wyf 和 wisely ,密码和用户名一致,角色是 USER
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth
+//                .inMemoryAuthentication()
+//                .withUser("admin").password("admin ").roles("USER")
+//                .and()
+//                .withUser("lxs").password("lxs").roles("USER");
+//    }
+
 
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("admin").password(new BCryptPasswordEncoder().encode("admin")).roles("USER");
+//        auth.userDetailsService(customUserService()).passwordEncoder(new PasswordEncoder(){
+//
+//            @Override
+//            public String encode(CharSequence rawPassword) {
+//                return MD5Util.encode((String)rawPassword);
+//            }
+//
+//            @Override
+//            public boolean matches(CharSequence rawPassword, String encodedPassword) {
+//                return encodedPassword.equals(MD5Util.encode((String)rawPassword));
+//            }}); //users Details Service验证
 //    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserService()).passwordEncoder(new PasswordEncoder(){
-
-            @Override
-            public String encode(CharSequence rawPassword) {
-                return MD5Util.encode((String)rawPassword);
-            }
-
-            @Override
-            public boolean matches(CharSequence rawPassword, String encodedPassword) {
-                return encodedPassword.equals(MD5Util.encode((String)rawPassword));
-            }}); //users Details Service验证
-    }
 
 //    @Override
 //    public void configure(WebSecurity web) throws Exception {
 //        //解决静态资源被拦截的问题
 //        web.ignoring().antMatchers("/css/**","/js/**");
 //    }
+//
+//}
 
+
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/","/login").permitAll()//根路径和/login路径不拦截
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login") //2登陆页面路径为/login
+                .defaultSuccessUrl("/chat") //3登陆成功转向chat页面
+                .permitAll()
+                .and()
+                .logout()
+                .permitAll();
+    }
+
+    //4在内存中配置两个用户 wyf 和 wisely ,密码和用户名一致,角色是 USER
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.
+                inMemoryAuthentication()
+                .passwordEncoder(new BCryptPasswordEncoder())
+                .withUser("lxs").password(new BCryptPasswordEncoder().encode("lxs")).roles("USER")
+                .and()
+                .withUser("admin").password(new BCryptPasswordEncoder().encode("admin")).roles("USER");
+
+
+    }
+    //5忽略静态资源的拦截
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/css/**","/js/**");
+    }
 
 }
+

@@ -10,9 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GraduateApplication {
 
 
-
-
-
     public static void main(String[] args) {
         SpringApplication.run(GraduateApplication.class, args);
     }
