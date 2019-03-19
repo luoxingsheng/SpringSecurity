@@ -10,14 +10,9 @@
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
-    <style>
-        .left-div{
-            float: left;
-        }
-    </style>
 </head>
 <body>
-<nav class="navbar   navbar-default" role="navigation" th:fragment="userNavbar">
+<nav class="navbar   navbar-default" role="navigation">
     　　<div class="container-fluid">　　
     　　　<div class="navbar-header">　　　
         <button class="navbar-toggle" data-toggle="collapse" data-target="#collapse1">
@@ -28,9 +23,9 @@
         </button>
         　　  <a class="navbar-brand" th:href="@{/}">买买买<span class="icon fa fa-home"></span></a>
     </div>
-    <div class="collapse navbar-collapse " id="collapse1">
+    <div class="collapse navbar-collapse  pull-right" id="collapse1">
         <ul class="nav  nav-pills">
-            <li ><a  th:href="@{/user/toUser}">个人信息</a></li>
+            <li ><a th:href="@{/ws/chat(sellId=${sellId})}">联系卖家</a></li>
             <li>
                 <a class="dropdown-toggle " data-toggle="dropdown" th:href="@{/}">我的订单<span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
@@ -39,20 +34,22 @@
                     <li><a th:href="@{/user/getUnfinishedOrders}">待确认订单</a></li>
                 </ul>
             </li>
-            <li ><a th:href="@{/user/toMyProduct}">我的商品</a></li>
-            <li ><a th:href="@{/user/toUpload}">上传商品</a></li>
             <li ><a th:href="@{/cart/getCartList}">我的购物车</a></li>
-            <li ><a th:href="@{/user/toUserImg}">更换头像</a></li>
-            <li sec:authorize="isAuthenticated()" class="pull-right">
+            <li sec:authorize="isAuthenticated()" class="">
                 <a  th:href="@{/logout}">注销</a>
             </li>
         </ul>
     </div>
 </div>
 </nav>
-</div>
+
+
+
 <div class="container">
-    <div  th:each="p:${productLists}">
+    <div class=" panel panel-default">
+    <div  class="panel-heading"><h2>卖家的店铺信息</h2></div><br>
+        <div class="panel-body">
+    <div  th:each="p:${productLists}"  >
         <a th:href="@{/product/toProductInfo(id=${p.id})}">
         <div class="col-md-2 div-square panel panel-default" style="height: 270px;margin-right: 30px;">
             <img th:src="${p.pImg}" style="width:130px;height:150px;" ></img><br>
@@ -67,9 +64,9 @@
         </div>
         </a>
     </div>
-
+        </div>
+    </div>
 </div>
 
 </body>
-
 </html>

@@ -1,6 +1,7 @@
 package com.lxs.graduate.controller;
 
 import com.lxs.graduate.entity.User;
+import com.lxs.graduate.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 
 @Controller
+@RequestMapping("/ws")
 public class WsController {
+
+    @Autowired
+    UserService userService;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -26,6 +32,22 @@ public class WsController {
         try {
             logger.info("跳转到websocket的页面上");
             model.addAttribute("username", user.getUsername());
+            return "websocket";
+        } catch (Exception e) {
+            logger.info("跳转到websocket的页面上发生异常，异常信息是：" + e.getMessage());
+            return "error";
+        }
+
+    }
+
+    @RequestMapping("/chat")
+    public String chat( @RequestParam Integer sellId, Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String hisName = userService.getUserById(sellId).getUsername();
+        try {
+            logger.info("跳转到websocket的页面上");
+            model.addAttribute("hisName",hisName);
+            model.addAttribute("myName", user.getUsername());
             return "websocket";
         } catch (Exception e) {
             logger.info("跳转到websocket的页面上发生异常，异常信息是：" + e.getMessage());

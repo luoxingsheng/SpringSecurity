@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>聊天</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/sockjs.min.js}"></script>
+    <script th:src="@{/js/stomp.min.js}"></script>
+    <script th:src="@{/js/jquery.js}"></script>
+</head>
+
+<body>
+<nav class="navbar   navbar-default" role="navigation" >
+    　　<div class="container-fluid">　　
+    　　　<div class="navbar-header">　　　
+        <button class="navbar-toggle" data-toggle="collapse" data-target="#collapse1">
+            <span class="sr-only"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        　　  <a class="navbar-brand" th:href="@{/}">买买买<span class="icon fa fa-home"></span></a>
+    </div>
+    <div class="collapse navbar-collapse  pull-right" id="collapse1">
+        <ul class="nav  nav-pills">
+            <li sec:authorize="isAuthenticated()" class="">
+                <a  th:href="@{/logout}">注销</a>
+            </li>
+        </ul>
+    </div>
+</div>
+</nav>
+
+<div style="margin: auto;text-align: center">
+    <h1>和卖家谈谈吧</h1>
+</div>
+<br/>
+<div style="margin: auto;text-align: center">
+    <input id="text" type="text" />
+    <button onclick="send()">发送消息</button>
+</div>
+<br>
+<hr/>
+<div id="message" style="text-align: center;"></div>
+<input  type="text" th:value="${myName}" id="username" style="display: none" />
+<input  type="text" th:value="${hisName}" id="hisname" style="display: none" />
+</body>
+
+
+<script type="text/javascript">
+    var webSocket;
+    var commWebSocket;
+    if ("WebSocket" in window)
+    {
+        webSocket = new WebSocket("ws://localhost:8080/ws/chat"+document.getElementById('username').value);
+
+        //连通之后的回调事件
+        webSocket.onopen = function()
+        {
+            //webSocket.send( document.getElementById('username').value+"已经上线了");
+            console.log("已经连通了websocket");
+            setMessageInnerHTML("已经连通了websocket");
+        };
+
+        //接收后台服务端的消息
+        webSocket.onmessage = function (evt) {
+            var received_msg = evt.data;
+            console.log("数据已接收:" + received_msg);
+            var obj = JSON.parse(received_msg);
+            console.log("可以解析成json:" + obj.messageType);
+            //1代表上线 2代表下线 3代表在线名单 4代表普通消息
+        }
+    //将消息显示在网页上
+    function setMessageInnerHTML(innerHTML) {
+        document.getElementById('message').innerHTML += innerHTML + '<br/>';
+    }
+
+
+    function send() {
+        var selectText = $("#hisname").text();
+            setMessageInnerHTML(document.getElementById('username').value+"对"+selectText+"说："+ $("#text").val());
+
+        var message = {
+            "message":document.getElementById('text').value,
+            "username":document.getElementById('username').value,
+            "to":selectText
+        };
+        webSocket.send(JSON.stringify(message));
+        $("#text").val("");
+
+    }
+</script>
+
+</html>
