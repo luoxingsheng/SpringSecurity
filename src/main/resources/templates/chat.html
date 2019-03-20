@@ -33,64 +33,113 @@
     </div>
 </div>
 </nav>
+<div class="container">
+    <div class="col-md-offset-5">
+        <h1>和卖家谈谈吧</h1>
+    </div>
 
-<div style="margin: auto;text-align: center">
-    <h1>和卖家谈谈吧</h1>
+    <div class="col-md-3 panel panel-default">
+        <div class="panel-heading"><p>买家信息</p></div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item">小明</li>
+                <li class="list-group-item">小明</li>
+                <li class="list-group-item">小明</li>
+                <li class="list-group-item">小明</li>
+                <li class="list-group-item">小明</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-8  pre-scrollable panel panel-default" style="height: 50%;">
+        <div class="panel-body">
+            <div id="sendMessage"  class="pull-left ">
+
+            </div><br/>
+            <div id="receiveMessage"  class="pull-right ">
+
+            </div>
+        </div>
+
+    </div>
+
 </div>
-<br/>
+
+
+
+<input  type="text" th:value="${myName}" id="username" style="display: none" />
+<input  type="text" th:value="${hisName}" id="hisname" style="display: none" />
+<br>
+<hr/>
 <div style="margin: auto;text-align: center">
     <input id="text" type="text" />
     <button onclick="send()">发送消息</button>
 </div>
-<br>
-<hr/>
-<div id="message" style="text-align: center;"></div>
-<input  type="text" th:value="${myName}" id="username" style="display: none" />
-<input  type="text" th:value="${hisName}" id="hisname" style="display: none" />
 </body>
-
 
 <script type="text/javascript">
     var webSocket;
     var commWebSocket;
-    if ("WebSocket" in window)
-    {
-        webSocket = new WebSocket("ws://localhost:8080/ws/chat"+document.getElementById('username').value);
+
+    function getFormatDate(){
+        var nowDate = new Date();
+        var year = nowDate.getFullYear();
+        var month = nowDate.getMonth() + 1 < 10 ? "0" + (nowDate.getMonth() + 1) : nowDate.getMonth() + 1;
+        var date = nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate.getDate();
+        var hour = nowDate.getHours()< 10 ? "0" + nowDate.getHours() : nowDate.getHours();
+        var minute = nowDate.getMinutes()< 10 ? "0" + nowDate.getMinutes() : nowDate.getMinutes();
+        var second = nowDate.getSeconds()< 10 ? "0" + nowDate.getSeconds() : nowDate.getSeconds();
+        return year + "-" + month + "-" + date+" "+hour+":"+minute+":"+second;
+    }
+
+    if ("WebSocket" in window) {
+        webSocket = new WebSocket("ws://localhost:8080/websocket/"+document.getElementById('username').value);
 
         //连通之后的回调事件
-        webSocket.onopen = function()
-        {
-            //webSocket.send( document.getElementById('username').value+"已经上线了");
-            console.log("已经连通了websocket");
-            setMessageInnerHTML("已经连通了websocket");
+        webSocket.onopen = function () {
         };
+
+
+
+
 
         //接收后台服务端的消息
         webSocket.onmessage = function (evt) {
             var received_msg = evt.data;
-            console.log("数据已接收:" + received_msg);
             var obj = JSON.parse(received_msg);
-            console.log("可以解析成json:" + obj.messageType);
-            //1代表上线 2代表下线 3代表在线名单 4代表普通消息
+            if(obj.messageType==4) {
+                receiveMessageInnerHTML(obj.sendTime + obj.fromusername + "说" +'<br/>'+ obj.textMessage);
+            }
         }
-    //将消息显示在网页上
-    function setMessageInnerHTML(innerHTML) {
-        document.getElementById('message').innerHTML += innerHTML + '<br/>';
-    }
+
+        //将消息显示在网页上
+        function sendMessageInnerHTML(innerHTML) {
+            document.getElementById('sendMessage').innerHTML += innerHTML + '<br/><br/>';
+        }
+
+        //将消息显示在网页上
+        function receiveMessageInnerHTML(innerHTML) {
+            document.getElementById('receiveMessage').innerHTML += innerHTML + '<br/><br/>';
+        }
 
 
-    function send() {
-        var selectText = $("#hisname").text();
-            setMessageInnerHTML(document.getElementById('username').value+"对"+selectText+"说："+ $("#text").val());
+        function send() {
+            var selectText = $("#hisname").val();
+            var str = getFormatDate();
+            var sendMessage = " ";
+            send = "<div></div>"
+            sendMessageInnerHTML(str+" "+document.getElementById('username').value + "说：" +'<br/>'+ $("#text").val());
 
-        var message = {
-            "message":document.getElementById('text').value,
-            "username":document.getElementById('username').value,
-            "to":selectText
-        };
-        webSocket.send(JSON.stringify(message));
-        $("#text").val("");
+            var message = {
+                "sendtime": str,
+                "message": document.getElementById('text').value,
+                "username": document.getElementById('username').value,
+                "to": selectText
+            };
+            webSocket.send(JSON.stringify(message));
+            $("#text").val("");
 
+        }
     }
 </script>
 

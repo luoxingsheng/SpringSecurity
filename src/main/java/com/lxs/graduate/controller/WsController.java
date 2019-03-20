@@ -32,7 +32,7 @@ public class WsController {
         try {
             logger.info("跳转到websocket的页面上");
             model.addAttribute("username", user.getUsername());
-            return "websocket";
+            return "websockets";
         } catch (Exception e) {
             logger.info("跳转到websocket的页面上发生异常，异常信息是：" + e.getMessage());
             return "error";
@@ -45,15 +45,20 @@ public class WsController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String hisName = userService.getUserById(sellId).getUsername();
         try {
-            logger.info("跳转到websocket的页面上");
+            logger.info("跳转到聊天页面上");
             model.addAttribute("hisName",hisName);
             model.addAttribute("myName", user.getUsername());
-            return "websocket";
+            return "chat";
         } catch (Exception e) {
             logger.info("跳转到websocket的页面上发生异常，异常信息是：" + e.getMessage());
             return "error";
         }
 
+    }
+
+    @RequestMapping("/toChat")
+    public String toChat(){
+        return "chat";
     }
 }
 

@@ -118,12 +118,14 @@ public class WebSocket {
         try {
             logger.info("来自客户端消息：" + message+"客户端的id是："+session.getId());
             JSONObject jsonObject = JSON.parseObject(message);
+            String sendtime = jsonObject.getString("sendtime");
             String textMessage = jsonObject.getString("message");
             String fromusername = jsonObject.getString("username");
             String tousername = jsonObject.getString("to");
             //如果不是发给所有，那么就发给某一个人
             //messageType 1代表上线 2代表下线 3代表在线名单  4代表普通消息
             Map<String,Object> map1 = new HashMap<String,Object>();
+            map1.put("sendTime",sendtime);
             map1.put("messageType",4);
             map1.put("textMessage",textMessage);
             map1.put("fromusername",fromusername);
