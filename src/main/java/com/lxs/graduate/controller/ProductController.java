@@ -8,6 +8,7 @@ import com.lxs.graduate.service.ProductServiceImpl;
 import com.lxs.graduate.service.UserService;
 import com.lxs.graduate.util.DateUtil;
 import com.lxs.graduate.util.FileUtil;
+import com.lxs.graduate.util.FtpFileUtil;
 import com.lxs.graduate.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -42,6 +44,9 @@ public class ProductController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    FtpFileUtil ftpFileUtil;
+
     @PostMapping("/uploadProduct")
     public String uploadProduct(@RequestParam("pImg") MultipartFile file,
                                  @RequestParam String pName,
@@ -52,7 +57,8 @@ public class ProductController {
                                  ModelMap model) throws FileNotFoundException, IOException, ParseException {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String fileName = util.getUuid()+".jpg";
-        String path="/img/productImg/"+fileName;
+        InputStream inputStream=file.getInputStream();
+        String path="/www/wwwroot/lxs/"+fileName;
         java.sql.Date now= new java.sql.Date(new Date().getTime());
         Product product=new Product();
         product.setUserId(user.getId());
@@ -65,7 +71,8 @@ public class ProductController {
         product.setpTime(now);
         product.setpStatus("上架中");//状态待审核
         try {
-            FileUtil.uploadFile(file.getBytes(), location, fileName);
+             FtpFileUtil.uploadFile(fileName,inputStream);
+
         } catch (Exception e) {
             // TODO: handle exception
         }
