@@ -21,7 +21,7 @@ public class FtpFileUtil {
     //密码
     private static final String FTP_PASSWORD = "123456";
     //图片路径
-    private static final String FTP_BASEPATH = "/www/wwwroot/lxs/";
+    private static final String FTP_BASEPATH = "/www/img/";
 
     public  static boolean uploadFile(String originFileName,InputStream input){
         boolean success = false;

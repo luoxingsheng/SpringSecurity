@@ -58,7 +58,7 @@ public class ProductController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String fileName = util.getUuid()+".jpg";
         InputStream inputStream=file.getInputStream();
-        String path="/www/wwwroot/lxs/"+fileName;
+        String path="http://47.107.133.187:8080/img/"+fileName;
         java.sql.Date now= new java.sql.Date(new Date().getTime());
         Product product=new Product();
         product.setUserId(user.getId());
