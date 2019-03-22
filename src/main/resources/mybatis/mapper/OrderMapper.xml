@@ -194,8 +194,7 @@
     select
     <include refid="Base_Column_List" />
     from tb_order
-    where buy_id=#{id,jdbcType=INTEGER} and order_status='待交易'
-  </select>
+    where buy_id=#{id,jdbcType=INTEGER} and order_status='待交易'</select>
 
   <select id="findAllOrders" resultMap="BaseResultMap">
     select

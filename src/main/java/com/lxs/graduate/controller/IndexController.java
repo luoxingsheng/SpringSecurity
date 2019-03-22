@@ -21,6 +21,10 @@ public class IndexController {
     @Autowired
     ProductService productService=new ProductServiceImpl();
 
+    @RequestMapping("/words")
+    public String words(){
+        return "/words";
+    }
 //
 //    @GetMapping("/index")
 //    public String toIndex(ModelMap model){

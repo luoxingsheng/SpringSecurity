@@ -1,5 +1,6 @@
 package com.lxs.graduate.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.lxs.graduate.entity.Msg;
 import com.lxs.graduate.entity.Product;
 import com.lxs.graduate.entity.User;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,7 +58,8 @@ public class ProductController {
                                  @RequestParam String pDesc,
                                  ModelMap model) throws FileNotFoundException, IOException, ParseException {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String fileName = util.getUuid()+".jpg";
+        String[] names = file.getOriginalFilename().split("\\.");
+        String fileName = util.getUuid()+names[1];
         InputStream inputStream=file.getInputStream();
         String path="http://47.107.133.187:8080/img/"+fileName;
         java.sql.Date now= new java.sql.Date(new Date().getTime());
@@ -113,6 +116,7 @@ public String toUpdate(@RequestParam Integer id,ModelMap model){
         String seller=userService.getUserById(product.getUserId()).getUsername();
         model.addAttribute("pro",product);
         model.addAttribute("seller",seller);
+        Object pro = JSONObject.toJSON(model);
         return "products/productInfo";
     }
 

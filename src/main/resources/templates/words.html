@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>登录</title>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>留言板</h1>
+        <p>所有留言</p>
+    </div>
+    <div id="wordArea"></div>
+    <div>
+        <h2>留言</h2>
+        <input type="text" class="form-control s-margin-1" placeholder="标题" id="title">
+        <textarea class="form-control s-margin-1" placeholder="内容" rows="3" id="content"></textarea>
+        <button class="btn btn-primary s-margin-1" type="submit" onclick="leaveWord()">提交</button>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script type="application/javascript">
+
+    initWords();
+    function initWords() {
+        var response;
+        $.ajax({
+            async : false,
+            type : 'POST',
+            url :  "/evaluate/getEvaluates",
+            data : {'pId':'2'},
+            dataType : 'json',
+            success : function(data) {
+                var arr=data.words;
+                var html = "";
+                for(var i=0;i<data.words.length;i++){
+                    var title=arr[i].title;
+                    var content=arr[i].message;
+                    html+='<div class="s-margin-2">'+title+'</div>'+
+                        '        <hr>'+
+                        '        <div>'+content+'</div>';
+                }
+                document.getElementById("wordArea").innerHTML = html;
+            },
+            error : function(data) {
+                alert('服务器异常');
+            }
+        });
+
+    }
+
+    function leaveWord() {
+        var word = {};
+        word.title = document.getElementById("title").value;
+        word.content = document.getElementById("content").value;
+        word.pId = "2"
+        var response;
+        $.ajax({
+            async : false,
+            type : 'POST',
+            url : "http://localhost:8080/evaluate/addEvaluate",
+            data : word,
+            dataType : 'json',
+            success : function(data) {
+                alert(data.messages);
+                document.getElementById("wordArea").innerHTML += '<h2 class="s-margin-2">'+word.title+'</h2>'+
+                    '        <hr>'+
+                    '        <h5>'+word.content+'</h5>';
+            },
+            error : function(result) {
+                alert('服务器异常');
+            }
+        });
+
+
+    }
+</script>
+</body>
+</html>

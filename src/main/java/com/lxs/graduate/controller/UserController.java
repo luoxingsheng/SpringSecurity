@@ -7,6 +7,7 @@ import com.lxs.graduate.entity.Product;
 import com.lxs.graduate.entity.User;
 import com.lxs.graduate.service.*;
 import com.lxs.graduate.util.FileUtil;
+import com.lxs.graduate.util.FtpFileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -96,12 +98,14 @@ public class UserController {
         String contentType = file.getContentType();
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String fileName = sdf.format(d)+"-"+username+".jpg";
-        String path="/img/userImg/"+fileName;
+        String[] names = file.getOriginalFilename().split("\\.");
+        String fileName = sdf.format(d)+"-"+username+names[1];
+        String path="http://47.107.133.187:8080/img/"+fileName;
+        InputStream inputStream=file.getInputStream();
         u.setIcon(path);
         userService.updateUserImg(u);
         try {
-            FileUtil.uploadFile(file.getBytes(), location, fileName);
+            FtpFileUtil.uploadFile(fileName,inputStream);
         } catch (Exception e) {
             // TODO: handle exception
         }

@@ -17,4 +17,15 @@ public class FileUtil {
         out.close();
     }
 
+
+        public static void main(String[] args) {
+            String value = "lxs.png";
+            // 注意要加\\,要不出不来,yeah
+            String[] names = value.split("\\.");
+            for (int i = 0; i < names.length; i++) {
+                System.out.println(names[1]);
+            }
+        }
+
+
 }
