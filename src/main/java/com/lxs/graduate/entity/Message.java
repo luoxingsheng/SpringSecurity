@@ -1,13 +1,78 @@
 package com.lxs.graduate.entity;
 
-/**
- * Created by yangyibo on 16/12/29.
- * 浏览器向服务器发送的消息使用此类接受
- */
-public class Message {
-    private String name;
+import java.util.Date;
 
-    public String getName(){
-        return name;
+public class Message {
+    private Integer mId;
+
+    private String fromUser;
+
+    private String toUser;
+
+    private String content;
+
+    private Date createTime;
+
+    private Integer istransport;
+
+    public Message(Integer mId, String fromUser, String toUser, String content, Date createTime, Integer istransport) {
+        this.mId = mId;
+        this.fromUser = fromUser;
+        this.toUser = toUser;
+        this.content = content;
+        this.createTime = createTime;
+        this.istransport = istransport;
+    }
+
+    public Message() {
+        super();
+    }
+
+    public Integer getmId() {
+        return mId;
+    }
+
+    public void setmId(Integer mId) {
+        this.mId = mId;
+    }
+
+    public String getFromUser() {
+        return fromUser;
+    }
+
+    public void setFromUser(String fromUser) {
+        this.fromUser = fromUser == null ? null : fromUser.trim();
+    }
+
+    public String getToUser() {
+        return toUser;
+    }
+
+    public void setToUser(String toUser) {
+        this.toUser = toUser == null ? null : toUser.trim();
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getIstransport() {
+        return istransport;
+    }
+
+    public void setIstransport(Integer istransport) {
+        this.istransport = istransport;
     }
 }

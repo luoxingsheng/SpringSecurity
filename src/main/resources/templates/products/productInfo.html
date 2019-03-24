@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
@@ -20,11 +21,11 @@
             <div class="panel-heading"><h2 class="panel-title">商品信息</h2></div>
                 <!-- 显示在拍商品信息 -->
             <div class=" panel-body">
-                <div class="col-md-2 col-md-offset-2 ">
+                <div class="col-md-8 col-md-offset-2 ">
                     <img th:src="${p.pImg}" style="width:200px;height:250px;" ></img>
                 </div>
                 <div class="col-md-4 col-md-offset-2 ">
-                    <div  th:text="${p.id}" class="hidden" id="pId"></div><br>
+                    <input  th:value="${p.id}" class="hidden" id="pId"></input><br>
                     <a th:href="@{/user/hisProduct(sell_id=${p.userId})}"><div >卖家：[[${seller}]]</div></a><br>
                     <div  th:text="${p.pName}" ></div><br>
                     <div>状态：[[${p.pStatus}]]<div  name="status"  th:text="${p.pStatus}"  id="status" class="hidden"></div></div><br>
@@ -35,14 +36,17 @@
                         <li class="form-group"><button class="btn btn-default"><a th:href="@{/order/toOrder(pId=${p.id},orderNum=${p.pStock},price=${p.pPrice})}" >直接下单</a></button></li>
                     </ul></div>
                 </div>
+
                 <hr>
-                <div class="col-md-3 text-center">
-                    <h3>评论</h3>
-                </div>
-                <div id="wordArea"></div>
-                <div>
-                    <textarea  placeholder="内容" rows="3" id="content"></textarea>
-                    <button class="btn btn-primary " type="submit" id="evaluate">提交</button>
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <h3>评论</h3>
+                    </div>
+                    <div id="wordArea"></div><hr>
+                    <div>
+                        <input  placeholder="内容"  id="content"></input>
+                        <button class="btn btn-primary " type="submit" onclick="leaveWord()">提交</button>
+                    </div>
                 </div>
             </div>
 
@@ -52,6 +56,58 @@
 
 
 <script >
+
+    initWords();
+    function initWords() {
+        var word = {};
+        word.pId=document.getElementById("pId").value;
+        $.ajax({
+            async : false,
+            type : 'POST',
+            url :  "/evaluate/getEvaluates",
+            data : word,
+            dataType : 'json',
+            success : function(data) {
+                var arr=data.words;
+                var html = "";
+                for(var i=0;i<data.words.length;i++){
+                    var title=arr[i].title;
+                    var content=arr[i].message;
+                    html+='<div class="s-margin-2">'+title+'</div>'+
+                        '        <div>'+content+'</div>'+'<hr>';
+                }
+                document.getElementById("wordArea").innerHTML = html;
+            },
+            error : function(data) {
+                alert('服务器异常');
+            }
+        });
+
+    }
+
+    function leaveWord() {
+        var word = {};
+        word.content = document.getElementById("content").value;
+        word.pId = document.getElementById("pId").value;
+        var response;
+        $.ajax({
+            async : false,
+            type : 'POST',
+            url : "/evaluate/addEvaluate",
+            data : word,
+            dataType : 'json',
+            success : function(data) {
+                alert(data.messages);
+                document.getElementById("wordArea").innerHTML += '<div class="s-margin-2">'+data.title+'</div>'+
+                    '        <div>'+word.content+'</div>'+'<hr>';
+            },
+            error : function(result) {
+                alert('服务器异常');
+            }
+        });
+
+
+    }
 
     $(document).ready(function() {
         if($("#status").text() == '下架'){

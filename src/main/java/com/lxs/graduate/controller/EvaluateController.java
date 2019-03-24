@@ -53,6 +53,7 @@ public class EvaluateController {
         evaluate.setMessage(content);
         evaluateService.addEvaluate(evaluate);
         Map<String,String> map=new HashMap<>();
+        map.put("title",evaluate.getTitle());
         map.put("messages","添加评论成功！");
          return map;
     }
