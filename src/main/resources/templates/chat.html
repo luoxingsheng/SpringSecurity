@@ -9,7 +9,7 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script th:src="@{/js/sockjs.min.js}"></script>
     <script th:src="@{/js/stomp.min.js}"></script>
-    <script th:src="@{/js/jquery.js}"></script>
+
 </head>
 
 <body>
@@ -41,9 +41,6 @@
     <div class="col-md-3 panel panel-default">
         <div class="panel-heading"><p>买家信息</p></div>
         <div class="panel-body" id="userlist">
-            <ul class="list-group" id="userList">
-
-            </ul>
         </div>
     </div>
 
@@ -75,21 +72,21 @@
 <script>
     initWords();
     function initWords() {
-
+        var username = document.getElementById('username').value;
             $.ajax({
             async : false,
             type : 'POST',
-            url :  "/message/findMessageByName",
+            url :  "/message/findList",
             data : null,
             dataType : 'json',
             success : function(data) {
                 var arr=data.userlist;
                 for(var i=0;i<data.userlist.length;i++){
                     var name=arr[i].toUser;
-                    $("#userList").append("<li>"+name+"</li>"+"<br>")
-                    // html+='<li>'+name+'</li>';
+                    if(name !== username)
+                    $("#userlist").append("<a onclick='getMessages(\"" + name+ "\")'  class='list-group-item'>"+name+"</a><br>")
+                console.log(name);
                 }
-                // document.getElementById("wordArea").innerHTML = html;
             },
             error : function(data) {
                 alert('服务器异常');
@@ -97,8 +94,65 @@
         });
 
     }
-</script>
-<script type="text/javascript">
+
+    function getMessages(name) {
+        var username = document.getElementById('username').value;
+        $.ajax({
+            async : false,
+            type : 'POST',
+            url :  "/message/findMessageByName",
+            data : {
+                "name":name
+            },
+            dataType : 'json',
+            success : function(data) {
+                var arr=data.messages;
+                for(var i=0;i<data.messages.length;i++){
+                    var fromUser = arr[i].fromusername;
+                    var m_title = arr[i].mTitle;
+                    var content = arr[i].content;
+                    if(fromUser === name) {
+                        document.getElementById("sendMessage").innerHTML += '<div >'+mTitle+'</div>'+
+                            '        <div>'+content+'</div>'+'<hr>';
+                    }else{
+                        document.getElementById("receiveMessage").innerHTML += '<div >'+mTitle+'</div>'+
+                            '        <div>'+content+'</div>'+'<hr>';
+                    }
+                }
+            },
+            error : function(data) {
+                alert('服务器异常');
+            }
+        });
+
+    }
+
+    function saveMessages() {
+        var to = $("#hisname").val();
+        var date = getFormatDate();
+        var content = document.getElementById('text').value;
+        var username = document.getElementById('username').value;
+        $.ajax({
+            // async : false,
+            type : 'POST',
+            url :  "/message/saveMessage",
+            data : {
+                "sendtime": date,
+                "message": content,
+                "username": username,
+                "to": to
+            },
+            dataType : 'json',
+            success : function(data) {
+                //alert("成功");
+            },
+            error : function(data) {
+                //alert('服务器异常');
+            }
+        });
+
+    }
+
     var webSocket;
     var commWebSocket;
 
@@ -142,10 +196,9 @@
 
 
         function send() {
+
             var selectText = $("#hisname").val();
             var str = getFormatDate();
-            var sendMessage = " ";
-            send = "<div></div>"
             sendMessageInnerHTML(str+" "+document.getElementById('username').value + "说：" +'<br/>'+ $("#text").val());
 
             var message = {
@@ -154,6 +207,7 @@
                 "username": document.getElementById('username').value,
                 "to": selectText
             };
+            saveMessages();
             webSocket.send(JSON.stringify(message));
             $("#text").val("");
 

@@ -29,7 +29,13 @@ public class MessageServiceImpl implements MessageService{
     }
 
     @Override
-    public List<Message> findMessageByName(String name) {
-        return messageMapper.findMessageByName(name);
+    public List<Message> findList(String name) {
+        return messageMapper.findList(name);
+    }
+
+
+    @Override
+    public List<Message> findMessageByName(String fromUser, String toUser) {
+        return messageMapper.findMessageByName(fromUser,toUser);
     }
 }

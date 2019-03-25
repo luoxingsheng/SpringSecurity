@@ -12,5 +12,7 @@ public interface MessageService {
 
     public int updateMessage(Message message);
 
-    public List<Message> findMessageByName(String name);
+    public List<Message> findList(String name);
+
+    public List<Message> findMessageByName(String fromUser,String toUser);
 }

@@ -20,5 +20,7 @@ public interface MessageMapper {
 
     int updateByPrimaryKey(Message record);
 
-    List<Message> findMessageByName(@Param("name")String name);
+    List<Message> findList(@Param("name")String name);
+
+    List<Message> findMessageByName(@Param("name1")String name1,@Param("name2")String name2);
 }

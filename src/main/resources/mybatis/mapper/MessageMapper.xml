@@ -6,13 +6,14 @@
       <idArg column="m_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="from_user" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="to_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="m_title" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="isTransport" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    m_id, from_user, to_user, content, create_time, isTransport
+    m_id, from_user, to_user, m_title, content, create_time, isTransport
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -26,11 +27,11 @@
   </delete>
   <insert id="insert" parameterType="com.lxs.graduate.entity.Message" >
     insert into message (m_id, from_user, to_user, 
-      content, create_time, isTransport
-      )
+      m_title, content, create_time, 
+      isTransport)
     values (#{mId,jdbcType=INTEGER}, #{fromUser,jdbcType=VARCHAR}, #{toUser,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{istransport,jdbcType=INTEGER}
-      )
+      #{mTitle,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{istransport,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.lxs.graduate.entity.Message" >
     insert into message
@@ -43,6 +44,9 @@
       </if>
       <if test="toUser != null" >
         to_user,
+      </if>
+      <if test="mTitle != null" >
+        m_title,
       </if>
       <if test="content != null" >
         content,
@@ -64,6 +68,9 @@
       <if test="toUser != null" >
         #{toUser,jdbcType=VARCHAR},
       </if>
+      <if test="mTitle != null" >
+        #{mTitle,jdbcType=VARCHAR},
+      </if>
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
       </if>
@@ -84,6 +91,9 @@
       <if test="toUser != null" >
         to_user = #{toUser,jdbcType=VARCHAR},
       </if>
+      <if test="mTitle != null" >
+        m_title = #{mTitle,jdbcType=VARCHAR},
+      </if>
       <if test="content != null" >
         content = #{content,jdbcType=VARCHAR},
       </if>
@@ -100,14 +110,23 @@
     update message
     set from_user = #{fromUser,jdbcType=VARCHAR},
       to_user = #{toUser,jdbcType=VARCHAR},
+      m_title = #{mTitle,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       isTransport = #{istransport,jdbcType=INTEGER}
     where m_id = #{mId,jdbcType=INTEGER}
   </update>
-  <select id="findMessageByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+  <select id="findMessageByName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from message
-    where from_user=#{name,jdbcType=VARCHAR} or to_user=#{name,jdbcType=VARCHAR}</select>
+    where (from_user=#{name1,jdbcType=VARCHAR} and to_user=#{name2,jdbcType=VARCHAR})
+    or (from_user=#{name2,jdbcType=VARCHAR} and to_user=#{name1,jdbcType=VARCHAR})</select>
+  <select id="findList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from message
+    where from_user=#{name,jdbcType=VARCHAR} or to_user=#{name,jdbcType=VARCHAR}
+    group by from_user
+    order by create_time desc</select>
 </mapper>

@@ -9,16 +9,19 @@ public class Message {
 
     private String toUser;
 
+    private String mTitle;
+
     private String content;
 
     private Date createTime;
 
     private Integer istransport;
 
-    public Message(Integer mId, String fromUser, String toUser, String content, Date createTime, Integer istransport) {
+    public Message(Integer mId, String fromUser, String toUser, String mTitle, String content, Date createTime, Integer istransport) {
         this.mId = mId;
         this.fromUser = fromUser;
         this.toUser = toUser;
+        this.mTitle = mTitle;
         this.content = content;
         this.createTime = createTime;
         this.istransport = istransport;
@@ -50,6 +53,14 @@ public class Message {
 
     public void setToUser(String toUser) {
         this.toUser = toUser == null ? null : toUser.trim();
+    }
+
+    public String getmTitle() {
+        return mTitle;
+    }
+
+    public void setmTitle(String mTitle) {
+        this.mTitle = mTitle == null ? null : mTitle.trim();
     }
 
     public String getContent() {

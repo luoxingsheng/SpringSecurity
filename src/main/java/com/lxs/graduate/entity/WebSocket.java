@@ -2,21 +2,16 @@ package com.lxs.graduate.entity;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.lxs.graduate.service.MessageService;
 import org.assertj.core.util.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,10 +22,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 @ServerEndpoint("/websocket/{username}")
 public class WebSocket {
-
-    @Autowired
-    MessageService messageService;
-
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
      * 在线人数
@@ -68,8 +59,7 @@ public class WebSocket {
             map1.put("messageType",1);
             map1.put("username",username);
             sendMessageAll(JSON.toJSONString(map1),username);
-            List<Message> messages=messageService.findMessageByName(username);
-//            连接时把与我聊天的人都查出来，按照时间倒叙
+
             //把自己的信息加入到map当中去
             clients.put(username, this);
             //给自己发一条消息：告诉自己现在都有谁在线
@@ -125,7 +115,6 @@ public class WebSocket {
     @OnMessage
     public void onMessage(String message, Session session)
     {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         try {
             logger.info("来自客户端消息：" + message+"客户端的id是："+session.getId());
             JSONObject jsonObject = JSON.parseObject(message);
@@ -135,13 +124,6 @@ public class WebSocket {
             String tousername = jsonObject.getString("to");
             //如果不是发给所有，那么就发给某一个人
             //messageType 1代表上线 2代表下线 3代表在线名单  4代表普通消息
-            Message message1=new Message();
-            message1.setFromUser(fromusername);
-            message1.setToUser(tousername);
-            message1.setContent(textMessage);
-            message1.setCreateTime(new Timestamp(System.currentTimeMillis()));
-            message1.setIstransport(0);
-            //1是已收到，0是未收到
             Map<String,Object> map1 = new HashMap<String,Object>();
             map1.put("sendTime",sendtime);
             map1.put("messageType",4);
