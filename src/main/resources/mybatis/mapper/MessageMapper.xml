@@ -121,12 +121,14 @@
     <include refid="Base_Column_List" />
     from message
     where (from_user=#{name1,jdbcType=VARCHAR} and to_user=#{name2,jdbcType=VARCHAR})
-    or (from_user=#{name2,jdbcType=VARCHAR} and to_user=#{name1,jdbcType=VARCHAR})</select>
+    or (from_user=#{name2,jdbcType=VARCHAR} and to_user=#{name1,jdbcType=VARCHAR})
+    order by create_time
+  </select>
   <select id="findList" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from message
-    where from_user=#{name,jdbcType=VARCHAR} or to_user=#{name,jdbcType=VARCHAR}
+    where (from_user=#{name,jdbcType=VARCHAR} or to_user=#{name,jdbcType=VARCHAR})
     group by from_user
     order by create_time desc</select>
 </mapper>

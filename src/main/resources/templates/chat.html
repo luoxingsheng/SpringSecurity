@@ -45,13 +45,13 @@
     </div>
 
     <div class="col-md-8  pre-scrollable panel panel-default" style="height: 50%;">
-        <div class="panel-body">
-            <div id="sendMessage"  class="pull-left ">
+        <div class="panel-body col-md-12">
+            <ul id="sendMessage" >
 
-            </div><br/>
-            <div id="receiveMessage"  class="pull-right ">
+            </ul><br/>
+            <!--<div id="receiveMessage"  class="pull-right  col-md-8">-->
 
-            </div>
+            <!--</div>-->
         </div>
 
     </div>
@@ -89,7 +89,7 @@
                 }
             },
             error : function(data) {
-                alert('服务器异常');
+                alert('暂时没有聊天的人，快去和店主沟通吧！');
             }
         });
 
@@ -108,15 +108,17 @@
             success : function(data) {
                 var arr=data.messages;
                 for(var i=0;i<data.messages.length;i++){
-                    var fromUser = arr[i].fromusername;
-                    var m_title = arr[i].mTitle;
+                    var fromUser = arr[i].fromUser;
+                    var mTitle = arr[i].mTitle;
                     var content = arr[i].content;
-                    if(fromUser === name) {
-                        document.getElementById("sendMessage").innerHTML += '<div >'+mTitle+'</div>'+
-                            '        <div>'+content+'</div>'+'<hr>';
+                    if(fromUser == username) {
+                        // document.getElementById("sendMessage").innerHTML += '<div >'+mTitle+'</div>'+
+                        //     '        <div>'+content+'</div>'+'<hr>';
+                        $("#sendMessage").append("<div class='pull-left text-left'>" + mTitle + '<br>' + content + "</div>"+"<br>");
                     }else{
-                        document.getElementById("receiveMessage").innerHTML += '<div >'+mTitle+'</div>'+
-                            '        <div>'+content+'</div>'+'<hr>';
+                        $("#sendMessage").append("<div class='pull-right text-right'>"+mTitle+"<br>"+content+"</div>"+"<br>");
+                        // document.getElementById("receiveMessage").innerHTML += '<div >'+mTitle+'</div>'+
+                        //     '        <div>'+content+'</div>'+'<hr>';
                     }
                 }
             },

@@ -44,7 +44,7 @@ public class MessageController {
     public void saveMessage(@RequestParam("sendtime") String sendTime,@RequestParam("message")String message,
                             @RequestParam("to")String to,@RequestParam("username")String username){
 
-        String title=sendTime+" "+message;
+        String title=sendTime+" "+username;
         Message message1=new Message();
         message1.setmTitle(title);
         message1.setContent(message);
