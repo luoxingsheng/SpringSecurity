@@ -127,8 +127,8 @@ public class WebSocket {
             Map<String,Object> map1 = new HashMap<String,Object>();
             map1.put("sendTime",sendtime);
             map1.put("messageType",4);
-            map1.put("textMessage",textMessage);
-            map1.put("fromusername",fromusername);
+            map1.put("content",textMessage);
+            map1.put("fromUser",fromusername);
             if(tousername.equals("All")){
                 map1.put("tousername","所有人");
                 sendMessageAll(JSON.toJSONString(map1),fromusername);

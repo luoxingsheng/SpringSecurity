@@ -45,11 +45,12 @@
     </div>
 
     <div class="col-md-8  pre-scrollable panel panel-default" style="height: 50%;">
-        <div class="panel-body col-md-12">
-            <ul id="sendMessage" >
+        <div class="panel-body">
+            <div id="showMessage"> </div>
+            <!--<div id="sendMessage"  class="pull-left">-->
 
-            </ul><br/>
-            <!--<div id="receiveMessage"  class="pull-right  col-md-8">-->
+            <!--</div>-->
+            <!--<div id="receiveMessage"  class="pull-right ">-->
 
             <!--</div>-->
         </div>
@@ -89,7 +90,7 @@
                 }
             },
             error : function(data) {
-                alert('暂时没有聊天的人，快去和店主沟通吧！');
+                alert('服务器异常');
             }
         });
 
@@ -111,14 +112,19 @@
                     var fromUser = arr[i].fromUser;
                     var mTitle = arr[i].mTitle;
                     var content = arr[i].content;
-                    if(fromUser == username) {
-                        // document.getElementById("sendMessage").innerHTML += '<div >'+mTitle+'</div>'+
-                        //     '        <div>'+content+'</div>'+'<hr>';
-                        $("#sendMessage").append("<div class='pull-left text-left'>" + mTitle + '<br>' + content + "</div>"+"<br>");
+
+                    if(fromUser === name) {
+                         var leftArrow = '<div class="pull-left">'+
+                             '<div>'+mTitle+'</div>'+
+                             '<div>'+content+'</div>'+
+                                 '</div>'+'<br><br>';
+                        $("#showMessage").append(leftArrow);
                     }else{
-                        $("#sendMessage").append("<div class='pull-right text-right'>"+mTitle+"<br>"+content+"</div>"+"<br>");
-                        // document.getElementById("receiveMessage").innerHTML += '<div >'+mTitle+'</div>'+
-                        //     '        <div>'+content+'</div>'+'<hr>';
+                        var rightArrow = '<div class="pull-right">'+
+                            '<div>'+mTitle+'</div>'+
+                            '<div>'+content+'</div>'+
+                            '</div>'+'<br><br>';
+                        $("#showMessage").append(rightArrow);
                     }
                 }
             },
@@ -181,33 +187,46 @@
         webSocket.onmessage = function (evt) {
             var received_msg = evt.data;
             var obj = JSON.parse(received_msg);
+            var mTitle = obj.sendTime + " " + obj.fromUser;
+            var content = obj.content;
             if(obj.messageType==4) {
-                receiveMessageInnerHTML(obj.sendTime + obj.fromusername + "说" +'<br/>'+ obj.textMessage);
+                receiveMessageInnerHTML(mTitle,content);
             }
         }
 
         //将消息显示在网页上
-        function sendMessageInnerHTML(innerHTML) {
-            document.getElementById('sendMessage').innerHTML += innerHTML + '<br/><br/>';
+        function sendMessageInnerHTML(mTitle,content) {
+            var rightArrow = '<div class="pull-right">'+
+                '<div>'+mTitle+'</div>'+
+                '<div>'+content+'</div>'+
+                '</div>'+'<br><br>';
+            $("#showMessage").append(rightArrow);
         }
 
         //将消息显示在网页上
-        function receiveMessageInnerHTML(innerHTML) {
-            document.getElementById('receiveMessage').innerHTML += innerHTML + '<br/><br/>';
+        function receiveMessageInnerHTML(mTitle,content) {
+            var leftArrow = '<div class="pull-left">'+
+                '<div>'+mTitle+'</div>'+
+                '<div>'+content+'</div>'+
+                '</div>'+'<br><br>';
+            $("#showMessage").append(leftArrow);
         }
 
 
         function send() {
 
-            var selectText = $("#hisname").val();
-            var str = getFormatDate();
-            sendMessageInnerHTML(str+" "+document.getElementById('username').value + "说：" +'<br/>'+ $("#text").val());
+            var to = $("#hisname").val();
+            var sendtime = getFormatDate();
+            var content = document.getElementById('text').value
+            var username = document.getElementById('username').value;
+            var mTitle = sendtime + " " + username;
+            sendMessageInnerHTML(mTitle,content);
 
             var message = {
-                "sendtime": str,
-                "message": document.getElementById('text').value,
-                "username": document.getElementById('username').value,
-                "to": selectText
+                "sendtime": sendtime,
+                "message": content,
+                "username": username,
+                "to": to
             };
             saveMessages();
             webSocket.send(JSON.stringify(message));
