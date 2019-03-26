@@ -57,7 +57,9 @@ public class WsController {
     }
 
     @RequestMapping("/toChat")
-    public String toChat(){
+    public String toChat(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("myName",user.getUsername());
         return "chat";
     }
 }

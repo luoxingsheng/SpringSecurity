@@ -62,7 +62,7 @@
 
 
 <input  type="text" th:value="${myName}" id="username" style="display: none" />
-<input  type="text" th:value="${hisName}" id="hisname" style="display: none" />
+<input  type="text" th:value="${hisName}" id="hisName" style="display: none" />
 <br>
 <hr/>
 <div style="margin: auto;text-align: center">
@@ -74,6 +74,7 @@
     initWords();
     function initWords() {
         var username = document.getElementById('username').value;
+        alert(username)
             $.ajax({
             async : false,
             type : 'POST',
@@ -86,7 +87,6 @@
                     var name=arr[i].toUser;
                     if(name !== username)
                     $("#userlist").append("<a onclick='getMessages(\"" + name+ "\")'  class='list-group-item'>"+name+"</a><br>")
-                console.log(name);
                 }
             },
             error : function(data) {
@@ -98,6 +98,8 @@
 
     function getMessages(name) {
         var username = document.getElementById('username').value;
+        // document.getElementById('hisName').innerHTML=name;
+        $("#hisName").attr("value",name);
         $.ajax({
             async : false,
             type : 'POST',
@@ -215,7 +217,7 @@
 
         function send() {
 
-            var to = $("#hisname").val();
+            var to = $("#hisName").val();
             var sendtime = getFormatDate();
             var content = document.getElementById('text').value
             var username = document.getElementById('username').value;

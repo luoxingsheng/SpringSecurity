@@ -84,8 +84,9 @@ public class OrderController {
     @RequestMapping("/finishOrder")
     public String finishOrder(@RequestParam Long id, ModelMap model){
         Order order=orderService.findOrderById(id);
+        order.setOrderStatus("交易成功");
         orderService.updateOrder(order);
-        Msg msg=new Msg("支付信息","交易成功",null);
+        Msg msg=new Msg("交易信息","交易成功",null);
         model.addAttribute("message",msg);
         return "notices";
     }
