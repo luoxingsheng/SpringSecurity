@@ -70,6 +70,12 @@
     from product
     where p_type='书籍、资料'
   </select>
+  <select id="searchProducts" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from product
+    where p_name like '%${p_name}%'
+  </select>
   <insert id="insert" parameterType="com.lxs.graduate.entity.Product" >
     insert into product (id, p_name, p_type, 
       p_price, p_img, p_desc, 

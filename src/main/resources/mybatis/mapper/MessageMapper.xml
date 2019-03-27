@@ -125,8 +125,8 @@
     order by create_time
   </select>
   <select id="findList" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
+select
+  <include refid="Base_Column_List" />
     from message
     where (from_user=#{name,jdbcType=VARCHAR} or to_user=#{name,jdbcType=VARCHAR})
     group by from_user

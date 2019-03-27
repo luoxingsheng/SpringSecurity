@@ -52,6 +52,11 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
+    public List<Product> searchProducts(String p_name) {
+        return productMapper.searchProducts(p_name);
+    }
+
+    @Override
     public int addProduct(Product product) {
         return productMapper.insert(product);
     }

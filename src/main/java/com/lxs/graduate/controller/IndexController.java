@@ -55,6 +55,29 @@ public class IndexController {
         return "index";
     }
 
+
+    @RequestMapping("/search")
+    public String search(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize,@RequestParam("p_name")String p_name) {
+
+        //引入分页查询，使用PageHelper分页功能在查询之前传入当前页，然后多少记录
+        PageHelper.startPage(pageNum, pageSize);
+        List<Product> lists= productService.searchProducts(p_name);
+        PageInfo pageInfo = new PageInfo<Product>(lists, 10);
+        model.addAttribute("products",pageInfo);
+        //获得当前页
+        model.addAttribute("pageNum", pageInfo.getPageNum());
+        //获得一页显示的条数
+        model.addAttribute("pageSize", pageInfo.getPageSize());
+        //是否是第一页
+        model.addAttribute("isFirstPage", pageInfo.isIsFirstPage());
+        //获得总页数
+        model.addAttribute("totalPages", pageInfo.getPages());
+        //是否是最后一页
+        model.addAttribute("isLastPage", pageInfo.isIsLastPage());
+        return "products/searchProduct";
+    }
+
+
     @GetMapping("/livingProducts")
     public String getLivingProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize){
         //引入分页查询，使用PageHelper分页功能在查询之前传入当前页，然后多少记录

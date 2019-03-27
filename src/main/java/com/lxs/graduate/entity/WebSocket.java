@@ -121,7 +121,7 @@ public class WebSocket {
             String sendtime = jsonObject.getString("sendtime");
             String textMessage = jsonObject.getString("message");
             String fromusername = jsonObject.getString("username");
-            String tousername = jsonObject.getString("to");
+            String toUser = jsonObject.getString("to");
             //如果不是发给所有，那么就发给某一个人
             //messageType 1代表上线 2代表下线 3代表在线名单  4代表普通消息
             Map<String,Object> map1 = new HashMap<String,Object>();
@@ -129,13 +129,13 @@ public class WebSocket {
             map1.put("messageType",4);
             map1.put("content",textMessage);
             map1.put("fromUser",fromusername);
-            if(tousername.equals("All")){
-                map1.put("tousername","所有人");
+            if(toUser.equals("All")){
+                map1.put("toUser","所有人");
                 sendMessageAll(JSON.toJSONString(map1),fromusername);
             }
             else{
-                map1.put("tousername",tousername);
-                sendMessageTo(JSON.toJSONString(map1),tousername);
+                map1.put("toUser",toUser);
+                sendMessageTo(JSON.toJSONString(map1),toUser);
             }
         }
         catch (Exception e){
@@ -145,9 +145,9 @@ public class WebSocket {
     }
 
 
-    public void sendMessageTo(String message, String ToUserName) throws IOException {
+    public void sendMessageTo(String message, String toUser) throws IOException {
         for (WebSocket item : clients.values()) {
-            if (item.username.equals(ToUserName) ) {
+            if (item.username.equals(toUser) ) {
                 item.session.getAsyncRemote().sendText(message);
                 break;
             }

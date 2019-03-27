@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <script th:src="@{/js/sockjs.min.js}"></script>
     <script th:src="@{/js/stomp.min.js}"></script>
 
@@ -74,7 +75,6 @@
     initWords();
     function initWords() {
         var username = document.getElementById('username').value;
-        alert(username)
             $.ajax({
             async : false,
             type : 'POST',
@@ -83,11 +83,16 @@
             dataType : 'json',
             success : function(data) {
                 var arr=data.userlist;
+                var sets=new Set();
                 for(var i=0;i<data.userlist.length;i++){
-                    var name=arr[i].toUser;
-                    if(name !== username)
-                    $("#userlist").append("<a onclick='getMessages(\"" + name+ "\")'  class='list-group-item'>"+name+"</a><br>")
+                    sets.add(arr[i].toUser);
+                    sets.add(arr[i].fromUser);
                 }
+                for(let item of sets){
+                    if(item !== username)
+                        $("#userlist").append("<a onclick='getMessages(\"" + item+ "\")'  class='list-group-item'>"+item+"</a><br>");
+                }
+
             },
             error : function(data) {
                 alert('服务器异常');
@@ -96,16 +101,18 @@
 
     }
 
-    function getMessages(name) {
+
+    function getMessages(item) {
+        $("#showMessage").empty();
         var username = document.getElementById('username').value;
         // document.getElementById('hisName').innerHTML=name;
-        $("#hisName").attr("value",name);
+        $("#hisName").attr("value",item);
         $.ajax({
             async : false,
             type : 'POST',
             url :  "/message/findMessageByName",
             data : {
-                "name":name
+                "name":item
             },
             dataType : 'json',
             success : function(data) {
@@ -115,7 +122,7 @@
                     var mTitle = arr[i].mTitle;
                     var content = arr[i].content;
 
-                    if(fromUser === name) {
+                    if(fromUser === item) {
                          var leftArrow = '<div class="pull-left">'+
                              '<div>'+mTitle+'</div>'+
                              '<div>'+content+'</div>'+
@@ -138,7 +145,8 @@
     }
 
     function saveMessages() {
-        var to = $("#hisname").val();
+        var to = $("#hisName").val();
+        alert(to);
         var date = getFormatDate();
         var content = document.getElementById('text').value;
         var username = document.getElementById('username').value;
@@ -191,6 +199,7 @@
             var obj = JSON.parse(received_msg);
             var mTitle = obj.sendTime + " " + obj.fromUser;
             var content = obj.content;
+            $("#hisName").attr("value",obj.fromUser);
             if(obj.messageType==4) {
                 receiveMessageInnerHTML(mTitle,content);
             }

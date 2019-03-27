@@ -80,7 +80,7 @@
             var received_msg = evt.data;
             var obj = JSON.parse(received_msg);
             if(obj.messageType==4) {
-                setMessageInnerHTML(obj.sendTime + obj.fromusername + "对" + obj.tousername + "说：" + obj.textMessage);
+                setMessageInnerHTML(obj.sendTime + obj.fromusername + "对" + obj.toUser + "说：" + obj.textMessage);
             }
         }
 

@@ -2,6 +2,7 @@ package com.lxs.graduate.dao;
 
 import com.lxs.graduate.entity.Product;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public interface ProductMapper {
     List<Product> getSportProducts();
 
     List<Product> getBookProducts();
+
+    List<Product> searchProducts(@Param("p_name")String p_name);
 
     List<Product> findProductByUserId(Integer userId);
 

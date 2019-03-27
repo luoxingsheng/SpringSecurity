@@ -23,6 +23,8 @@ public interface ProductService {
 
     public List<Product> getBookProducts();
 
+    List<Product> searchProducts(String p_name);
+
     int addProduct(Product product);
 
     int delProduct(Integer id);

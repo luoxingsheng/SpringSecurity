@@ -7,6 +7,7 @@
     <title sec:authentication="name"></title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
 </head>
@@ -89,6 +90,7 @@
         var word = {};
         word.content = document.getElementById("content").value;
         word.pId = document.getElementById("pId").value;
+        $("#content").val("");
         var response;
         $.ajax({
             async : false,
@@ -110,7 +112,7 @@
     }
 
     $(document).ready(function() {
-        if($("#status").text() == '下架'){
+        if($("#status").text() == '完成交易'){
             $("#operator").hide();
         }
     });
