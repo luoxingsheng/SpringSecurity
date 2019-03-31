@@ -59,7 +59,7 @@ public class ProductController {
                                  ModelMap model) throws FileNotFoundException, IOException, ParseException {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String[] names = file.getOriginalFilename().split("\\.");
-        String fileName = util.getUuid()+names[1];
+        String fileName = util.getUuid()+"."+names[1];
         InputStream inputStream=file.getInputStream();
         String path="http://47.107.133.187:8080/img/"+fileName;
         java.sql.Date now= new java.sql.Date(new Date().getTime());
