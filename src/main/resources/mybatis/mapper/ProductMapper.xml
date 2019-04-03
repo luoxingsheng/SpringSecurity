@@ -32,7 +32,7 @@
     select
     <include refid="Base_Column_List" />
     from product
-    where p_status='上架中' order by p_time DESC
+    where p_status='上架中' order by p_time
   </select>
   <select id="findProductByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
@@ -44,31 +44,31 @@
     select
     <include refid="Base_Column_List" />
     from product
-    where p_type='生活用品'
+    where p_type='生活用品' and p_status='上架中'order by p_time
   </select>
   <select id="getElectricProducts" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from product
-    where p_type='电子产品'
+    where p_type='电子产品' and p_status='上架中'order by p_time
   </select>
   <select id="getClothProducts" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from product
-    where p_type='衣物'
+    where p_type='衣物' and p_status='上架中'order by p_time
   </select>
   <select id="getSportProducts" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from product
-    where p_type='运动物品'
+    where p_type='运动物品' and p_status='上架中'order by p_time
   </select>
   <select id="getBookProducts" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from product
-    where p_type='书籍、资料'
+    where p_type='书籍、资料' and p_status='上架中'order by p_time
   </select>
   <select id="searchProducts" resultMap="BaseResultMap" >
     select

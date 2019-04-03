@@ -7,10 +7,7 @@ import com.lxs.graduate.entity.User;
 import com.lxs.graduate.service.ProductService;
 import com.lxs.graduate.service.ProductServiceImpl;
 import com.lxs.graduate.service.UserService;
-import com.lxs.graduate.util.DateUtil;
-import com.lxs.graduate.util.FileUtil;
-import com.lxs.graduate.util.FtpFileUtil;
-import com.lxs.graduate.util.UuidUtil;
+import com.lxs.graduate.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -49,6 +46,9 @@ public class ProductController {
     @Autowired
     FtpFileUtil ftpFileUtil;
 
+    @Autowired
+    BadWordUtil badWordUtil;
+
     @PostMapping("/uploadProduct")
     public String uploadProduct(@RequestParam("pImg") MultipartFile file,
                                  @RequestParam String pName,
@@ -79,10 +79,18 @@ public class ProductController {
         } catch (Exception e) {
             // TODO: handle exception
         }
-        productService.addProduct(product);
-        Msg msg=new Msg("商品信息","添加商品成功",null);
-        model.addAttribute("message",msg);
-        return "notices";
+        //检测没有敏感词直接插入
+        if(!BadWordUtil.isContaintBadWord(product.getpName(),2)) {
+            productService.addProduct(product);
+            Msg msg = new Msg("商品信息", "添加商品成功", null);
+            model.addAttribute("message", msg);
+            return "notices";
+        }
+        else{
+            Msg msg = new Msg("添加商品失败", "商品名称含有敏感词！！！", null);
+            model.addAttribute("message", msg);
+            return "notices";
+        }
     }
 
 
@@ -96,6 +104,8 @@ public String toUpdate(@RequestParam Integer id,ModelMap model){
 
     @PostMapping("/updateProduct")
     public String updateProductById(Product product,ModelMap model)throws FileNotFoundException, IOException{
+        java.sql.Date now= new java.sql.Date(new Date().getTime());
+        product.setpTime(now);
         productService.updateProduct(product);
         Msg msg=new Msg("商品信息","更新商品信息成功",null);
         model.addAttribute("message",msg);

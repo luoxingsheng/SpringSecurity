@@ -79,7 +79,7 @@ public class IndexController {
 
 
     @GetMapping("/livingProducts")
-    public String getLivingProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize){
+    public String getLivingProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         //引入分页查询，使用PageHelper分页功能在查询之前传入当前页，然后多少记录
         PageHelper.startPage(pageNum, pageSize);
         List<Product> lists= productService.getLivingProducts();
@@ -100,7 +100,7 @@ public class IndexController {
     }
 
     @GetMapping("/clothProducts")
-    public String getClothProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize){
+    public String getClothProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         //引入分页查询，使用PageHelper分页功能在查询之前传入当前页，然后多少记录
         PageHelper.startPage(pageNum, pageSize);
         List<Product> lists= productService.getClothProducts();
@@ -121,7 +121,7 @@ public class IndexController {
     }
 
     @GetMapping("/sportProducts")
-    public String getSportProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize){
+    public String getSportProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         //引入分页查询，使用PageHelper分页功能在查询之前传入当前页，然后多少记录
         PageHelper.startPage(pageNum, pageSize);
         List<Product> lists= productService.getSportProducts();
@@ -142,7 +142,7 @@ public class IndexController {
     }
 
     @GetMapping("/electricProducts")
-    public String getElectricProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize){
+    public String getElectricProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         //引入分页查询，使用PageHelper分页功能在查询之前传入当前页，然后多少记录
         PageHelper.startPage(pageNum, pageSize);
         List<Product> lists= productService.getElectricProducts();
@@ -163,7 +163,7 @@ public class IndexController {
     }
 
     @GetMapping("/bookProducts")
-    public String getBookProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize){
+    public String getBookProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         //引入分页查询，使用PageHelper分页功能在查询之前传入当前页，然后多少记录
         PageHelper.startPage(pageNum, pageSize);
         List<Product> lists= productService.getBookProducts();
