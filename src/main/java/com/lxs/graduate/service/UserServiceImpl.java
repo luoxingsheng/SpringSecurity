@@ -2,7 +2,6 @@ package com.lxs.graduate.service;
 
 import com.lxs.graduate.dao.UserMapper;
 import com.lxs.graduate.dao.UserRoleMapper;
-import com.lxs.graduate.entity.Role;
 import com.lxs.graduate.entity.User;
 import com.lxs.graduate.entity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;

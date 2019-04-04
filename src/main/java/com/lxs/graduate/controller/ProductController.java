@@ -5,7 +5,6 @@ import com.lxs.graduate.entity.Msg;
 import com.lxs.graduate.entity.Product;
 import com.lxs.graduate.entity.User;
 import com.lxs.graduate.service.ProductService;
-import com.lxs.graduate.service.ProductServiceImpl;
 import com.lxs.graduate.service.UserService;
 import com.lxs.graduate.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;

@@ -7,9 +7,9 @@ import com.lxs.graduate.util.DateUtil;
 import com.lxs.graduate.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,11 +61,12 @@ public class LoginController {
 
     }
 
+    @ResponseBody
     @RequestMapping("/getUser")
-    public Map<String,String> getUser(@RequestParam("username")String username){
-        String question = userService.getUserByUsername(username).getQuestion();
-        Map<String,String> map = new HashMap<>();
-        map.put("question",question);
+    public Map<String,Object> getUser(@RequestParam("username")String username){
+        User user = userService.getUserByUsername(username);
+        Map<String,Object> map = new HashMap<>();
+        map.put("users",user);
         return map;
     }
 

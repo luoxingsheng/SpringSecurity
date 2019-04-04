@@ -6,7 +6,6 @@ import com.lxs.graduate.entity.Order;
 import com.lxs.graduate.entity.Product;
 import com.lxs.graduate.entity.User;
 import com.lxs.graduate.service.*;
-import com.lxs.graduate.util.FileUtil;
 import com.lxs.graduate.util.FtpFileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -115,7 +114,7 @@ public class UserController {
     }
 
     @RequestMapping("/updateUserInfo")
-    public String update(User user,ModelMap model){
+    public String update(User user, ModelMap model){
         userService.updateUser(user);
         Msg msg=new Msg("用户信息修改","用户信息成功",null);
         model.addAttribute("message",msg);

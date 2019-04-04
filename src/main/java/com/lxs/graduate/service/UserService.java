@@ -1,6 +1,5 @@
 package com.lxs.graduate.service;
 
-import com.lxs.graduate.entity.Role;
 import com.lxs.graduate.entity.User;
 import com.lxs.graduate.entity.UserRole;
 

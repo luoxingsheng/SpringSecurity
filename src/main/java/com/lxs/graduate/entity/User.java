@@ -30,6 +30,21 @@ public class User implements UserDetails {
 
     private Integer creditScore;
 
+    public User(Integer id, String username, String password, String nickname, String email, String address, String tel, String icon, Integer creditScore, String question, String answer) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.email = email;
+        this.address = address;
+        this.tel = tel;
+        this.icon = icon;
+        this.creditScore = creditScore;
+        this.question = question;
+        this.answer = answer;
+    }
+
+
     @Override
     public String toString() {
         return "User{" +
@@ -62,6 +77,21 @@ public class User implements UserDetails {
         this.question = question;
         this.creditScore = creditScore;
         this.roles = roles;
+    }
+
+
+    public User(Integer id, String username, String password, String nickname, String email, String address, String tel, String icon, String answer, String question, Integer creditScore) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.email = email;
+        this.address = address;
+        this.tel = tel;
+        this.icon = icon;
+        this.answer = answer;
+        this.question = question;
+        this.creditScore = creditScore;
     }
 
     public String getAnswer() {
