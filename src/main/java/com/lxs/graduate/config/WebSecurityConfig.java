@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                //设置拦截规则
-                .antMatchers("/index","/ ","/css/**","/js/**","/img/**","/register","/redis/**","/websocket/**")
+                .antMatchers("/logins/**","/ ","/css/**","/js/**","/img/**","/redis/**","/websocket/**")
                 .permitAll()
                 .antMatchers("/user/**","/order/**","/cart/**","/product/**","/ws/**").hasRole("USER")
               .anyRequest()

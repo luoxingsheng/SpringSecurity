@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html;charset=UTF-8"/>
+    <title>注册</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/validatePwd.js}"></script>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">买买买</a>
+        </div>
+    </div>
+</nav>
+<div class="container">
+
+    <div class="starter-template col-md-4 col-md-offset-4 form-inline">
+        <h2>用户密保验证</h2>
+        <br>
+            <div class="form-group">
+                <label for="name">请输入用户名</label>
+                <div><input type="text" class="form-control" name="name" id="name"/>
+                    <a onclick="getQuestion()">确认</a></div>
+            </div>
+            <br>
+        <br>
+        <div class="hidden form-group"  id="divAnswer">
+            <label for="answer">密保问题</label>
+            <br>
+            <div name="question" th:text="${question}"></div>
+            <input type="text" class="form-control" name="answer" placeholder="密保答案" id="answer"/>
+            <button id="submitAnswer" onclick="">提交密保答案</button>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function getQuestion() {
+        var username = $("#name").val();
+        alert(username);
+        $.ajax({
+            async : false,
+            type : 'POST',
+            url : "/logins/getUser",
+            data : {username:username},
+            dataType : 'json',
+            success : function(data) {
+                alert(data.question);
+                $("divAnswer").show();
+            },
+            error : function(result) {
+                alert('服务器异常');
+            }
+        });
+    }
+</script>
+
+</html>

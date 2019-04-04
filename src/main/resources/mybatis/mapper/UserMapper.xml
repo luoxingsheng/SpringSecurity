@@ -12,11 +12,13 @@
       <arg column="tel" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="icon" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="credit_score" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="question" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="answer" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id, username, password, nickname, email, address, tel, icon, credit_score
+    id, username, password, nickname, email, address, tel, icon, credit_score,question,answer
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,14 +26,12 @@
     from custom
     where id = #{id,jdbcType=INTEGER}
   </select>
-
   <select id="getUserByUsername" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
     from custom
     where username = #{username,jdbcType=VARCHAR}
   </select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from custom
     where id = #{id,jdbcType=INTEGER}
@@ -39,11 +39,12 @@
   <insert id="insert" parameterType="com.lxs.graduate.entity.User"  keyProperty="id" useGeneratedKeys="true">
     insert into custom (id, username, password, 
       nickname, email, address, 
-      tel, icon, credit_score
+      tel, icon, credit_score,question,answer
       )
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{nickname,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{tel,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{creditScore,jdbcType=INTEGER}
+      #{tel,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{creditScore,jdbcType=INTEGER},
+       #{question,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.lxs.graduate.entity.User" >
@@ -72,6 +73,12 @@
       </if>
       <if test="icon != null" >
         icon,
+      </if>
+      <if test="answer != null" >
+        answer
+      </if>
+      <if test="question != null" >
+        question
       </if>
       <if test="creditScore != null" >
         credit_score,
@@ -131,6 +138,18 @@
       <if test="icon != null" >
         icon = #{icon,jdbcType=VARCHAR},
       </if>
+      <if test="answer != null" >
+        answer = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="question != null" >
+        question = #{question,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="question != null" >
+        question = #{question,jdbcType=VARCHAR},
+      </if>
       <if test="creditScore != null" >
         credit_score = #{creditScore,jdbcType=INTEGER},
       </if>
@@ -146,10 +165,11 @@
       address = #{address,jdbcType=VARCHAR},
       tel = #{tel,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      question = #{question,jdbcType=VARCHAR},
       credit_score = #{creditScore,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
   <update id="updateUserImg" parameterType="com.lxs.graduate.entity.User" >
     update custom
     <trim prefix="set" suffixOverrides=",">
@@ -163,11 +183,12 @@
       <if test="address!=null">address=#{address,jdbcType=VARCHAR},</if>
       <if test="tel!=null">tel=#{tel,jdbcType=VARCHAR},</if>
       <if test="icon!=null">icon=#{icon,jdbcType=VARCHAR},</if>
+      <if test="answer!=null">answer=#{icon,jdbcType=VARCHAR},</if>
+      <if test="question!=null">question=#{question,jdbcType=VARCHAR},</if>
       <if test="creditScore!=null">credit_score=#{creditScore,jdbcType=VARCHAR},</if>
     </trim>
     where id = #{id,jdbcType=INTEGER}
   </update>
-
 
 
   <resultMap id="userMap" type="com.lxs.graduate.entity.User">

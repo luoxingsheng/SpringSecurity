@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
+@RequestMapping("/logins")
 public class LoginController {
 
     MD5Util md5Util;
@@ -41,18 +45,32 @@ public class LoginController {
         return "register";
     }
 
+    @RequestMapping("/toUpdatePassword")
+    public String toUpdatePassword(){
+        return "updatePassowrd";
+    }
 
-    @RequestMapping("/allProducts")
-    public String allProduct(){
-        return "livingProduct";
+    @RequestMapping("/toValidate")
+    public String toValidate(){
+        return "validateQuestion";
+    }
+
+
+    @RequestMapping("/updatePassword")
+    public void updatePassword(){
+
+    }
+
+    @RequestMapping("/getUser")
+    public Map<String,String> getUser(@RequestParam("username")String username){
+        String question = userService.getUserByUsername(username).getQuestion();
+        Map<String,String> map = new HashMap<>();
+        map.put("question",question);
+        return map;
     }
 
 
 
-    @GetMapping("/login")
-    public String toLogin(){
-        return "login";
-    }
 
 
 

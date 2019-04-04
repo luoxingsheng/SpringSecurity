@@ -25,13 +25,12 @@ public class IndexController {
     public String words(){
         return "/words";
     }
-//
-//    @GetMapping("/index")
-//    public String toIndex(ModelMap model){
-//        List<Product> lists= productService.findAllProduct();
-//        model.addAttribute("products",lists);
-//        return "index";
-//    }
+
+    @GetMapping("/login")
+    public String toLogin(){
+        return "login";
+    }
+
 
     //按照时间顺序查询所有商品，倒叙排列
     @RequestMapping("/")

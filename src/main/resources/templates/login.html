@@ -3,14 +3,7 @@
 <head>
     <meta content="text/html;charset=UTF-8"/>
     <title>登录</title>
-    <!--<link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>-->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <style type="text/css">
-        .starter-template {
-            padding: 40px 15px;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -47,13 +40,12 @@
             <div class="form-group">
                 <input type="checkbox" name="remember-me" /><strong>记住我</strong>
 
-
             </div>
             <input type="submit" id="login" value="登录" class="btn btn-primary" style="width:350px;;"/>
         </form>
         <div>
-            <a th:href="@{/toRegister}" class="text-info pull-left navbar-brand">注册</a>
-            <a th:href="@{/toRegister}" class="text-info pull-right navbar-brand">忘记密码？</a>
+            <a th:href="@{/logins/toRegister}" class="text-info pull-left navbar-brand">注册</a>
+            <a th:href="@{/logins/toValidate}" class="text-info pull-right navbar-brand">忘记密码？</a>
         </div>
     </div>
 </div>

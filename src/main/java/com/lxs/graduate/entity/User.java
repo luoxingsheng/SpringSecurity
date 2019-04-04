@@ -24,7 +24,61 @@ public class User implements UserDetails {
 
     private String icon;
 
+    private String answer;
+
+    private String question;
+
     private Integer creditScore;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", tel='" + tel + '\'' +
+                ", icon='" + icon + '\'' +
+                ", answer='" + answer + '\'' +
+                ", question='" + question + '\'' +
+                ", creditScore=" + creditScore +
+                ", roles=" + roles +
+                ", authorities=" + authorities +
+                '}';
+    }
+
+    public User(Integer id, String username, String password, String nickname, String email, String address, String tel, String icon, String answer, String question, Integer creditScore, List<Role> roles) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.email = email;
+        this.address = address;
+        this.tel = tel;
+        this.icon = icon;
+        this.answer = answer;
+        this.question = question;
+        this.creditScore = creditScore;
+        this.roles = roles;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
 
     @JsonIgnore
     private List<Role> roles;
@@ -72,41 +126,6 @@ public class User implements UserDetails {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
-    }
-
-    public User(Integer id, String username, String password, String nickname, String email, String address, String tel, String icon, Integer creditScore, List<Role> roles, List<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.nickname = nickname;
-        this.email = email;
-        this.address = address;
-        this.tel = tel;
-        this.icon = icon;
-        this.creditScore = creditScore;
-        this.roles = roles;
-        this.authorities = authorities;
-    }
-
-    public User(Integer id, String username, String password, String nickname, String email, String address, String tel, String icon, Integer creditScore) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.nickname = nickname;
-        this.email = email;
-        this.address = address;
-        this.tel = tel;
-        this.icon = icon;
-        this.creditScore = creditScore;
-    }
-
-
-
-    public User(Integer id, String username, String password, List<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.authorities = authorities;
     }
 
     public User() {
@@ -185,20 +204,4 @@ public class User implements UserDetails {
         this.creditScore = creditScore;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", tel='" + tel + '\'' +
-                ", icon='" + icon + '\'' +
-                ", creditScore=" + creditScore +
-                ", roles=" + roles +
-                ", authorities=" + authorities +
-                '}';
-    }
 }
