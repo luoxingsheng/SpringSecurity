@@ -7,6 +7,7 @@ import com.lxs.graduate.entity.Product;
 import com.lxs.graduate.entity.User;
 import com.lxs.graduate.service.*;
 import com.lxs.graduate.util.FtpFileUtil;
+import com.lxs.graduate.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -22,13 +23,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
 @Configuration
 public class UserController {
 
+
+    MD5Util md5Util = new MD5Util();
 
     @Value("${img.location}")
     private  String location;
@@ -62,8 +67,6 @@ public class UserController {
         model.addAttribute("productLists",lists);
         return "users/myProduct";
     }
-
-
 
     @RequestMapping("/toUser")
     public String toUser(ModelMap model){
@@ -153,6 +156,39 @@ public class UserController {
         model.addAttribute("sellId",sell_id);
         model.addAttribute("productLists",lists);
         return "users/hisProduct";
+    }
+
+    @RequestMapping("/toUpdatePassword")
+    public String toUpdatePassword(){
+        return "users/updatePassword";
+    }
+
+    @ResponseBody
+    @RequestMapping("/validate")
+    public Map<String,Object> validatePassword(@RequestParam("username")String username, @RequestParam("password")String password){
+        User user = userService.getUserByUsername(username);
+        Map<String,Object> map = new HashMap<>();
+        if(user.getPassword().equals(md5Util.encode(password))){
+            Msg msg=new Msg("1","密码输入正确",null);
+            map.put("msg",msg);
+        }else{
+            Msg msg=new Msg("0","密码输入错误",null);
+            map.put("msg",msg);
+        }
+        return map;
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/updatePassword")
+    public Map<String,Object> udatePassword(@RequestParam("username")String username, @RequestParam("password")String password){
+        User user = userService.getUserByUsername(username);
+        user.setPassword(md5Util.encode(password));
+        userService.updateUser(user);
+        Map<String,Object> map = new HashMap<>();
+        Msg msg=new Msg(null,"密码修改成功",null);
+        map.put("msg",msg);
+        return map;
     }
 
 }

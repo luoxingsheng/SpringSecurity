@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta content="text/html;charset=UTF-8"/>
-    <title>注册</title>
+    <title>重置密码</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -32,7 +32,7 @@
             <label for="answer">密保问题:</label>
             <div name="question" id="question" ></div><br>
             <input type="text" class="form-control" name="answer" placeholder="密保答案" id="answer"/><br><br>
-            <a th:href="@{/logins/updatePassword}"><button id="submitAnswer" class="btn btn-primary  btn-block" >提交密保答案</button></a>
+            <button    class="btn btn-primary  btn-block" onclick="resetPassword()" >提交密保答案</button>
         </div>
     </div>
 </div>
@@ -50,14 +50,39 @@
             data : {username:username},
             dataType : 'json',
             success : function(data) {
+                if($.isEmptyObject(data.users)){
+                    alert("没有此用户名！");
+                }
+                else{
                 $("#question").attr("value",data.users.question);
                 $("#question").html(data.users.question);
                 $("#divAnswer").show();
+                }
             },
             error : function(result) {
                 alert('服务器异常');
             }
         });
+    }
+
+    function resetPassword() {
+        var answer = $("#answer").val();
+        var username = $("#name").val();
+        $.ajax({
+            async : false,
+            type : 'POST',
+            url : "/logins/resetPassword",
+            data : {username:username,
+                     answer:answer},
+            dataType : 'json',
+            success : function(data) {
+                alert(data.msg.content);
+            },
+            error : function(result) {
+                alert('服务器异常');
+            }
+        });
+
     }
 </script>
 

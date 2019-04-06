@@ -3,12 +3,16 @@ package com.lxs.graduate.util;
 /**
  * Created by yangyibo on 17/2/7.
  */
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.security.MessageDigest;
 
 /**
  * MD5加密工具
  *
  */
+@Component
 public class MD5Util {
 
     private static final String SALT = "tamboo";

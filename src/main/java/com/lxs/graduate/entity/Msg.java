@@ -5,6 +5,9 @@ public class Msg {
     private String content;
     private String etraInfo;
 
+    public Msg() {
+    }
+
     public Msg(String title, String content, String etraInfo) {
         super();
         this.title = title;
@@ -31,3 +34,4 @@ public class Msg {
     }
 
 }
+
