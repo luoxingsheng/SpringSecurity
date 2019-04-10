@@ -152,7 +152,9 @@ public class UserController {
 
     @GetMapping("/hisProduct")
     public String hisProduct(@RequestParam Integer sell_id, ModelMap model){
+        User user = userService.getUserById(sell_id);
         List<Product> lists= productService.findProductByUserId(sell_id);
+        model.addAttribute("seller",user);
         model.addAttribute("sellId",sell_id);
         model.addAttribute("productLists",lists);
         return "users/hisProduct";

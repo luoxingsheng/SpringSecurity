@@ -38,15 +38,12 @@
                     <button type="submit" class="btn btn-default">搜索</button>
                 </form>
             </li>
-                <li  style="margin-left: 5%"sec:authorize="isAuthenticated()"><a th:href="@{/user/toUser}">用户中心</a></li>
+                <li  style="margin-left: 5%"sec:authorize="isAuthenticated()"><a th:href="@{/user/toUser}">用户中心<span class="glyphicon glyphicon-user"></span></a></li>
                 <li sec:authorize="isAuthenticated()"><a th:href="@{/cart/getCartList}">购物车 <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-                <li sec:authorize="isAuthenticated()"><a th:href="@{/ws/toChat}">信息中心</a></li>
-            <li sec:authorize="isAuthenticated()" class="pull-right">
-                    <a  th:href="@{/logout}">注销</a>
-            </li>
-                <li sec:authorize="!isAuthenticated()" class="pull-right">
-                    <a th:href="@{/login}">登录/注册</a>
-                </li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/ws/toChat}">信息中心  <span class="glyphicon glyphicon-envelope"></span></a></li>
+                <li sec:authorize="isAuthenticated()" ><a>当前用户：<span sec:authentication="name"></span></a></li>
+                <li sec:authorize="isAuthenticated()" class="pull-right"><a  th:href="@{/logout}">注销</a></li>
+                <li sec:authorize="!isAuthenticated()" class="pull-right"><a th:href="@{/login}">登录/注册</a></li>
         </ul>
         </div>
 

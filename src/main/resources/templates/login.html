@@ -29,25 +29,30 @@
         <form name="form" th:action="@{/login}" action="/login" method="POST"> <!-- 3 -->
             <div class="form-group">
                 <!--<label for="username">账号</label>-->
-                <input type="text" class="form-control" name="username" value="" placeholder="账号" id="username"/>
+                <input type="text" class="form-control" name="username" value="" th:placeholder="#{login.username}" id="username"/>
             </div>
             <br>
             <div class="form-group">
                 <!--<label for="password">密码</label>-->
-                <input type="password" class="form-control" name="password" placeholder="密码" id="password"/>
+                <input type="password" class="form-control" name="password" th:placeholder="#{login.password}" id="password"/>
             </div>
             <br>
             <div class="form-group">
-                <input type="checkbox" name="remember-me" /><strong>记住我</strong>
+                <input type="checkbox" name="remember-me" /><strong>[[#{login.remember}]]</strong>
 
             </div>
-            <input type="submit" id="login" value="登录" class="btn btn-primary" style="width:350px;;"/>
+            <input type="submit" id="login"  class="btn btn-primary" style="width:350px;"/>[[#{login.btn_login}]]
         </form>
         <div>
-            <a th:href="@{/logins/toRegister}" class="text-info pull-left navbar-brand">注册</a>
-            <a th:href="@{/logins/toValidate}" class="text-info pull-right navbar-brand">忘记密码？</a>
+            <a th:href="@{/logins/toRegister}" class="text-info pull-left navbar-brand">[[#{login.a_register}]]</a>
+            <a th:href="@{/logins/toValidate}" class="text-info pull-right navbar-brand">[[#{login.a_forget}]]</a>
         </div>
     </div>
 </div>
+
+<p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+<a class="btn btn-sm" th:href="@{/index.html(l='zh_CN')}">中文</a>
+<a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">English</a>
+
 </body>
 </html>

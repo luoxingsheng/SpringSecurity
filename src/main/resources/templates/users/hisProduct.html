@@ -26,14 +26,6 @@
     <div class="collapse navbar-collapse  pull-right" id="collapse1">
         <ul class="nav  nav-pills">
             <li ><a th:href="@{/ws/chat(sellId=${sellId})}">联系卖家</a></li>
-            <li>
-                <a class="dropdown-toggle " data-toggle="dropdown" th:href="@{/}">我的订单<span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a th:href="@{/user/getOrderByBuyId}">我的买入</a></li>
-                    <li><a th:href="@{/user/getOrderBySellId}">我的卖出</a></li>
-                    <li><a th:href="@{/user/getUnfinishedOrders}">待确认订单</a></li>
-                </ul>
-            </li>
             <li ><a th:href="@{/cart/getCartList}">我的购物车</a></li>
             <li sec:authorize="isAuthenticated()" class="">
                 <a  th:href="@{/logout}">注销</a>
@@ -46,7 +38,32 @@
 
 
 <div class="container">
-    <div class=" panel panel-default">
+    <div class="panel panel-default col-md-2">
+        <div  class="panel-heading"><h2>卖家信息</h2></div><br>
+        <div class="panel-body" th:each="s:${seller}">
+            <div class="">
+                <label for="Username" class="control-label">头像：</label>
+                    <img  id="Icon" th:src="${s.icon}" class="img-responsive   img-circle" style="width: 100px;height: 100px"></img>
+            </div><br/>
+            <div class="">
+                <label for="Username" class="">用户名：</label>
+                    <div  id="Username" th:text="${s.username}" ></div>
+            </div><br/>
+            <div class="">
+                <label for="Nickname" class="control-label">昵称：</label>
+                    <div  id="Nickname" th:text="${s.nickname}" ></div>
+            </div><br/>
+            <div class="">
+                <label for="Tel" class="control-label">电话：</label>
+                    <div   id="Tel" th:text="${s.tel}" ></div>
+            </div><br/>
+            <div class="">
+                <label for="CreditScore" class="control-label">信誉积分：</label>
+                    <div  id="CreditScore" th:text="${s.creditScore}" ></div>
+            </div>
+        </div>
+    </div>
+    <div class=" panel panel-default col-md-offset-2">
     <div  class="panel-heading"><h2>卖家的店铺信息</h2></div><br>
         <div class="panel-body">
     <div  th:each="p:${productLists}"  >
