@@ -1,5 +1,5 @@
 package com.lxs.graduate.config;
-//import org.springframework.boot.autoconfigure.web.WebMvcProperties;
+
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.LocaleResolver;
 
@@ -15,14 +15,19 @@ import java.util.Locale;
  **/
 
 public class MyLocaleResolver implements LocaleResolver {
-    @Override
+
+
+        @Override
     public Locale resolveLocale(HttpServletRequest request) {
-        String l = request.getParameter("l");
+            System.out.println(request);
+        String lan = "en_US";
+        System.out.println("当前语言："+lan);
         Locale locale = Locale.getDefault();
-        if(!StringUtils.isEmpty(l)){
-            String[] split = l.split("_");
+        if(!StringUtils.isEmpty(lan)){
+            String[] split = lan.split("_");
             locale = new Locale(split[0],split[1]);
         }
+        System.out.println("locale"+locale);
         return locale;
     }
 

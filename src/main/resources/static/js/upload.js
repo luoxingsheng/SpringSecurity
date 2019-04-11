@@ -4,3 +4,4 @@ function preImg() {
     var url = window.URL.createObjectURL(file.files[0])
     img.src = url
 }
+

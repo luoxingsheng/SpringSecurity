@@ -24,7 +24,7 @@
                    <span class="icon-bar"></span>
                    <span class="icon-bar"></span>
                   </button>
-            　　  <a class="navbar-brand" th:href="@{/}">买买买<span class="icon fa fa-home"></span></a>
+            　　  <a class="navbar-brand" th:href="@{/}">[[#{login.web_name}]]<span class="icon fa fa-home"></span></a>
               </div>
         <div class="collapse navbar-collapse " id="collapse2">
             <ul class="nav  nav-pills">
@@ -35,15 +35,15 @@
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search" name="p_name">
                     </div>
-                    <button type="submit" class="btn btn-default">搜索</button>
+                    <button type="submit" class="btn btn-default">[[#{login.search}]]</button>
                 </form>
             </li>
-                <li  style="margin-left: 5%"sec:authorize="isAuthenticated()"><a th:href="@{/user/toUser}">用户中心<span class="glyphicon glyphicon-user"></span></a></li>
-                <li sec:authorize="isAuthenticated()"><a th:href="@{/cart/getCartList}">购物车 <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-                <li sec:authorize="isAuthenticated()"><a th:href="@{/ws/toChat}">信息中心  <span class="glyphicon glyphicon-envelope"></span></a></li>
-                <li sec:authorize="isAuthenticated()" ><a>当前用户：<span sec:authentication="name"></span></a></li>
-                <li sec:authorize="isAuthenticated()" class="pull-right"><a  th:href="@{/logout}">注销</a></li>
-                <li sec:authorize="!isAuthenticated()" class="pull-right"><a th:href="@{/login}">登录/注册</a></li>
+                <li  style="margin-left: 5%"sec:authorize="isAuthenticated()"><a th:href="@{/user/toUser}">[[#{login.user_center}]]<span class="glyphicon glyphicon-user"></span></a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/cart/getCartList}">[[#{login.cart}]] <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/ws/toChat}">[[#{login.info_center}]]<span class="glyphicon glyphicon-envelope"></span></a></li>
+                <li sec:authorize="isAuthenticated()" ><a><span sec:authentication="name"></span></a></li>
+                <li sec:authorize="isAuthenticated()" class="pull-right"><a  th:href="@{/logout}">[[#{login.logout}]]</a></li>
+                <li sec:authorize="!isAuthenticated()" class="pull-right"><a th:href="@{/login}">[[#{login.log_reg}]]</a></li>
         </ul>
         </div>
 
@@ -59,26 +59,26 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            　　  <a class="navbar-brand" th:href="@{/}">买买买<span class="icon fa fa-home"></span></a>
+            　　  <a class="navbar-brand" th:href="@{/}">[[#{login.web_name}]]<span class="icon fa fa-home"></span></a>
         </div>
         <div class="collapse navbar-collapse " id="collapse1">
             <ul class="nav  nav-pills">
-                <li ><a  th:href="@{/user/toUser}">个人信息</a></li>
+                <li ><a  th:href="@{/user/toUser}">[[#{login.user_info}]]</a></li>
                 <li>
-                    <a class="dropdown-toggle " data-toggle="dropdown" th:href="@{/}">我的订单<span class="caret"></span></a>
+                    <a class="dropdown-toggle " data-toggle="dropdown" th:href="@{/}">[[#{login.my_order}]]<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                    <li><a th:href="@{/user/getOrderByBuyId}">我的买入</a></li>
-                    <li><a th:href="@{/user/getOrderBySellId}">我的卖出</a></li>
-                        <li><a th:href="@{/user/getUnfinishedOrders}">待确认订单</a></li>
+                    <li><a th:href="@{/user/getOrderByBuyId}">[[#{login.buy_order}]]</a></li>
+                    <li><a th:href="@{/user/getOrderBySellId}">[[#{login.sell_order}]]</a></li>
+                        <li><a th:href="@{/user/getUnfinishedOrders}">[[#{login.unfinish_order}]]</a></li>
                     </ul>
                 </li>
-                <li ><a th:href="@{/user/toMyProduct}">我的商品</a></li>
-                <li ><a th:href="@{/user/toUpload}">上传商品</a></li>
-                <li ><a th:href="@{/cart/getCartList}">我的购物车</a></li>
-                <li ><a th:href="@{/user/toUserImg}">更换头像</a></li>
-                <li ><a th:href="@{/user/toUpdatePassword}">更换密码</a></li>
+                <li ><a th:href="@{/user/toMyProduct}">[[#{login.my_product}]]</a></li>
+                <li ><a th:href="@{/user/toUpload}">[[#{login.upload_pro}]]</a></li>
+                <li ><a th:href="@{/cart/getCartList}">[[#{login.cart}]]</a></li>
+                <li ><a th:href="@{/user/toUserImg}">[[#{login.change_icon}]]</a></li>
+                <li ><a th:href="@{/user/toUpdatePassword}">[[#{login.change_pass}]]</a></li>
                 <li sec:authorize="isAuthenticated()" class="pull-right">
-                    <a  th:href="@{/logout}">注销</a>
+                    <a  th:href="@{/logout}">[[#{login.logout}]]</a>
                 </li>
             </ul>
         </div>
@@ -88,12 +88,11 @@
     <div class="" th:fragment="menuNavbar">　
         <div  style="margin-left: 15%">
             <ul class="list-group" style="display:inline-block" >
-                <li class="list-group-item active" style="float: left;"><a  class="text-muted" th:href="@{/}">最新商品</a></li>
-                <li class="list-group-item" style="float: left;"><a th:href="@{/}">生活用品</a></li>
-                <li class="list-group-item" style="float: left;"><a th:href="@{/user/toMyProduct}">电子产品</a></li>
-                <li class="list-group-item" style="float: left;"><a th:href="@{/user/toUpload}">衣物</a></li>
-                <li class="list-group-item" style="float: left;"><a th:href="@{/user/toUser}">运动物品</a></li>
-                <li class="list-group-item" style="float: left;"><a th:href="@{/user/toUserImg}">书籍、资料</a></li>
+                <li class="list-group-item active" style="float: left;"><a  class="text-muted" th:href="@{/}">[[#{login.new_pro}]]</a></li>
+                <li class="list-group-item" style="float: left;"><a th:href="@{/}">[[#{login.live_pro}]]</a></li>
+                <li class="list-group-item" style="float: left;"><a th:href="@{/user/toUpload}">[[#{login.clothes}]]</a></li>
+                <li class="list-group-item" style="float: left;"><a th:href="@{/user/toUser}">[[#{login.sport}]]</a></li>
+                <li class="list-group-item" style="float: left;"><a th:href="@{/user/toUserImg}">[[#{login.books}]]</a></li>
             </ul>
         </div>
     </div>
@@ -104,17 +103,46 @@
             <div class="col-sm-8 col-sm-offset-2 text-center">
                 <hr>
                 <h2>
-                    处理闲置就上买买买,欢迎加入我们！
+                    [[#{login.join}]]
                 </h2>
 
                 <ul class="social list-unstyled list-inline">
-                    <li><a href="https://en.mail.qq.com/cgi-bin/loginpage"><span class="icon fa fa-qq"></span>QQ邮箱：893309066@qq.com</a></li>
-                    <li><a href="https://github.com/luoxingsheng/SpringSecurity">  <span class="icon fa fa-github"></span>项目地址github</a></li>
+                    <li><a href="https://en.mail.qq.com/cgi-bin/loginpage"><span class="icon fa fa-qq"></span>[[#{login.qq_mail}]]</a></li>
+                    <li><a href="https://github.com/luoxingsheng/SpringSecurity">  <span class="icon fa fa-github"></span>[[#{login.pro_add}]]</a></li>
                 </ul>
                 <hr>
+                <a  onclick="changes('zh_CN')">中文</a><span>|</span>
+                <a  onclick="changes('en_US')">Englisg</a>
             </div><!--/col-->
         </div><!--/container-->
     </footer>
 
+    <footer th:fragment="footerss" class="footer ">
+        <div class="container">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <a  onclick="changes('zh_CN')">中文</a><span>|</span>
+                <a  onclick="changes('en_US')">Englisg</a>
+            </div>
+        </div>
+    </footer>
+
 </body>
+<script>
+    function changes(lans){
+        $.ajax({
+            async : false,
+            type : 'POST',
+            url : "/logins/i18n",
+            data : {"lan":lans},
+            success : function(data) {
+                console.log("修改语言成功");
+                window.location.reload()
+            },
+            error : function(result) {
+                alert('服务器异常');
+            }
+        });
+    }
+</script>
+
 </html>

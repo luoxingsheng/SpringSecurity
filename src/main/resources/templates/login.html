@@ -2,18 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta content="text/html;charset=UTF-8"/>
-    <title>登录</title>
+    <title>[[#{login.btn_login}]]</title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">买买买</a>
+            <a class="navbar-brand" th:href="@{/}">[[#{login.web_name}]]</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a th:href="@{/index}"> 首页 </a></li>
 
             </ul>
         </div><!--/.nav-collapse -->
@@ -22,10 +22,11 @@
 <div class="container">
 
     <div class="starter-template col-md-4 col-md-offset-4">
+
+        <br><br><br>
+        <h2>[[#{login.titles}]]</h2>
         <p th:if="${param.logout}" class="bg-warning">已成功注销</p><!-- 1 -->
         <p th:if="${param.error}" class="bg-danger">有错误，请重试</p> <!-- 2 -->
-        <h2>用户登录登录</h2>
-        <br>
         <form name="form" th:action="@{/login}" action="/login" method="POST"> <!-- 3 -->
             <div class="form-group">
                 <!--<label for="username">账号</label>-->
@@ -41,7 +42,7 @@
                 <input type="checkbox" name="remember-me" /><strong>[[#{login.remember}]]</strong>
 
             </div>
-            <input type="submit" id="login"  class="btn btn-primary" style="width:350px;"/>[[#{login.btn_login}]]
+            <input type="submit" id="login"  class="btn btn-primary btn-block" th:value="#{login.btn_login}" />
         </form>
         <div>
             <a th:href="@{/logins/toRegister}" class="text-info pull-left navbar-brand">[[#{login.a_register}]]</a>
@@ -50,9 +51,33 @@
     </div>
 </div>
 
-<p class="mt-5 mb-3 text-muted">© 2017-2018</p>
-<a class="btn btn-sm" th:href="@{/index.html(l='zh_CN')}">中文</a>
-<a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">English</a>
+<footer class="footer navbar-fixed-bottom">
+    <div class="container">
+        <div class="col-sm-8 col-sm-offset-2 text-center">
+            <a  onclick="changes('zh_CN')">中文</a><span>|</span>
+            <a  onclick="changes('en_US')">Englisg</a>
+        </div>
+    </div>
+</footer>
+
 
 </body>
+<script>
+    function changes(lans){
+        $.ajax({
+            async : false,
+            type : 'POST',
+            url : "/logins/i18n",
+            data : {"lan":lans},
+            success : function(data) {
+                console.log("修改语言成功");
+                window.location.reload()
+            },
+            error : function(result) {
+                alert('服务器异常');
+            }
+        });
+    }
+</script>
+
 </html>

@@ -11,10 +11,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.LocaleResolver;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
+import static org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME;
+import static org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME;
 @Controller
 @RequestMapping("/logins")
 public class LoginController {
@@ -25,6 +32,20 @@ public class LoginController {
     UserService userService;
 
     DateUtil dateUtil=new DateUtil();
+
+    @Autowired
+    LocaleResolver localeResolver;
+
+    @RequestMapping("i18n")
+    public void test(HttpServletRequest request, HttpServletResponse response,@RequestParam String lan) {
+        HttpSession session=request.getSession();
+        System.out.println("当前语言："+lan);
+        if(lan.equals("en_US")){
+            localeResolver.setLocale(request,response, Locale.US);
+        }else{
+            localeResolver.setLocale(request,response, Locale.SIMPLIFIED_CHINESE);
+        }
+    }
 
     @RequestMapping("/register")
     public String register(@RequestParam String username, @RequestParam String password,
