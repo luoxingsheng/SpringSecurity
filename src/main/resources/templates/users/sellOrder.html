@@ -5,16 +5,11 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>[[#{login.order_info}]]</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
-    <style>
-        .left-div{
-            float: left;
-        }
-    </style>
 </head>
 <body>
 <div  class="container " th:replace="common/navbar::userNavbar">
@@ -22,24 +17,24 @@
 <div class="container">
     <div  >
         <table class="table table-condensed table-responsive">
-            <caption>订单信息</caption>
+            <caption>[[#{login.order_info}]]</caption>
             <thead>
             <tr>
-                <th>订单号</th>
-                <th>买家</th>
-                <th>商品</th>
-                <th>订单时间</th>
-                <th>订单状态</th>
-                <th>订单金额</th>
-                <th>交易地址</th>
-                <th>买家姓名</th>
-                <th>买家电话</th>
+                <th>[[#{login.order_no}]]</th>
+                <th>[[#{login.seller}]]</th>
+                <th>[[#{login.p_name}]]</th>
+                <th>[[#{login.order_time}]]</th>
+                <th>[[#{login.order_status}]]</th>
+                <th>[[#{login.order_money}]]</th>
+                <th>[[#{login.order_add}]]</th>
+                <th>[[#{login.buyer_name}]]</th>
+                <th>[[#{login.buyer_phone}]]</th>
             </tr>
             </thead>
-            <tbody >
+            <tbody>
             <tr  th:each="o:${sellOrders}">
                 <td th:text="${o.id}"></td>
-                <td th:text="${o.buyId}"></td>
+                <td th:text="${o.sellId}"></td>
                 <td th:text="${o.pId}"></td>
                 <td th:text="${o.orderTime}"></td>
                 <td th:text="${o.orderStatus}"></td>
@@ -51,7 +46,6 @@
             </tbody>
         </table>
     </div>
-
 </div>
 
 </body>

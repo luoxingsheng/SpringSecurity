@@ -5,7 +5,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>User Center</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -23,50 +23,50 @@
             <input type="hidden" name="icon" th:value="${icon}" />
             <input type="hidden" name="password" th:value="${password}" />
             <div class="form-group">
-                <label for="Username" class="col-sm-2 control-label">头像：</label>
+                <label for="Username" class="col-sm-2 control-label">[[#{login.icon}]]</label>
                 <div class="col-sm-3">
                     <img  id="Icon" th:src="${icon}" class="img-responsive   img-circle" style="width: 150px;height: 150px"></img>
                 </div>
             </div>
             <div class="form-group">
-                <label for="Username" class="col-sm-2 control-label">用户名：</label>
+                <label for="Username" class="col-sm-2 control-label">[[#{login.username}]]</label>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" name="username"  id="Username" th:value="${username}"  readonly="readonly"/>
                 </div>
             </div>
             <div class="form-group">
-                <label for="Nickname" class="col-sm-2 control-label">昵称：</label>
+                <label for="Nickname" class="col-sm-2 control-label">[[#{login.nickname}]]</label>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" name="nickname"  id="Nickname" th:value="${nickname}" />
                 </div>
             </div>
             <div class="form-group">
-                <label for="Email" class="col-sm-2 control-label" >邮件：</label>
+                <label for="Email" class="col-sm-2 control-label" >[[#{login.email}]]</label>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" name="email" id="Email"  th:value="${email}" />
                 </div>
             </div>
             <div class="form-group">
-                <label for="Address" class="col-sm-2 control-label">地址：</label>
+                <label for="Address" class="col-sm-2 control-label">[[#{login.address}]]</label>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" name="address"  id="Address" th:value="${address}" />
                 </div>
             </div>
             <div class="form-group">
-                <label for="Tel" class="col-sm-2 control-label">电话：</label>
+                <label for="Tel" class="col-sm-2 control-label">[[#{login.phone}]]</label>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" name="tel"  id="Tel" th:value="${tel}" />
                 </div>
             </div>
             <div class="form-group">
-                <label for="CreditScore" class="col-sm-2 control-label">信誉积分：</label>
+                <label for="CreditScore" class="col-sm-2 control-label">[[#{login.score}]]</label>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" name="creditScore"  id="CreditScore" th:value="${creditScore}"  readonly="readonly"/>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-md-3">
-                    <input type="submit" value="修改" class="btn btn-info" style="width:150px;" />
+                    <input type="submit" th:value="#{login.update}" class="btn btn-info" style="width:150px;" />
                 </div>
             </div>
         </form>
