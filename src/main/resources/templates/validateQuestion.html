@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta content="text/html;charset=UTF-8"/>
-    <title>重置密码</title>
+    <title>[[#{login.reset_pass}]]</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -12,27 +12,27 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" th:href="@{/}">买买买</a>
+            <a class="navbar-brand" th:href="@{/}">[[#{login.web_name}]]<span class="icon fa fa-home"></span></a>
         </div>
     </div>
 </nav>
 <div class="container">
 
     <div class="starter-template col-md-4 col-md-offset-5 form-inline">
-        <h2>用户密保验证</h2>
+        <h2></h2>
         <br>
             <div class="form-group">
-                <label for="name">请输入用户名</label><br>
+                <label for="name">[[#{login.user_pass}]]</label><br>
                 <div><input type="text" class="form-control" name="name" id="name"/>
             </div><br>
-                <button class="btn btn-primary  btn-block" onclick="getQuestion()">确认</button></div>
+                <button class="btn btn-primary  btn-block" onclick="getQuestion()">[[#{login.confirm}]]</button></div>
             <br>
         <br>
         <div class=" form-group"  id="divAnswer">
-            <label for="answer">密保问题:</label>
+            <label for="answer">[[#{login.pass_que}]]:</label>
             <div name="question" id="question" ></div><br>
-            <input type="text" class="form-control" name="answer" placeholder="密保答案" id="answer"/><br><br>
-            <button    class="btn btn-primary  btn-block" onclick="resetPassword()" >提交密保答案</button>
+            <input type="text" class="form-control" name="answer" th:placeholder="#{login.pass_ans}" id="answer"/><br><br>
+            <button    class="btn btn-primary  btn-block" onclick="resetPassword()" >[[#{login.submit}]]</button>
         </div>
     </div>
 </div>

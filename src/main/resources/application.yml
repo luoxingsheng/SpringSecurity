@@ -62,8 +62,8 @@ mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
 
 img:
-  location: D://Project/src/main/resources/static/img/userImg/
-  productLocation: D://Project/src/main/resources/static/img/productImg/
+  location: http://47.107.133.187:8080/img/
+  productLocation: http://47.107.133.187:8080/img/
 #  location: /data/img/userImg
 #  productLocation: /data/img/productImg
 

@@ -5,7 +5,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
-    <title>上传商品信息</title>
+    <title>[[#{login.upload_pro}]]</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -20,54 +20,54 @@
     <div class="form row panel panel-default col-md-5 col-md-offset-4 ">
         <form class="form-horizontal  "
               th:action="@{/product/uploadProduct}" method="post" enctype="multipart/form-data">
-            <h3 class="form-title col-md-offset-2 ">上传商品信息</h3>
+            <h3 class="form-title col-md-offset-2 ">[[#{login.upload_pro}]]</h3>
             <hr />
             <div class="form-inline col-md-offset-1">
                 <div class="form-group">
-                    <label for="name">商品名称:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <input class="form-control required" type="text" placeholder="商品名称" name="pName" id="name" />
+                    <label for="name">[[#{login.p_name}]]:</label>
+                    <input class="form-control required" type="text" th:placeholder="#{login.p_name}" name="pName" id="name" />
                 </div>
                 <br><br>
                 <div class="form-group">
-                    <label for="type">商品种类:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <label for="type">[[#{login.p_type}]]</label>
                     <select class="form-control" name="pType" id="type">
-                        <option value="生活用品">生活用品</option>
-                        <option value="电子产品">电子产品</option>
-                        <option value="衣物">衣物</option>
-                        <option value="运动物品">运动物品</option>
-                        <option value="书籍、资料">书籍、资料</option>
+                        <option value="生活用品">[[#{login.live_pro}]]</option>
+                        <option value="电子产品">[[#{login.elec_pro}]]</option>
+                        <option value="衣物">[[#{login.clothes}]]</option>
+                        <option value="运动物品">[[#{login.sport}]]</option>
+                        <option value="书籍、资料">[[#{login.books}]]</option>
                     </select>
                 </div>
                 <br><br>
 
                 <div class="form-group">
-                    <label for="price">商品价格:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <input class="form-control required" type="text" placeholder="商品价格" name="pPrice" id="price" />
+                    <label for="price">[[#{login.p_price}]]:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input class="form-control required" type="text" th:placeholder="#{login.p_price}" name="pPrice" id="price" />
                 </div>
                 <br><br>
 
                 <div class="form-group">
-                    <label for="stock">商品库存:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <input class="form-control required" type="text" placeholder="商品库存" name="pStock" id="stock"/>
+                    <label for="stock">[[#{login.p_stock}]]:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input class="form-control required" type="text" th:placeholder="#{login.p_stock}" name="pStock" id="stock"/>
                 </div>
                 <br><br>
 
                 <div class="form-group">
-                    <label for="stock">商品描述:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <textarea class="form-control required" type="text" placeholder="商品描述" name="pDesc" raw="5"></textarea>
+                    <label for="stock">[[#{login.p_desc}]]:</label>
+                    <textarea class="form-control required" type="text" th:placeholder="#{login.p_desc}" name="pDesc" raw="5"></textarea>
                 </div>
                 <br><br>
 
 
                 <div class="form-group">
-                    <label >商品图片：</label>
+                    <label >[[#{login.p_img}]]：</label>
 
                     <img src="http://47.107.133.187:8080/img/moban2.png" class="img-rounded"  id="showImg" name="img" style="height: 200px;width: 200px" >
                     <input  class="form-control required"id="img" size="30" name="pImg" type="file" onchange="preImg()">
                 </div>
                 <br><br>
                 <div class="form-group col-md-offset-1">
-                    <input type="submit" class="btn btn-success pull-right btn-block" value="确认上传 " />
+                    <input type="submit" class="btn btn-success pull-right btn-block" th:value="#{login.upload} " />
                 </div>
             </div>
         </form>

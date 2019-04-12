@@ -5,7 +5,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>[[#{login.user_img}]]</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -21,7 +21,7 @@
 
         <form class="form-horizontal"   th:action="@{/user/uploadImg}"  method="post" enctype="multipart/form-data">
             <div class="form-group form-inline">
-                <label class="col-md-2 control-label">头像:</label>
+                <label class="col-md-2 control-label">[[#{login.user_img}]]</label>
                 <div class="col-md-2">
                     <div style="margin-top: 10px; ">
                         <img src="http://47.107.133.187:8080/img/moban1.png" class="img-rounded"  id="showImg" name="img" style="height: 300px;width: 300px" >
@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-md-4">
-                    <button type="submit" class="btn btn-default" id="upload" >确认修改</button>
+                    <button type="submit" class="btn btn-default" id="upload" >[[#{login.update}]]</button>
                 </div>
             </div>
         </form>

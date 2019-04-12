@@ -5,14 +5,12 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
-    <title>购物车</title>
+    <title>[[#{login.cart}]]</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <style>
@@ -28,14 +26,14 @@
             <!--<form th:action="@{/order/toOrder}">-->
                 <div class="form-inline">
                     <div class="form-group col-md-1"><img th:src="${c.productIcon}" style="width:50px;height:50px;" ></img></div>
-                    <div class="form-group col-md-2" >商品名:[[${c.productName}]]</div>
-                    <div class="form-group col-md-2">价格:[[${c.productPrice}]]</div>
-                    <div class="form-group col-md-2">商品状态:[[${c.productStatus}]]</div>
+                    <div class="form-group col-md-2" >[[#{login.p_name}]]:[[${c.productName}]]</div>
+                    <div class="form-group col-md-2">[[#{login.p_price}]]:[[${c.productPrice}]]</div>
+                    <div class="form-group col-md-2">[[#{login.p_status}]]:[[${c.productStatus}]]</div>
                     <div class="hide" ><input th:value="${c.productId}" name="pId"></div>
                     <div class="hide" ><input th:value="${c.productPrice}" name="price"></div>
-                    <div class="form-group col-md-2">数量: [[${c.productNum}]]</div>
-                    <div class="form-group col-md-1"><a id="sss" type="submit" th:href="@{/order/toOrder(pId=${c.productId},orderNum=${c.productNum},price=${c.productPrice})}">下单</a></div>
-                    <div class="form-group col-md-1"><a th:href="@{/cart/delCartProduct(productId=${c.productId})}">移除商品</a></div>
+                    <div class="form-group col-md-2">[[#{login.p_stock}]]: [[${c.productNum}]]</div>
+                    <div class="form-group col-md-1"><a id="sss" type="submit" th:href="@{/order/toOrder(pId=${c.productId},orderNum=${c.productNum},price=${c.productPrice})}">[[#{login.buy}]]</a></div>
+                    <div class="form-group col-md-1"><a th:href="@{/cart/delCartProduct(productId=${c.productId})}">[[#{login.rm_pro}]]</a></div>
                 </div>
             <!--</form>-->
         </div>

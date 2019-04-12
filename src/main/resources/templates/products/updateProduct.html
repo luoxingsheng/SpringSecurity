@@ -5,7 +5,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
-    <title>更新商品信息</title>
+    <title>[[#{login.update_pro}]]</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -18,35 +18,31 @@
 
 <div class="container">
     <div class="form row" th:each="p:${pro}">
-            <h3 class="form-title col-md-offset-5 ">修改商品信息</h3>
+            <h3 class="form-title col-md-offset-5 ">[[#{login.update_pro}]]</h3>
             <hr />
         <form class="form-horizontal col-sm-offset-4 col-md-offset-4 col-md-4 "
               th:action="@{/product/updateProduct}" method="post" enctype="multipart/form-data" >
             <div >
                 <div class="form-group" hidden="hidden">
-                    <input class="form-control required" type="hidden"
-                         name="id"  th:value="${p.id}"/>
+                    <input class="form-control required" type="hidden" name="id"  th:value="${p.id}"/>
                 </div>
                 <div class="form-group" hidden="hidden">
-                    <input class="form-control required" type="hidden"
-                           name="pStatus"  th:value="${p.pStatus}"/>
+                    <input class="form-control required" type="hidden" name="pStatus"  th:value="${p.pStatus}"/>
                 </div>
                 <div class="form-group" hidden="hidden">
-                    <input class="form-control required" type="hidden"
-                           name="userId"  th:value="${p.userId}"/>
+                    <input class="form-control required" type="hidden" name="userId"  th:value="${p.userId}"/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control required" type="text"
-                           placeholder="商品名称" name="pName" th:value="${p.pName}"/>
+                    <input class="form-control required" type="text" th:placeholder="#{login.p_name}" name="pName" th:value="${p.pName}"/>
                 </div>
 
                 <div class="form-group">
                     <select class="form-control" name="pType" id="type" th:value="${p.pType}" >
-                        <option value="生活用品">生活用品</option>
-                        <option value="电子产品">电子产品</option>
-                        <option value="衣物">衣物</option>
-                        <option value="运动物品">运动物品</option>
-                        <option value="书籍、资料">书籍、资料</option>
+                        <option value="生活用品">[[#{login.live_pro}]]</option>
+                        <option value="电子产品">[[#{login.elec_pro}]]</option>
+                        <option value="衣物">[[#{login.clothes}]]</option>
+                        <option value="运动物品">[[#{login.sport}]]</option>
+                        <option value="书籍、资料">[[#{login.books}]]</option>
                     </select>
                     <!--<input class="form-control required" type="text"-->
                            <!--placeholder="商品类型" name="pName" th:value="${p.pType}" id="type"/>-->
@@ -55,24 +51,24 @@
 
                 <div class="form-group">
                     <input class="form-control required" type="text"
-                           placeholder="商品价格" name="pPrice"  th:value="${p.pPrice}"/>
+                           th:placeholder="#{login.p_price}" name="pPrice"  th:value="${p.pPrice}"/>
                 </div>
                 <div class="form-group">
                     <input class="form-control required" type="text"
-                           placeholder="商品库存" name="pStock"  th:value="${p.pStock}"/>
+                           th:placeholder="#{login.p_stock}" name="pStock"  th:value="${p.pStock}"/>
                 </div>
                 <div class="form-group">
 						<textarea class="form-control required" type="text"
-                                  placeholder="商品描述" name="pDesc" raw="5" >[[${p.pDesc}]]</textarea>
+                                  th:placeholder="#{login.p_desc}" name="pDesc" raw="5" >[[${p.pDesc}]]</textarea>
                 </div>
-                <label >商品图片：</label>
+                <label >[[#{login.p_img}]]：</label>
                 <div class="form-group">
                     <img th:src="${p.pImg}" class="img-rounded"  id="showImg" name="pImgs" style="height: 300px;width: 200px" >
                     <input class="form-control required" type="hidden" name="pImg"  th:value="${p.pImg}"/>
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-success pull-right btn-block"
-                           value="确认修改 " />
+                           th:value="#{login.update} " />
                 </div>
             </div>
         </form>
@@ -80,7 +76,7 @@
               th:action="@{/product/deleteProduct(id=${p.id})}" method="post" enctype="multipart/form-data" th:each="p:${pro}">
         <div class="form-group">
             <input type="submit" class="btn btn-danger pull-right btn-block"
-                   value="删除商品 "  />
+                   th:value="#{login.del_pro} "  />
         </div>
         </form>
     </div>

@@ -80,12 +80,12 @@ public class ProductController {
         //检测没有敏感词直接插入
         if(!BadWordUtil.isContaintBadWord(product.getpName(),2)) {
             productService.addProduct(product);
-            Msg msg = new Msg("商品信息", "添加商品成功", null);
+            Msg msg = new Msg("评论信息", "添加商品成功", null);
             model.addAttribute("message", msg);
             return "notices";
         }
         else{
-            Msg msg = new Msg("添加商品失败", "商品名称含有敏感词！！！", null);
+            Msg msg = new Msg("评论信息", "添加商品失败，商品名称含有敏感词！！！", null);
             model.addAttribute("message", msg);
             return "notices";
         }
@@ -116,16 +116,6 @@ public String toUpdate(@RequestParam Integer id,ModelMap model){
         Msg msg=new Msg("商品信息","删除商品成功",null);
         model.addAttribute("message",msg);
         return "notices";
-    }
-
-    @GetMapping("/toProductInfo")
-    public String toProductInfo(@RequestParam Integer id,ModelMap model){
-        Product product=productService.findProductById(id);
-        String seller=userService.getUserById(product.getUserId()).getUsername();
-        model.addAttribute("pro",product);
-        model.addAttribute("seller",seller);
-        Object pro = JSONObject.toJSON(model);
-        return "products/productInfo";
     }
 
 

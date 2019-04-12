@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
     <script type="text/javascript" th:src="@{/js/usermenu.js}"></script>
 </head>
@@ -31,7 +30,7 @@
             <!--<li ><a  th:href="@{/}">我的货物</a></li>-->
 
             <li style="margin-left: 20%" >
-                <form class="navbar-form navbar-right" role="search" th:action="@{/search}">
+                <form class="navbar-form navbar-right" role="search" th:action="@{/index/search}">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search" name="p_name">
                     </div>

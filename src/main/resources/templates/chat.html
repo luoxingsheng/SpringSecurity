@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>聊天</title>
+    <title>[[#{login.chat}]]</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -23,12 +23,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        　　  <a class="navbar-brand" th:href="@{/}">买买买<span class="icon fa fa-home"></span></a>
+        　　  <a class="navbar-brand" th:href="@{/}">[[#{login.web_name}]]<span class="icon fa fa-home"></span></a>
     </div>
     <div class="collapse navbar-collapse  pull-right" id="collapse1">
         <ul class="nav  nav-pills">
             <li sec:authorize="isAuthenticated()" class="">
-                <a  th:href="@{/logout}">注销</a>
+                <a  th:href="@{/logout}">[[#{login.logout}]]</a>
             </li>
         </ul>
     </div>
@@ -36,11 +36,11 @@
 </nav>
 <div class="container">
     <div class="col-md-offset-5">
-        <h1>和卖家谈谈吧</h1>
+        <h1>[[#{login.chat_with}]]</h1>
     </div>
 
     <div class="col-md-3 panel panel-default">
-        <div class="panel-heading"><p>买家信息</p></div>
+        <div class="panel-heading"><p>[[#{login.seller_info}]]</p></div>
         <div class="panel-body" id="userlist">
         </div>
     </div>
@@ -48,12 +48,6 @@
     <div class="col-md-8  pre-scrollable panel panel-default" style="height: 50%;">
         <div class="panel-body">
             <div id="showMessage"> </div>
-            <!--<div id="sendMessage"  class="pull-left">-->
-
-            <!--</div>-->
-            <!--<div id="receiveMessage"  class="pull-right ">-->
-
-            <!--</div>-->
         </div>
 
     </div>
@@ -68,7 +62,7 @@
 <hr/>
 <div style="margin: auto;text-align: center">
     <input id="text" type="text" />
-    <button onclick="send()">发送消息</button>
+    <button onclick="send()">[[#{login.send_info}]]</button>
 </div>
 </body>
 <script>

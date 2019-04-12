@@ -1,25 +1,35 @@
 package com.lxs.graduate.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.lxs.graduate.entity.Evaluate;
 import com.lxs.graduate.entity.Product;
+import com.lxs.graduate.service.EvaluateService;
 import com.lxs.graduate.service.ProductService;
 import com.lxs.graduate.service.ProductServiceImpl;
+import com.lxs.graduate.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class IndexController {
 
     @Autowired
-    ProductService productService=new ProductServiceImpl();
+    ProductService productService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    EvaluateService evaluateService;
 
     @RequestMapping("/words")
     public String words(){
@@ -55,7 +65,7 @@ public class IndexController {
     }
 
 
-    @RequestMapping("/search")
+    @RequestMapping("/index/search")
     public String search(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize,@RequestParam("p_name")String p_name) {
 
         //引入分页查询，使用PageHelper分页功能在查询之前传入当前页，然后多少记录
@@ -77,7 +87,7 @@ public class IndexController {
     }
 
 
-    @GetMapping("/livingProducts")
+    @GetMapping("/index/livingProducts")
     public String getLivingProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         //引入分页查询，使用PageHelper分页功能在查询之前传入当前页，然后多少记录
         PageHelper.startPage(pageNum, pageSize);
@@ -98,7 +108,7 @@ public class IndexController {
         return "products/livingProduct";
     }
 
-    @GetMapping("/clothProducts")
+    @GetMapping("/index/clothProducts")
     public String getClothProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         //引入分页查询，使用PageHelper分页功能在查询之前传入当前页，然后多少记录
         PageHelper.startPage(pageNum, pageSize);
@@ -119,7 +129,7 @@ public class IndexController {
         return "products/clothProduct";
     }
 
-    @GetMapping("/sportProducts")
+    @GetMapping("/index/sportProducts")
     public String getSportProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         //引入分页查询，使用PageHelper分页功能在查询之前传入当前页，然后多少记录
         PageHelper.startPage(pageNum, pageSize);
@@ -140,7 +150,7 @@ public class IndexController {
         return "products/sportProduct";
     }
 
-    @GetMapping("/electricProducts")
+    @GetMapping("/index/electricProducts")
     public String getElectricProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         //引入分页查询，使用PageHelper分页功能在查询之前传入当前页，然后多少记录
         PageHelper.startPage(pageNum, pageSize);
@@ -161,7 +171,7 @@ public class IndexController {
         return "products/electricProduct";
     }
 
-    @GetMapping("/bookProducts")
+    @GetMapping("/index/bookProducts")
     public String getBookProducts(ModelMap model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         //引入分页查询，使用PageHelper分页功能在查询之前传入当前页，然后多少记录
         PageHelper.startPage(pageNum, pageSize);
@@ -184,6 +194,35 @@ public class IndexController {
 
 
 
+
+    @GetMapping("/index/toProductInfo")
+    public String toProductInfo(@RequestParam Integer id,@RequestParam Integer isSeller,ModelMap model){
+        Product product=productService.findProductById(id);
+        String seller=userService.getUserById(product.getUserId()).getUsername();
+        model.addAttribute("pro",product);
+        model.addAttribute("isSeller",isSeller);
+        model.addAttribute("seller",seller);
+        Object pro = JSONObject.toJSON(model);
+        return "products/productInfo";
+    }
+
+    /**
+     * 获取所有留言
+     *
+     * @param pId
+     * @return
+     */
+    @ResponseBody
+    @GetMapping(value = "/index/getEvaluates")
+    public Map<String,Object> getEvaluates(@RequestParam("pId")Integer pId){
+        Map<String,Object> map=new HashMap<>();
+        List<Evaluate> list=evaluateService.getAllEvaluatesByPid(pId);
+        for(Evaluate str :list){
+            System.out.println(str.toString());
+        }
+        map.put("words",list);
+        return map;
+    }
 
 
 }

@@ -1,11 +1,14 @@
 package com.lxs.graduate.controller;
 
 import com.lxs.graduate.entity.Evaluate;
+import com.lxs.graduate.entity.Msg;
 import com.lxs.graduate.entity.User;
 import com.lxs.graduate.service.EvaluateService;
+import com.lxs.graduate.util.BadWordUtil;
 import com.lxs.graduate.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +31,8 @@ public class EvaluateController {
 
     DateUtil dateUtil;
 
+    @Autowired
+    BadWordUtil badWordUtil;
 
     /**
      * 留言
@@ -37,8 +42,9 @@ public class EvaluateController {
      * @return
      */
     @PostMapping(value = "/addEvaluate")
-    public Map<String,String> leaveWord(@RequestParam("pId")Integer pId,
-                              @RequestParam("content")String content) throws ParseException {
+    public Map<String,Object> leaveWord(@RequestParam("pId")Integer pId,
+                                        @RequestParam("content")String content) throws ParseException {
+        Map<String,Object> map = new HashMap<>();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -51,24 +57,19 @@ public class EvaluateController {
         evaluate.setCreateTime(new Timestamp(System.currentTimeMillis()));
         evaluate.setTitle(title);
         evaluate.setMessage(content);
-        evaluateService.addEvaluate(evaluate);
-        Map<String,String> map=new HashMap<>();
-        map.put("titles",evaluate.getTitle());
-        map.put("messages","添加评论成功！");
-         return map;
+        //检测没有敏感词直接插入
+        if(!BadWordUtil.isContaintBadWord(content,2)) {
+            evaluateService.addEvaluate(evaluate);
+            Msg msg = new Msg(evaluate.getTitle(), "添加评论成功", content);
+            map.put("message",msg);
+            return map;
+        }
+        else{
+            Msg msg = new Msg(evaluate.getTitle(), "添加评论，评论中含有敏感词！！！", null);
+            map.put("message",msg);
+            return map;
+        }
     }
 
-    /**
-     * 获取所有留言
-     *
-     * @param pId
-     * @return
-     */
-    @PostMapping(value = "/getEvaluates")
-    public Map<String,Object> getEvaluates(@RequestParam("pId")Integer pId){
-        Map<String,Object> map=new HashMap<>();
-        List<Evaluate> list=evaluateService.getAllEvaluatesByPid(pId);
-        map.put("words",list);
-        return map;
-    }
+
 }

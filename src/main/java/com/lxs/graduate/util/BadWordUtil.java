@@ -17,7 +17,8 @@ import java.util.Set;
 
 @Component
 public class BadWordUtil {
-    public static String filePath = "E:\\GitRepository\\graduate\\src\\main\\resources\\static\\dictionary.txt";//敏感词库文件路径
+//    public static String filePath = "E:\\GitRepository\\graduate\\src\\main\\resources\\static\\dictionary.txt";//敏感词库文件路径
+    public static String filePath = "C:\\Users\\hspcadmin\\IdeaProjects\\SpringSecurity\\src\\main\\resources\\static\\dictionary.txt";//敏感词库文件路径
     public static Set<String> words;
     public static Map<String,String> wordMap;
     public static int minMatchTYpe = 1;      //最小匹配规则
@@ -217,7 +218,7 @@ public class BadWordUtil {
         Map<String,String> map = BadWordUtil.wordMap;
 
         System.out.println("敏感词的数量：" + BadWordUtil.wordMap.size());
-        String string = "习近平牛逼垃圾";
+        String string = "习近平你么死了 ";
         long beginTime = System.currentTimeMillis();
         Set<String> set = BadWordUtil.getBadWord(string, 2);
         Boolean i = BadWordUtil.isContaintBadWord(string, 2);

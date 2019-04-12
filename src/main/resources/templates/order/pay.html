@@ -2,31 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta content="text/html;charset=UTF-8"/>
-    <title>注册</title>
+    <title>[[#{login.pay_money}]]</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <script type="text/javascript" th:src="@{/js/validatePwd.js}"></script>
-    <style type="text/css">
-        .starter-template {
-            padding: 40px 15px;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">买买买</a>
+            <a class="navbar-brand" th:href="@{/}">[[#{login.web_name}]]</a>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li><a th:href="@{/index}"> 首页 </a></li>
-
-            </ul>
-        </div><!--/.nav-collapse -->
     </div>
 </nav>
 
@@ -35,13 +23,13 @@
     <br><br><br>
     <div class="starter-template col-md-6 col-md-offset-3" >
         <div class="panel panel-default">
-            <h2>请使用网银支付</h2>
+            <h2>[[#{login.pay_money}]]</h2>
             <hr>
             <div>
                 <div class="form-inline">
                     <div class="form-group">
-                        <a class="pull-left" style="text-decoration:none;" onclick="change1()">支付宝&nbsp;&nbsp;&nbsp;&nbsp;|</a>
-                        <a class="pull-left" style="text-decoration:none;" onclick="change2()">&nbsp;&nbsp;&nbsp;&nbsp;微信</a>
+                        <a class="pull-left" style="text-decoration:none;" onclick="change1()">[[#{login.alipay}]]&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+                        <a class="pull-left" style="text-decoration:none;" onclick="change2()">&nbsp;&nbsp;&nbsp;&nbsp;[[#{login.weichat}]]</a>
                     </div>
                 </div>
                 <br>
