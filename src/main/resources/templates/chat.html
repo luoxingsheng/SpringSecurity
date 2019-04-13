@@ -66,6 +66,10 @@
 </div>
 </body>
 <script>
+
+    //When entering the chat interface, first query the list of users who have chatted with them.
+    // When the user clicks on the user list, they can see the message sent by the other party
+    // and send a message to the other party.
     initWords();
     function initWords() {
         var username = document.getElementById('username').value;
@@ -84,15 +88,15 @@
                 }
                 for(let item of sets){
                     if(item !== username)
-                        $("#userlist").append("<a onclick='getMessages(\"" + item+ "\")'  class='list-group-item'>"+item+"</a><br>");
+                        $("#userlist").append("<a onclick='getMessages(\"" + item+ "\")'  " +
+                            "class='list-group-item'>"+item+"</a><br>");
                 }
 
             },
             error : function(data) {
-                alert('服务器异常');
+                alert('Server exception');
             }
         });
-
     }
 
 
@@ -132,7 +136,7 @@
                 }
             },
             error : function(data) {
-                alert('服务器异常');
+                alert('Server exception');
             }
         });
 
@@ -178,27 +182,23 @@
         return year + "-" + month + "-" + date+" "+hour+":"+minute+":"+second;
     }
 
+    //When a web page is launched, WebSocket automatically establishes a connection with the username as a unique identifier.
     if ("WebSocket" in window) {
         webSocket = new WebSocket("ws://localhost:8080/websocket/"+document.getElementById('username').value);
 
-        //连通之后的回调事件
-        webSocket.onopen = function () {
-        };
-
-
-        //接收后台服务端的消息
+        //Receive background server messages
         webSocket.onmessage = function (evt) {
             var received_msg = evt.data;
             var obj = JSON.parse(received_msg);
             var mTitle = obj.sendTime + " " + obj.fromUser;
             var content = obj.content;
             $("#hisName").attr("value",obj.fromUser);
-            if(obj.messageType==4) {
+            if(obj.messageType===4) {
                 receiveMessageInnerHTML(mTitle,content);
             }
         }
 
-        //将消息显示在网页上
+        //Display the seed message on a webpage
         function sendMessageInnerHTML(mTitle,content) {
             var rightArrow = '<div class="pull-right">'+
                 '<div>'+mTitle+'</div>'+
@@ -207,7 +207,7 @@
             $("#showMessage").append(rightArrow);
         }
 
-        //将消息显示在网页上
+        //Display the received message on a webpage
         function receiveMessageInnerHTML(mTitle,content) {
             var leftArrow = '<div class="pull-left">'+
                 '<div>'+mTitle+'</div>'+
@@ -216,16 +216,16 @@
             $("#showMessage").append(leftArrow);
         }
 
-
+        //When sending a message, the name of the buyer and the seller is obtained,
+        // and the two parties make a point-to-point connection,
+        // and the chat message and the transmission time are recorded, and the peer-to-peer transmission is performed.
         function send() {
-
             var to = $("#hisName").val();
             var sendtime = getFormatDate();
             var content = document.getElementById('text').value
             var username = document.getElementById('username').value;
             var mTitle = sendtime + " " + username;
             sendMessageInnerHTML(mTitle,content);
-
             var message = {
                 "sendtime": sendtime,
                 "message": content,

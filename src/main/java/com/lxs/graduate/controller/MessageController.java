@@ -22,6 +22,8 @@ public class MessageController {
     @Autowired
     MessageService messageService;
 
+    //By the sender's name, all relevant people in the chat record are obtained
+    // and sent to the foreground as a list, and the foreground is processed and displayed on the page.
     @RequestMapping("/findList")
     public Map<String,Object> findList(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

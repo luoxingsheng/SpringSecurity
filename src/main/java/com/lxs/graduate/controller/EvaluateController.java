@@ -35,8 +35,7 @@ public class EvaluateController {
     BadWordUtil badWordUtil;
 
     /**
-     * 留言
-     *
+     *Send a message
      * @param pId
      * @param content
      * @return
@@ -48,7 +47,6 @@ public class EvaluateController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        //从前端或者自己模拟一个日期格式，转为String即可
         String dateStr = format.format(date);
         String title=dateStr+"  "+user.getUsername();
         Evaluate evaluate=new Evaluate();
@@ -57,15 +55,15 @@ public class EvaluateController {
         evaluate.setCreateTime(new Timestamp(System.currentTimeMillis()));
         evaluate.setTitle(title);
         evaluate.setMessage(content);
-        //检测没有敏感词直接插入
+        //Detect no sensitive words directly inserted
         if(!BadWordUtil.isContaintBadWord(content,2)) {
             evaluateService.addEvaluate(evaluate);
-            Msg msg = new Msg(evaluate.getTitle(), "添加评论成功", content);
+            Msg msg = new Msg(evaluate.getTitle(), "Add a comment successfully", content);
             map.put("message",msg);
             return map;
         }
         else{
-            Msg msg = new Msg(evaluate.getTitle(), "添加评论，评论中含有敏感词！！！", null);
+            Msg msg = new Msg(evaluate.getTitle(), "Add a comment with a sensitive word in the comment! ! !", null);
             map.put("message",msg);
             return map;
         }

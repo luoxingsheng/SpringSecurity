@@ -58,7 +58,8 @@
 
 
 <script >
-
+//When entering the page, the chat record of the product is automatically
+// obtained according to the product id and displayed at the bottom of the page.
     initWords();
     function initWords() {
         var word = {};
@@ -81,17 +82,17 @@
                 document.getElementById("wordArea").innerHTML = html;
             },
             error : function(data) {
-                alert('服务器异常,获取数据');
+                alert('Server exception, get data');
             }
         });
 
     }
 
+    //When sending a comment, the comment information and the item id are sent to the background and recorded.
     function leaveWord() {
         var word = {};
         word.content = document.getElementById("content").value;
         word.pId = document.getElementById("pId").value;
-        var response;
         $.ajax({
             async : false,
             type : 'POST',
@@ -105,11 +106,9 @@
                     '        <div>'+word.content+'</div>'+'<hr>';
             },
             error : function(result) {
-                alert('请登录再进行评论！');
+                alert('Please log in to comment!');
             }
         });
-
-
     }
 
     $(document).ready(function() {

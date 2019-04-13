@@ -17,7 +17,7 @@ public class Order {
 
     private Double orderMoney;
 
-    private String payStatus;
+    private Integer orderScore;
 
     private String orderAddress;
 
@@ -25,7 +25,7 @@ public class Order {
 
     private String orderPhone;
 
-    public Order(Long id, Integer pId, Integer sellId, Integer buyId, Integer orderNum, String orderTime, String orderStatus, Double orderMoney, String payStatus, String orderAddress, String orderReceiver, String orderPhone) {
+    public Order(Long id, Integer pId, Integer sellId, Integer buyId, Integer orderNum, String orderTime, String orderStatus, Double orderMoney, Integer orderScore, String orderAddress, String orderReceiver, String orderPhone) {
         this.id = id;
         this.pId = pId;
         this.sellId = sellId;
@@ -34,7 +34,7 @@ public class Order {
         this.orderTime = orderTime;
         this.orderStatus = orderStatus;
         this.orderMoney = orderMoney;
-        this.payStatus = payStatus;
+        this.orderScore = orderScore;
         this.orderAddress = orderAddress;
         this.orderReceiver = orderReceiver;
         this.orderPhone = orderPhone;
@@ -108,12 +108,12 @@ public class Order {
         this.orderMoney = orderMoney;
     }
 
-    public String getPayStatus() {
-        return payStatus;
+    public Integer getOrderScore() {
+        return orderScore;
     }
 
-    public void setPayStatus(String payStatus) {
-        this.payStatus = payStatus == null ? null : payStatus.trim();
+    public void setOrderScore(Integer orderScore) {
+        this.orderScore = orderScore;
     }
 
     public String getOrderAddress() {

@@ -1,27 +1,35 @@
 package com.lxs.graduate.controller;
 
-import com.lxs.graduate.entity.Msg;
-import com.lxs.graduate.entity.Order;
-import com.lxs.graduate.entity.Product;
-import com.lxs.graduate.entity.User;
+import com.lxs.graduate.entity.*;
 import com.lxs.graduate.service.CartServiceImpl;
 import com.lxs.graduate.service.OrderService;
 import com.lxs.graduate.service.ProductService;
+import com.lxs.graduate.service.UserService;
+import com.lxs.graduate.util.BadWordUtil;
 import com.lxs.graduate.util.DateUtil;
 import com.lxs.graduate.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/order")
 public class OrderController {
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     ProductService productService;
@@ -63,7 +71,7 @@ public class OrderController {
         order.setSellId(p.getUserId());
         order.setOrderStatus("待交易");
         order.setOrderTime(dateUtil.getCurrentDate());
-        order.setPayStatus("取消订单");
+        order.setOrderScore(3);//
         int orderId=orderService.addOrder(order);
         cartService.delCartProduct(user.getId(),p.getId());
         Product product=productService.findProductById(order.getpId());
@@ -99,6 +107,36 @@ public class OrderController {
         map.put("orders",list);
         return "/allOrders";
     }
+
+    /**
+     *Order rating,The score is 1 - 5 points, corresponding to -2 - 2 points,
+     * the order will affect the seller's credit points.
+     * Reputation credits will serve as a way to evaluate a user's reputation.
+     * @param id
+     * @param score
+     * @return
+     */
+    @PostMapping(value = "/order_score")
+    public Map<String,Object> leaveWord(@RequestParam("id")Long id,
+                                        @RequestParam("score")Integer score) {
+        Map<String,Object> map = new HashMap<>();
+        Order order = orderService.findOrderById(id);
+        order.setOrderScore(score);
+        User user = userService.getUserById(order.getSellId());
+        Integer user_score =user.getCreditScore()+score-3;
+        //The credit score is 100 points, and when it exceeds 100 points, it still shows 100 points.
+        if(user_score>= 100){
+            user.setCreditScore(100);
+            userService.updateUser(user);
+        }else{
+            user.setCreditScore(user_score);
+            userService.updateUser(user);
+        }
+        System.out.println(user_score);
+        Msg msg = new Msg("Rating information", "Thank you for your evaluation.", null);
+        map.put("message",msg);
+        return map;
+        }
 
 
 }

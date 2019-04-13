@@ -11,14 +11,14 @@
       <arg column="order_time" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="order_status" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="order_money" jdbcType="DOUBLE" javaType="java.lang.Double" />
-      <arg column="pay_status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="order_score" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="order_address" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="order_receiver" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="order_phone" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, p_id, sell_id, buy_id, order_num, order_time, order_status, order_money, pay_status, 
+    id, p_id, sell_id, buy_id, order_num, order_time, order_status, order_money, order_score,
     order_address, order_receiver, order_phone
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -34,12 +34,12 @@
   <insert id="insert" parameterType="com.lxs.graduate.entity.Order" >
     insert into tb_order (id, p_id, sell_id, 
       buy_id, order_num, order_time, 
-      order_status, order_money, pay_status, 
+      order_status, order_money, order_score,
       order_address, order_receiver, order_phone
       )
     values (#{id,jdbcType=BIGINT}, #{pId,jdbcType=INTEGER}, #{sellId,jdbcType=INTEGER}, 
       #{buyId,jdbcType=INTEGER}, #{orderNum,jdbcType=INTEGER}, #{orderTime,jdbcType=VARCHAR}, 
-      #{orderStatus,jdbcType=VARCHAR}, #{orderMoney,jdbcType=DOUBLE}, #{payStatus,jdbcType=VARCHAR}, 
+      #{orderStatus,jdbcType=VARCHAR}, #{orderMoney,jdbcType=DOUBLE}, #{orderScore,jdbcType=INTEGER},
       #{orderAddress,jdbcType=VARCHAR}, #{orderReceiver,jdbcType=VARCHAR}, #{orderPhone,jdbcType=VARCHAR}
       )
   </insert>
@@ -70,8 +70,8 @@
       <if test="orderMoney != null" >
         order_money,
       </if>
-      <if test="payStatus != null" >
-        pay_status,
+      <if test="orderScore != null" >
+        order_score,
       </if>
       <if test="orderAddress != null" >
         order_address,
@@ -108,8 +108,8 @@
       <if test="orderMoney != null" >
         #{orderMoney,jdbcType=DOUBLE},
       </if>
-      <if test="payStatus != null" >
-        #{payStatus,jdbcType=VARCHAR},
+      <if test="orderScore != null" >
+        #{orderScore,jdbcType=VARCHAR},
       </if>
       <if test="orderAddress != null" >
         #{orderAddress,jdbcType=VARCHAR},
@@ -146,8 +146,8 @@
       <if test="orderMoney != null" >
         order_money = #{orderMoney,jdbcType=DOUBLE},
       </if>
-      <if test="payStatus != null" >
-        pay_status = #{payStatus,jdbcType=VARCHAR},
+      <if test="orderScore != null" >
+        order_score = #{orderScore,jdbcType=INTEGER},
       </if>
       <if test="orderAddress != null" >
         order_address = #{orderAddress,jdbcType=VARCHAR},
@@ -170,20 +170,18 @@
       order_time = #{orderTime,jdbcType=VARCHAR},
       order_status = #{orderStatus,jdbcType=VARCHAR},
       order_money = #{orderMoney,jdbcType=DOUBLE},
-      pay_status = #{payStatus,jdbcType=VARCHAR},
+      order_score = #{orderScore,jdbcType=INTEGER},
       order_address = #{orderAddress,jdbcType=VARCHAR},
       order_receiver = #{orderReceiver,jdbcType=VARCHAR},
       order_phone = #{orderPhone,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-
   <select id="findOrderByBuyId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select
     <include refid="Base_Column_List" />
     from tb_order
     where buy_id=#{buy_id,jdbcType=INTEGER} and order_status='交易成功'
   </select>
-
   <select id="findOrderBySellId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select
     <include refid="Base_Column_List" />
@@ -195,7 +193,6 @@
     <include refid="Base_Column_List" />
     from tb_order
     where buy_id=#{id,jdbcType=INTEGER} and order_status='待交易'</select>
-
   <select id="findAllOrders" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

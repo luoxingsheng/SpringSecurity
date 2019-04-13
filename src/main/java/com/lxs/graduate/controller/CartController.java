@@ -24,26 +24,28 @@ public class CartController {
 
 
     /**
-     * 加入购物车
-     * @return
+     * Add to Shopping Cart
      */
     @GetMapping(value = "/add")
     public String addCart(@RequestParam Integer productId, @RequestParam int num, ModelMap model){
         UserDetails user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //获取登陆用户的userId
-       // 加入购物车
+        //Get the userId of the logged in user
+       // add to Shopping Cart
        int effectNum = cartService.addCart(((User) user).getId(),productId,num);
         if (effectNum<=0){
-            Msg msg=new Msg("购物车信息","添加购物车失败",null);
+            Msg msg=new Msg("Shopping cart information","fail to add in order cart",null);
             model.addAttribute("message",msg);
         }
         else{
-            Msg msg=new Msg("购物车信息","添加购物车成功",null);
+            Msg msg=new Msg("Shopping cart information","Add shopping cart successfully",null);
             model.addAttribute("message",msg);
         }
         return "notices";
     }
 
+    /**
+     * Get a list of shopping carts
+     */
     @GetMapping(value = "/getCartList")
     public String getCartList(ModelMap modelMap){
         UserDetails user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

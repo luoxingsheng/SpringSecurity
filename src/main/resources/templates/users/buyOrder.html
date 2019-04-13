@@ -29,6 +29,7 @@
                 <th>[[#{login.order_add}]]</th>
                 <th>[[#{login.buyer_name}]]</th>
                 <th>[[#{login.buyer_phone}]]</th>
+                <th>[[#{login.operate}]]</th>
             </tr>
             </thead>
             <tbody>
@@ -42,6 +43,48 @@
                 <td th:text="${o.orderAddress}"></td>
                 <td th:text="${o.orderReceiver}"></td>
                 <td th:text="${o.orderPhone}"></td>
+                <td><a data-toggle="modal" data-target="#myModal">[[#{login.review}]]</a>
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content ">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-hidden="true">
+                                    </button>
+                                    <h4 class="modal-title text-center" id="myModalLabel">
+                                        [[#{login.order_page}]]
+                                    </h4>
+                                </div>
+                                <div class="modal-body col-md-offset-1">
+                                    <label >[[#{login.order_score}]]：</label><br>
+                                    <div th:text="${o.id}" class="hidden" id="ids"></div>
+                                    <div class="pull-left">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="score" id="inlineCheckbox1" value="1">  1
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="score" id="inlineCheckbox2" value="2"> 2
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="score" id="inlineCheckbox3" value="3" > 3
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="score" id="optionsRadios3" value="4" >  4
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="score" id="optionsRadios4"  value="5"> 5
+                                        </label>
+                                    </div>
+                                    <br><br>
+                                    <div class="modal-footer">
+                                        <button id="evaluate" class="btn btn-primary btn-block" onclick='score()'>[[#{login.evaluate}]]</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                    </div>
+                </td>
+
             </tr>
             </tbody>
         </table>
@@ -49,4 +92,28 @@
 </div>
 
 </body>
+<script>
+    function score() {
+        var id = $("#ids").html();
+        var score = $('input[type=radio][name=score]:checked').val();
+        alert(id+score);
+        $.ajax({
+            async : false,
+            type : 'POST',
+            url :  "/order/order_score",
+            data : {
+                "o_id":id,
+                "score":score
+            },
+            dataType : 'json',
+            success : function(data) {
+                alert("评价成功！");
+            },
+            error : function(data) {
+                alert('服务器异常');
+            }
+        });
+
+    }
+</script>
 </html>

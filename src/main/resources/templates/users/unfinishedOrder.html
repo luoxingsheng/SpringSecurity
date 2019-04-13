@@ -29,6 +29,7 @@
                 <th>[[#{login.order_add}]]</th>
                 <th>[[#{login.buyer_name}]]</th>
                 <th>[[#{login.buyer_phone}]]</th>
+                <th>[[#{login.operate}]]</th>
             </tr>
             </thead>
             <tbody>
@@ -42,6 +43,7 @@
                 <td th:text="${o.orderAddress}"></td>
                 <td th:text="${o.orderReceiver}"></td>
                 <td th:text="${o.orderPhone}"></td>
+                <td><a th:href="@{/order/finishOrder(id=${o.id})}">[[#{login.sell_over}]]</a></td>
             </tr>
             </tbody>
         </table>
