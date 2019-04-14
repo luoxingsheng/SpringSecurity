@@ -39,7 +39,6 @@ public class LoginController {
     @RequestMapping("i18n")
     public void test(HttpServletRequest request, HttpServletResponse response,@RequestParam String lan) {
         HttpSession session=request.getSession();
-        System.out.println("当前语言："+lan);
         if(lan.equals("en_US")){
             localeResolver.setLocale(request,response, Locale.US);
         }else{
@@ -98,6 +97,7 @@ public class LoginController {
         return map;
     }
 
+    //
     @ResponseBody
     @RequestMapping("/getUser")
     public Map<String,Object> getUser(@RequestParam("username")String username){

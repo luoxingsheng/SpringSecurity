@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 </head>
 <body>
 <div  class="container " th:replace="common/navbar::userNavbar">
@@ -38,12 +37,12 @@
                 <td th:text="${o.sellId}"></td>
                 <td th:text="${o.pId}"></td>
                 <td th:text="${o.orderTime}"></td>
-                <td th:text="${o.orderStatus}"></td>
+                <td th:text="${o.orderStatus}" id="status"></td>
                 <td th:text="${o.orderMoney}"></td>
                 <td th:text="${o.orderAddress}"></td>
                 <td th:text="${o.orderReceiver}"></td>
                 <td th:text="${o.orderPhone}"></td>
-                <td><a data-toggle="modal" data-target="#myModal">[[#{login.review}]]</a>
+                <td><a data-toggle="modal" data-target="#myModal" id="operate">[[#{login.review}]]</a>
                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content ">
@@ -96,24 +95,31 @@
     function score() {
         var id = $("#ids").html();
         var score = $('input[type=radio][name=score]:checked').val();
-        alert(id+score);
         $.ajax({
             async : false,
             type : 'POST',
             url :  "/order/order_score",
             data : {
-                "o_id":id,
+                "id":id,
                 "score":score
             },
             dataType : 'json',
             success : function(data) {
-                alert("评价成功！");
+                alert("评分成功！");
+                window.location.reload()
             },
             error : function(data) {
-                alert('服务器异常');
+                alert('服务器异常！');
             }
         });
 
     }
+
+    $(document).ready(function() {
+        if($("#status").text() === '评分成功'){
+            $("#operate").html("评论成功");
+            $('#myModal').modal('hide');
+        }
+    });
 </script>
 </html>

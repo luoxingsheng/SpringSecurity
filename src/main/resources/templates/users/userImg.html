@@ -30,8 +30,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-offset-2 col-md-4">
-                    <button type="submit" class="btn btn-default" id="upload" >[[#{login.update}]]</button>
+                <div class="col-sm-offset-2 col-md-5">
+                    <button type="submit" class="btn btn-default btn-block" id="upload" >[[#{login.update}]]</button>
                 </div>
             </div>
         </form>
@@ -39,4 +39,14 @@
 </div>
 
 </body>
+<script>
+    function preImg() {
+        var file = document.getElementById('img')
+        var img = document.getElementById('showImg')
+        var url = window.URL.createObjectURL(file.files[0])
+        img.src = url
+    }
+
+
+</script>
 </html>

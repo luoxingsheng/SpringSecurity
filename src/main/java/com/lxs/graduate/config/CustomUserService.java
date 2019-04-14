@@ -18,21 +18,20 @@ public class CustomUserService implements UserDetailsService { //自定义UserDe
     UserServiceImpl userService;
 
     @Override
-    public User loadUserByUsername(String username) { //重写loadUserByUsername 方法获得 userdetails 类型用户
+    public User loadUserByUsername(String username) { //Rewrite the loadUserByUsername method to get the userdetails type user
 
-//        User users=userService.getUserById(1);
         User user = userService.findUserByUserName(username);
         if(user==null){
-            throw new UsernameNotFoundException("用户名不存在");
+            throw new UsernameNotFoundException("Username does not exist");
         }
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        //用于添加用户的权限。只要把用户权限添加到authorities 就万事大吉。
+        //Permission to add users. Just add user permissions to the authorities and everything will be fine.
         for(Role role:user.getRoles())
         {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
             System.out.println(role.getRoleName());
         }
-        user.setGrantedAuthorities(authorities); //用于登录时 @AuthenticationPrincipal 标签取值
+        user.setGrantedAuthorities(authorities); //@AuthenticationPrincipal tag value when used for login
         User user1=new User();
         user1.setId(user.getId());
         user1.setUsername(user.getUsername());

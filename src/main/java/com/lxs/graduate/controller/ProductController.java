@@ -24,6 +24,8 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.util.Date;
 
+import static com.sun.tools.doclint.Entity.or;
+
 @Controller
 @RequestMapping("/product")
 public class ProductController {
@@ -70,22 +72,23 @@ public class ProductController {
         product.setpDesc(pDesc);
         product.setpImg(path);
         product.setpTime(now);
-        product.setpStatus("上架中");//状态待审核
+        product.setpStatus("上架中");//Status pending review
         try {
              FtpFileUtil.uploadFile(fileName,inputStream);
 
         } catch (Exception e) {
             // TODO: handle exception
         }
-        //检测没有敏感词直接插入
-        if(!BadWordUtil.isContaintBadWord(product.getpName(),2)) {
+
+        //Detect no sensitive words directly inserted
+        if((!BadWordUtil.isContaintBadWord(product.getpName(),2)) || (!BadWordUtil.isContaintBadWord(product.getpDesc(),2))) {
             productService.addProduct(product);
-            Msg msg = new Msg("评论信息", "添加商品成功", null);
+            Msg msg = new Msg("上传信息", "添加商品成功", null);
             model.addAttribute("message", msg);
             return "notices";
         }
         else{
-            Msg msg = new Msg("评论信息", "添加商品失败，商品名称含有敏感词！！！", null);
+            Msg msg = new Msg("上传信息", "添加商品失败，商品名称含有敏感词！！！", null);
             model.addAttribute("message", msg);
             return "notices";
         }

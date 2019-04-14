@@ -180,7 +180,7 @@
     select
     <include refid="Base_Column_List" />
     from tb_order
-    where buy_id=#{buy_id,jdbcType=INTEGER} and order_status='交易成功'
+    where buy_id=#{buy_id,jdbcType=INTEGER} and (order_status='交易成功' or order_status='评分成功')
   </select>
   <select id="findOrderBySellId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select

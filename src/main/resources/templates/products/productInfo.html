@@ -112,7 +112,8 @@
     }
 
     $(document).ready(function() {
-        if($("#status").text() === '完成交易' || $("#isSeller").text() === 1){
+        if($("#status").text() !== '上架中' || $("#isSeller").html() === '1'){
+            console.log($("#isSeller").html());
             $("#operator").hide();
         }
     });

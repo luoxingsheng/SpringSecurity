@@ -15,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -116,12 +117,15 @@ public class OrderController {
      * @param score
      * @return
      */
+    @ResponseBody
     @PostMapping(value = "/order_score")
     public Map<String,Object> leaveWord(@RequestParam("id")Long id,
                                         @RequestParam("score")Integer score) {
         Map<String,Object> map = new HashMap<>();
         Order order = orderService.findOrderById(id);
         order.setOrderScore(score);
+        order.setOrderStatus("评分成功");
+        orderService.updateOrder(order);
         User user = userService.getUserById(order.getSellId());
         Integer user_score =user.getCreditScore()+score-3;
         //The credit score is 100 points, and when it exceeds 100 points, it still shows 100 points.

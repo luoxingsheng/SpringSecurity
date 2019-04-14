@@ -78,12 +78,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
            @Override
             public boolean matches(CharSequence rawPassword, String encodedPassword) {
                return encodedPassword.equals(MD5Util.encode((String)rawPassword));
-           }}); //users Details Service验证
+           }}); //users Details Service verification
     }
 
    @Override
     public void configure(WebSecurity web) throws Exception {
-        //解决静态资源被拦截的问题
+        //Solve the problem of static resources being intercepted
         web.ignoring().antMatchers("/css/**","/js/**");
    }
 
